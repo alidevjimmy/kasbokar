@@ -25,5 +25,5 @@ Route::group([
 ] , function() {
 
     Route::get('/index' , 'AdminController@index')->name('index');
-
+    Route::resource('/content' , 'ContentController');
 });

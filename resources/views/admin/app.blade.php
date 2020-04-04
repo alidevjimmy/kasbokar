@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title')</title>
+    <title> پنل مدیریت -@yield('title') </title>
     <link href="{{ asset('/admin/css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/admin/css/sb-admin-2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/admin/css/all.min.css') }}">
@@ -77,7 +77,7 @@
             <div class="modal-body">می خواهید از پنل ادمین خارج شوید؟</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">لغو</button>
-                <a class="btn btn-primary" href="{{ route('admin.logout') }}">خروج</a>
+                <a class="btn btn-primary" href="">خروج</a>
             </div>
         </div>
     </div>

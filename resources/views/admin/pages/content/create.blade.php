@@ -1,7 +1,7 @@
 @extends('admin.app')
 @section('title') اضافه کردن آلارم @endsection
 @section('content')
-    <form style="margin: auto" class="col-md-6" action="{{ route('admin.voices.store') }}" enctype="multipart/form-data" method="post">
+    <form style="margin: auto" class="col-md-6" action="{{ route('admin.content.store') }}" enctype="multipart/form-data" method="post">
         @csrf
         <div class="form-group">
             <label for="name">نام آلارم :</label>
