@@ -15,7 +15,7 @@
             max-width: 100%;
             background-color: rgb(250, 250, 250) !important;
             overflow-x: hidden;
-            background-image: url("/images/photo_2020-04-03_15-45-58.jpg") !important;
+            background-image: url("/images/photo_2020-04-03_15-45-58.png") !important;
             background-size: cover;
             margin: 0px;
             background-position: 100% 100%;

@@ -6,7 +6,7 @@
     <div class="container">
         <div class="align-content-center row p-5" style="justify-content: center">
             <a href="{{ route('index') }}" style="text-decoration: none !important;color: black !important;">
-                <img src="{{ asset('/images/photo_2020-04-03_15-45-58.jpg') }}" class="fullpagelogo" alt="Logo">
+                <img src="{{ asset('/images/photo_2020-04-03_15-45-58.png') }}" class="fullpagelogo" alt="Logo">
                 <span style="align-self: center;margin-right: 5px;font-size: 12px;"><b>مدرسه کسب و کار</b></span>
             </a>
         </div>

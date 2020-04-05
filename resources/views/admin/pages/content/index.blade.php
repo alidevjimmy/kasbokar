@@ -33,7 +33,7 @@
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <a class="btn btn-primary" href="{{ route('admin.content.create') }}">ایجاد محتوا جدید</a>
+                <a class="btn btn-primary" href="{{ route('admin.content.create' , ['type' => $type]) }}">ایجاد محتوا جدید</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -72,13 +72,13 @@
                                 <td>{{$content->title}}</td>
                                 <td>{{ $content->level }}</td>
                                 <td>{{ $content->body }}</td>
-                                <td><img src="{{ asset($content->image) }}" alt="تصویر" /></td>
+                                <td><img src="{{ asset($content->image) }}" alt="تصویر" width="100" height="100" width="100" height="100" /></td>
                                 <td><a class="btn btn-primary" href="!#">مشاهده</a></td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.content.edit' , $content->id) }}"
+                                        <a href="{{ route('admin.content.edit' , ['content' => $content->id , 'type' => $type]) }}"
                                            class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                        <form action="{{ route('admin.content.destroy' , $content->id) }}"
+                                        <form action="{{ route('admin.content.destroy' , ['content' => $content->id , 'type' => $type]) }}"
                                               method="post">
                                             @csrf
                                             {{ method_field('DELETE') }}
@@ -128,13 +128,13 @@
                                     <td>{{$content->title}}</td>
                                     <td>{{ $content->level }}</td>
                                     <td>{{ $content->body }}</td>
-                                    <td>{{ asset($content->video) }}</td>
-                                    <td><img src="{{ asset($content->image) }}" alt="تصویر" /></td>
+                                    <td><a href="{{ asset($content->video) }}" target="_blank">فیلم</a></td>
+                                    <td><img src="{{ asset($content->image) }}" alt="تصویر" width="100" height="100" /></td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.content.edit' , $content->id) }}"
+                                            <a href="{{ route('admin.content.edit' , ['content' => $content->id , 'type' => $type]) }}"
                                                class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            <form action="{{ route('admin.content.destroy' , $content->id) }}"
+                                            <form action="{{ route('admin.content.destroy' , ['content' => $content->id , 'type' => $type]) }}"
                                                   method="post">
                                                 @csrf
                                                 {{ method_field('DELETE') }}
@@ -193,16 +193,34 @@
                                     <td>{{ $content->shortText }}</td>
                                     <td>{{ $content->level }}</td>
                                     <td>{{ $content->body }}</td>
-                                    <td>{{ asset($content->video) }}</td>
-                                    <td><img src="{{ asset($content->preImage) }}" alt="تصویر" /></td>
-                                    <td><img src="{{ asset($content->image) }}" alt="تصویر" /></td>
-                                    <td><img src="{{ asset($content->banerImage) }}" alt="تصویر" /></td>
-                                    <td><img src="{{ asset($content->shouldJobs) }}" alt="تصویر" /></td>
+                                    <td><a href="{{ asset($content->video) }}" target="_blank">فیلم</a></td>
+                                    <td><img src="{{ asset($content->preImage) }}" alt="تصویر" width="100" height="100" /></td>
+                                    <td><img src="{{ asset($content->image) }}" alt="تصویر" width="100" height="100" /></td>
+                                    <td><img src="{{ asset($content->banerImage) }}" alt="تصویر" width="100" height="100" /></td>
+                                    <td>
+                                        @foreach(json_decode($content->shouldJobs) as $job)
+                                            @switch($job)
+                                                @case('EMPLOYEE')
+                                                 کارمند
+                                                @break
+                                                @case('HOMEKEEPER')
+                                                 خانه دار
+                                                @break
+                                                @case('STUDENT')
+                                                 داشنجو / دانش آموز
+                                                @break
+                                                @case('JOBKEEPER')
+                                                 جویای کار
+                                                @break
+                                            @endswitch
+                                            ,
+                                        @endforeach
+                                    </td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.content.edit' , $content->id) }}"
+                                            <a href="{{ route('admin.content.edit' , ['content' => $content->id , 'type' => $type]) }}"
                                                class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            <form action="{{ route('admin.content.destroy' , $content->id) }}"
+                                            <form action="{{ route('admin.content.destroy' , ['content' => $content->id , 'type' => $type]) }}"
                                                   method="post">
                                                 @csrf
                                                 {{ method_field('DELETE') }}
@@ -247,12 +265,12 @@
                                     <td>{{ $i }}</td>
                                     <td>{{$content->title}}</td>
                                     <td>{{$content->body}}</td>
-                                    <td><img src="{{ asset($content->logo) }}" alt="تصویر" /></td>
+                                    <td><img src="{{ asset($content->logo) }}" alt="تصویر" width="100" height="100" /></td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.content.edit' , $content->id) }}"
+                                            <a href="{{ route('admin.content.edit' , ['content' => $content->id , 'type' => $type]) }}"
                                                class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            <form action="{{ route('admin.content.destroy' , $content->id) }}"
+                                            <form action="{{ route('admin.content.destroy' , ['content' => $content->id , 'type' => $type]) }}"
                                                   method="post">
                                                 @csrf
                                                 {{ method_field('DELETE') }}
@@ -306,15 +324,15 @@
                                     <td>{{$content->title}}</td>
                                     <td>{{ $content->shortText }}</td>
                                     <td>{{ $content->body }}</td>
-                                    <td>{{ asset($content->video) }}</td>
-                                    <td><img src="{{ asset($content->preImage) }}" alt="تصویر" /></td>
-                                    <td><img src="{{ asset($content->image) }}" alt="تصویر" /></td>
-                                    <td><img src="{{ asset($content->banerImage) }}" alt="تصویر" /></td>
+                                    <td><a href="{{ asset($content->video) }}" target="_blank">فیلم</a></td>
+                                    <td><img src="{{ asset($content->preImage) }}" alt="تصویر" width="100" height="100" /></td>
+                                    <td><img src="{{ asset($content->image) }}" alt="تصویر" width="100" height="100" /></td>
+                                    <td><img src="{{ asset($content->banerImage) }}" alt="تصویر" width="100" height="100" /></td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.content.edit' , $content->id) }}"
+                                            <a href="{{ route('admin.content.edit' , ['content' => $content->id , 'type' => $type]) }}"
                                                class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            <form action="{{ route('admin.content.destroy' , $content->id) }}"
+                                            <form action="{{ route('admin.content.destroy' , ['content' => $content->id , 'type' => $type]) }}"
                                                   method="post">
                                                 @csrf
                                                 {{ method_field('DELETE') }}

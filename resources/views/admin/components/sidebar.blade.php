@@ -23,7 +23,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Alerts
+        Contents
     </div>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -46,7 +46,7 @@
                 <a class="collapse-item" href="{{ route('admin.content.index' , ['type' => 'EVENT']) }}">همه چالش ها</a>
                 <a class="collapse-item" href="{{ route('admin.content.index' , ['type' => 'JANEBI']) }}">همه آموزش های جانبی</a>
                 <a class="collapse-item" href="{{ route('admin.content.index' , ['type' => 'INTRODUCTION']) }}">همه معرفی کسب و کار ها</a>
-                <a class="collapse-item" href="{{ route('admin.content.create') }}">اضافه کردن محتوا</a>
+                <a class="collapse-item" href="{{ route('admin.whichContent') }}">اضافه کردن محتوا جدید</a>
             </div>
         </div>
     </li>

@@ -134,5 +134,12 @@ return [
 		"fullname" => "نام کامل",
         "fullName" => "نام کامل",
         "workStatus" => "وضعیت شغلی",
+        "level" => "سطح دسترسی",
+        "body" => "متن",
+        "image" => "تصویر",
+        'preImage' => 'تصویر پیش نمایش',
+        'banerImage' => 'تصویر بنر',
+        'video' => 'فیلم',
+        'shortText' => 'متن کوتاه',
     ],
 ];

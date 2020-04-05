@@ -26,4 +26,5 @@ Route::group([
 
     Route::get('/index' , 'AdminController@index')->name('index');
     Route::resource('/content' , 'ContentController');
+    Route::get('/whichContent' , 'ContentController@whichContent')->name('whichContent');
 });
