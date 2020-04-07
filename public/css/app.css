@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
-
 @charset "UTF-8";
 
 /*!
@@ -8,10 +7,13 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
+a , a:hover , a:focus {
+    text-decoration: none !important;
+}
 :root {
     --pr-blue: #192072;
     --pr-green: #09ebaf;
+    --pr-blue2: #4056A1;
     --blue: #3490dc;
     --indigo: #6574cd;
     --purple: #9561e2;
@@ -70,14 +72,17 @@ section {
 }
 
 body {
+    font-family: IRANSans !important;
+    font-family: IRANSSans2;
+    direction: rtl;
+    text-align: right;
     margin: 0;
-    font-family: "Nunito", sans-serif;
-    font-size: 0.9rem;
+    font-size: .85rem;
     font-weight: 400;
-    line-height: 1.6;
-    color: #212529;
-    text-align: left;
-    background-color: #f8fafc;
+    line-height: 1.66667;
+    color: #343448;
+    background-color: #fafafc;
+    overflow-x: hidden;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -10888,7 +10893,7 @@ a.text-dark:focus {
 }
 
 @font-face {
-    font-family: IRANSans;
+    font-family: IRANSans2;
     font-style: normal;
     font-weight: normal;
     src: url('../fonts/dana-fanum-regular.eot');
@@ -10896,13 +10901,18 @@ a.text-dark:focus {
 }
 
 @font-face {
-    font-family: IRANSans;
+    font-family: IRANSans2;
     font-style: normal;
     font-weight: bold;
     src: url('../fonts/dana-fanum-bold.eot');
     src: url('../fonts/dana-fanum-bold.eot?#iefix') format('embedded-opentype'), /* IE6-8 */ url('../fonts/dana-fanum-bold.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../fonts/dana-fanum-bold.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('../fonts/Dana-FaNum-Bold.ttf') format('truetype');
 }
-
+@font-face {
+    font-family: IRANSans;
+    font-weight: normal;
+    font-style: normal;
+    src : url("../fonts/38d4b5f.woff2") format('woff2');
+}
 body {
     font-family: IRANSans !important;
     direction: rtl;
@@ -10918,8 +10928,8 @@ body {
 }
 
 .fullpagelogo {
-    width: 40px;
-    user-select: none;
+    width: 40px !important;
+    user-select: none !important;
 }
 
 .head-form {
@@ -10988,5 +10998,132 @@ button, input, textarea {
     color: black !important;
     border-radius: 5px;
     text-decoration: none !important;
+}
+
+.old-font {
+    font-family: "IRANSans2" !important;
+}
+.f-12 {
+font-size: 12px !important
+}.f-10 {
+font-size: 10px !important
+}
+.f-14 {
+    font-size: 14px !important
+}
+
+.my-green-color {
+    color : var(--pr-green) !important
+}
+.my-blue-color {
+    color : var(--pr-blue) !important
+}
+.header {
+    background-color: white !important;
+    border-bottom-width: 1px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #f1f3f8 !important;
+}
+
+.f-40 {
+font-size: 40px !important;
+}
+
+.dropdown-menu {
+    right: unset !important;
+}
+
+.content-menu-pointer {
+    cursor: context-menu !important;
+}
+.two-tone-icon-hover:hover {
+    opacity: 0.8;
+}
+
+.drop-down-item:focus{
+    border: none !important;
+}.drop-down-item:active{
+    background-color: var(--pr-green);
+    color: var(--pr-blue);
+}
+.drop-down-item {
+    direction: rtl !important;
+    text-align: right !important;
+    font-size: 12px !important;
+}
+
+.dropdown-menu {
+    box-shadow: rgba(143, 143, 143, 0.21) 0px 0px 2px 1px;
+    border: none !important;
+}
+a:hover , button {
+    cursor: context-menu !important;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.partner-icon {
+    vertical-align: middle;
+    margin-left: 8px
+}
+
+#particle-canvas {
+    width: 100%;
+    position: absolute;
+    height: 300px;
+    text-align: center;
+}
+#particle-canvas div {
+    background-image: unset !important;
+    /*opacity: 0.2;*/
+}
+#particle-canvas canvas {
+    position: absolute !important;
+    right: 0 !important;
+    top:0 !important;
+}
+#back-canvas div section,span {
+    position: relative;
+    z-index: 100000;
+    text-align: center;
+}
+
+.dropdown-menu {
+    z-index: 10000000;
+}
+
+.search-input {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-search {
+    height: 65px;
+    border-radius: 5px;
+    margin: 0 21px;
+    box-shadow: 0 5px 10px 0 rgba(20,83,155,.05);
+}
+* {
+    cursor: context-menu !important;
+}
+*::selection {
+    background-color: var(--pr-green);
+    color : var(--pr-blue)
+}
+input:hover {
+    cursor: text !important;
+}
+
+.icon-search {
+    position: absolute;
+    left: 34px;
+    top: 13px;
+    color: #888;
 }
 

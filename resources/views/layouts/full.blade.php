@@ -5,24 +5,25 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('/css/sb-admin-2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <style>
         body {
-            box-sizing: border-box;
-            max-width: 100%;
+            box-sizing: border-box !important;
+            max-width: 100% !important;
             background-color: rgb(250, 250, 250) !important;
-            overflow-x: hidden;
+            overflow-x: hidden !important;
             background-image: url("/images/photo_2020-04-03_15-45-58.png") !important;
-            background-size: cover;
-            margin: 0px;
-            background-position: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: bottom;
-            background-size: cover;
-            background-blend-mode: soft-light;
+            background-size: cover !important;
+            margin: 0px !important;
+            background-position: 100% 100% !important;
+            background-repeat: no-repeat !important;
+            background-position: bottom !important;
+            background-size: cover !important;
+            background-blend-mode: soft-light !important;
         }
     </style>
     @yield('style')
