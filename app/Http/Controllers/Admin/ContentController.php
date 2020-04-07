@@ -74,9 +74,9 @@ class ContentController extends Controller
      * @param \App\Content $content
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Content $content)
+    public function edit(Request $request , Content $content)
     {
-        return view('admin.pages.contents.edit', compact('content'));
+        return view('admin.pages.content.edit', ['content' => $content , 'type' => $request->type]);
     }
 
     /**
@@ -84,11 +84,30 @@ class ContentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Content $content
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, Content $content)
     {
-        //
+        $request->validate([
+            'type' => 'in:' . self::TYPES,
+        ]);
+        switch ($request->type) {
+            case 'EVENT':
+                return $this->updateEvent($content , $request);
+                break;
+            case 'PREREQUISITES':
+                return $this->updatePrerequisites($content , $request);
+                break;
+            case 'STEP':
+                return $this->updateStep($content , $request);
+                break;
+            case 'INTRODUCTION':
+                return $this->updateIntroduction($content , $request);
+                break;
+            case 'JANEBI':
+                return $this->updateJanebi($content , $request);
+                break;
+        }
     }
 
     /**
@@ -161,7 +180,7 @@ class ContentController extends Controller
             'shortText' => 'required',
             'level' => 'required',
             'body' => 'required',
-            'shouldJobs' => 'required|array',
+            'shouldJobs' => 'array',
             'image' => 'required|mimes:jpg,png,jpeg',
             'preImage' => 'required|mimes:jpg,png,jpeg',
             'banerImage' => 'required|mimes:jpg,png,jpeg',
@@ -221,7 +240,7 @@ class ContentController extends Controller
             'body' => 'required',
             'logo' => 'required|mimes:jpg,png,jpeg',
         ]);
-        $type = 'JANEBI';
+        $type = 'INTRODUCTION';
         $logo = $this->uploadImage($request, 'logo');
         $validatedData['logo'] = $logo;
         $validatedData['type'] = $type;
@@ -229,6 +248,149 @@ class ContentController extends Controller
         return redirect(route('admin.content.index', ['type' => $type]))->with([
             'status' => 'success',
             'message' => 'محتوای معرفی کسب و کار اضافه شد'
+        ]);
+    }
+
+    protected function updateEvent($content , $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'level' => 'required',
+            'body' => 'required',
+            'image' => 'mimes:jpg,png,jpeg'
+        ]);
+        $type = 'EVENT';
+        if ($request->image) {
+            $image = $this->uploadImage($request, 'image');
+            $validatedData['image'] = $image;
+        }
+        $validatedData['type'] = $type;
+        $content->update($validatedData);
+        return redirect(route('admin.content.index', ['type' => $type]))->with([
+            'status' => 'success',
+            'message' => 'چالش ویرایش شد'
+        ]);
+    }
+
+    protected function updatePrerequisites($content , $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'level' => 'required',
+            'body' => 'required',
+            'image' => 'mimes:jpg,png,jpeg',
+            'video' => 'mimes:mp4,wmv,mpg,flv'
+        ]);
+        $type = 'PREREQUISITES';
+        if ($request->image) {
+            $image = $this->uploadImage($request, 'image');
+            $validatedData['image'] = $image;
+        }
+        if ($request->video) {
+            $video = $this->uploadVideo($request, 'video');
+            $validatedData['video'] = $video;
+        }
+        $validatedData['type'] = $type;
+        $content->update($validatedData);
+        return redirect(route('admin.content.index', ['type' => $type]))->with([
+            'status' => 'success',
+            'message' => 'پیش نیاز ویرایش شد'
+        ]);
+    }
+
+    protected function updateStep($content , $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'shortText' => 'required',
+            'level' => 'required',
+            'body' => 'required',
+            'shouldJobs' => 'array',
+            'image' => 'mimes:jpg,png,jpeg',
+            'preImage' => 'mimes:jpg,png,jpeg',
+            'banerImage' => 'mimes:jpg,png,jpeg',
+            'video' => 'mimes:mp4,wmv,mpg,flv',
+        ]);
+        $shouldJobs = json_encode($request->shouldJobs);
+        $validatedData['shouldJobs'] = $shouldJobs;
+        $type = 'STEP';
+        if ($request->image) {
+            $image = $this->uploadImage($request, 'image');
+            $validatedData['image'] = $image;
+        }
+        if ($request->preImage) {
+            $preImage = $this->uploadImage($request, 'preImage');
+            $validatedData['preImage'] = $preImage;
+        }
+        if ($request->banerImage) {
+            $banerImage = $this->uploadImage($request, 'banerImage');
+            $validatedData['banerImage'] = $banerImage;
+        }
+        $validatedData['type'] = $type;
+        if ($request->video) {
+            $video = $this->uploadVideo($request, 'video');
+            $validatedData['video'] = $video;
+        }
+        $content->update($validatedData);
+        return redirect(route('admin.content.index', ['type' => $type]))->with([
+            'status' => 'success',
+            'message' => 'محتوای مرحله ای ویرایش شد'
+        ]);
+    }
+
+    protected function updateJanebi($content , $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'shortText' => 'required',
+            'body' => 'required',
+            'image' => 'mimes:jpg,png,jpeg',
+            'preImage' => 'mimes:jpg,png,jpeg',
+            'banerImage' => 'mimes:jpg,png,jpeg',
+            'video' => 'mimes:mp4,wmv,mpg,flv',
+        ]);
+        $type = 'JANEBI';
+        if ($request->image) {
+            $image = $this->uploadImage($request, 'image');
+            $validatedData['image'] = $image;
+        }
+        if ($request->preImage) {
+            $preImage = $this->uploadImage($request, 'preImage');
+            $validatedData['preImage'] = $preImage;
+        }
+        if ($request->banerImage) {
+            $banerImage = $this->uploadImage($request, 'banerImage');
+            $validatedData['banerImage'] = $banerImage;
+        }
+        if ($request->video) {
+            $video = $this->uploadVideo($request, 'video');
+            $validatedData['video'] = $video;
+        }
+        $validatedData['type'] = $type;
+        $content->update($validatedData);
+        return redirect(route('admin.content.index', ['type' => $type]))->with([
+            'status' => 'success',
+            'message' => 'محتوای جانبی ویرایش شد'
+        ]);
+    }
+
+    protected function updateIntroduction($content , $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'logo' => 'mimes:jpg,png,jpeg',
+        ]);
+        $type = 'INTRODUCTION';
+        if ($request->logo) {
+            $logo = $this->uploadImage($request, 'logo');
+            $validatedData['logo'] = $logo;
+        }
+        $validatedData['type'] = $type;
+        $content->update($validatedData);
+        return redirect(route('admin.content.index', ['type' => $type]))->with([
+            'status' => 'success',
+            'message' => 'محتوای معرفی کسب و کار ویرایش شد'
         ]);
     }
 

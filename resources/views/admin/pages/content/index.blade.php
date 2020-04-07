@@ -198,23 +198,25 @@
                                     <td><img src="{{ asset($content->image) }}" alt="تصویر" width="100" height="100" /></td>
                                     <td><img src="{{ asset($content->banerImage) }}" alt="تصویر" width="100" height="100" /></td>
                                     <td>
-                                        @foreach(json_decode($content->shouldJobs) as $job)
-                                            @switch($job)
-                                                @case('EMPLOYEE')
-                                                 کارمند
-                                                @break
-                                                @case('HOMEKEEPER')
-                                                 خانه دار
-                                                @break
-                                                @case('STUDENT')
-                                                 داشنجو / دانش آموز
-                                                @break
-                                                @case('JOBKEEPER')
-                                                 جویای کار
-                                                @break
-                                            @endswitch
-                                            ,
-                                        @endforeach
+                                        @if($content->shouldJobs != "null")
+                                            @foreach(json_decode($content->shouldJobs) as $job)
+                                                @switch($job)
+                                                    @case('EMPLOYEE')
+                                                    کارمند
+                                                    @break
+                                                    @case('HOMEKEEPER')
+                                                    خانه دار
+                                                    @break
+                                                    @case('STUDENT')
+                                                    داشنجو / دانش آموز
+                                                    @break
+                                                    @case('JOBKEEPER')
+                                                    جویای کار
+                                                    @break
+                                                @endswitch
+                                                ,
+                                            @endforeach
+                                        @endif
                                     </td>
                                     <td>
                                         <div class="btn-group">

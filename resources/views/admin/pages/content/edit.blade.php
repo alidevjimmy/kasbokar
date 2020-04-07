@@ -1,28 +1,324 @@
 @extends('admin.app')
-@section('title') ویرایش کردن آلارم @endsection
+@section('title') ویرایش کردن
+<?php
+switch ($type) {
+    case 'EVENT':
+        echo 'چالش';
+        break;
+    case 'PREREQUISITES':
+        echo 'پیش نیاز';
+        break;
+    case 'STEP':
+        echo 'مرحله ای';
+        break;
+    case 'INTRODUCTION':
+        echo 'معرفی کسب و کار';
+        break;
+    case 'JANEBI':
+        echo 'جانبی';
+        break;
+};
+?>
+@endsection
 @section('content')
-    <form style="margin: auto" class="col-md-6" action="{{ route('admin.content.update' , $voice->id) }}" enctype="multipart/form-data" method="post">
+    <form style="margin: auto" class="col-md-6" action="{{ route('admin.content.update' , ['content' => $content->id , 'type' => $type]) }}" enctype="multipart/form-data" method="post">
         @csrf
         {{ method_field('PATCH') }}
         <div class="form-group">
-            <label for="name">نام آلارم :</label>
-            <input type="text" value="{{ $voice->name }}" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
-                   aria-describedby="emailHelp" placeholder="نام آلارم را وارد کنید ...">
-            @error('name')
+            <?php
+            switch ($type) {
+            case 'EVENT':
+            ?>
+            <label for="title">عنوان :</label>
+            <input type="text" value="{{ $content->title }}" name="title"
+                   class="form-control @error('title') is-invalid @enderror" id="title">
+            @error('title')
             <span class="invalid-feedback" role="alert">
-                <strong>فیلد نام آلارم را پر کنید</strong>
-            </span>
+                <strong>{{ $message }}</strong>
+                </span>
             @enderror
             <br>
-            آلارم فعلی : <a target="_blank" href="{{ $voice->url }}">{{ $voice->url }}</a>
+            <label for="level">سطح دسترسی :</label>
+            <input type="number" value="{{ $content->level }}" name="level"
+                   class="form-control @error('level') is-invalid @enderror" id="level">
+            @error('level')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
             <br>
-            <label for="voice">فایل آلارم جدید:</label>
-            <input name="voice" value="{{ old('voice') }}" type="file" class="form-control-file @error('voice') is-invalid @enderror" id="voice">
-            @error('voice')
+            <label for="body">متن :</label>
+            <textarea type="text" name="body"
+                      class="form-control @error('body') is-invalid @enderror" id="body">{{ $content->body }}</textarea>
+            @error('body')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="image">تصویر :</label>
+            <input name="image" value="{{ $content->image }}" type="file"
+                   class="form-control-file @error('image') is-invalid @enderror" id="image">
+            @error('image')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
             @enderror
+            <?php
+            break;
+            case 'PREREQUISITES':
+            ?>
+            <label for="title">عنوان :</label>
+            <input type="text" value="{{ $content->title }}" name="title"
+                   class="form-control @error('title') is-invalid @enderror" id="title">
+            @error('title')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="level">سطح دسترسی :</label>
+            <input type="number" value="{{ $content->level }}" name="level"
+                   class="form-control @error('level') is-invalid @enderror" id="level">
+            @error('level')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="body">متن :</label>
+            <textarea type="text" name="body"
+                      class="form-control @error('body') is-invalid @enderror" id="body">{{ $content->body }}</textarea>
+            @error('body')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="video">فیلم :</label>
+            <input name="video" value="{{ $content->video }}" type="file"
+                   class="form-control-file @error('video') is-invalid @enderror" id="video">
+            @error('video')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            <br>
+            <label for="image">تصویر پیش نمایش فیلم:</label>
+            <input name="image" value="{{ $content->image }}" type="file"
+                   class="form-control-file @error('image') is-invalid @enderror" id="image">
+            @error('image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+
+            </span>
+            @enderror
+            <?php
+            break;
+            case 'STEP':
+            ?>
+            <label for="title">عنوان :</label>
+            <input type="text" value="{{ $content->title }}" name="title"
+                   class="form-control @error('title') is-invalid @enderror" id="title">
+            @error('title')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="shortText">متن پیش نمایش :</label>
+            <input type="text" value="{{ $content->shortText }}" name="shortText"
+                   class="form-control @error('shortText') is-invalid @enderror" id="shortText">
+            @error('shortText')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="level">سطح دسترسی :</label>
+            <input type="number" value="{{ $content->level }}" name="level"
+                   class="form-control @error('level') is-invalid @enderror" id="level">
+            @error('level')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="body">متن :</label>
+            <textarea type="text" name="body"
+                      class="form-control @error('body') is-invalid @enderror" id="body">{{ $content->body }}</textarea>
+            @error('body')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="shouldJibs">مشاغل ضروری :</label>
+            <select multiple
+                    name="shouldJobs[]"
+                    class="form-control @error('shouldJibs') is-invalid @enderror" >
+                <option value="" disabled {{ !$content->shouldJobs ? 'selected' : '' }}>وضعیت
+                    شغلی
+                </option>
+                <option
+                    value="EMPLOYEE" {{ $content->shouldJobs == 'EMPLOYEE' ? 'selected' : '' }}>
+                    کارمند
+                </option>
+                <option
+                    value="HOMEKEEPER" {{ $content->shouldJobs == 'HOMEKEEPER' ? 'selected' : '' }}>
+                    خانه دار
+                </option>
+                <option value="STUDENT" {{ $content->shouldJobs == 'STUDENT' ? 'selected' : '' }}>
+                    دانشجو / دانش آموز
+                </option>
+                <option
+                    value="JOBKEEPER" {{ $content->shouldJobs == 'JOBKEEPER' ? 'selected' : '' }}>
+                    جویای کار
+                </option>
+            </select>
+            @error('shouldJobs')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br/>
+            <label for="video">فیلم :</label>
+            <input name="video" value="{{ $content->video }}" type="file" multiple
+                   class="form-control-file @error('video') is-invalid @enderror" id="video">
+            @error('video')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            <br>
+            <label for="preImage">تصویر پیش نمایش فیلم:</label>
+            <input name="preImage" value="{{ $content->preImage }}" type="file" multiple
+                   class="form-control-file @error('preImage') is-invalid @enderror" id="preImage">
+            @error('preImage')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="image">تصویر:</label>
+            <input name="image" value="{{ $content->image }}" type="file"
+                   class="form-control-file @error('image') is-invalid @enderror" id="image">
+            @error('image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="banerImage">تصویر بنر:</label>
+            <input name="banerImage" value="{{ $content->banerImage }}" type="file"
+                   class="form-control-file @error('banerImage') is-invalid @enderror" id="banerImage">
+            @error('banerImage')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+
+            <?php
+            break;
+            case 'INTRODUCTION':
+            ?>
+            <label for="title">عنوان :</label>
+            <input type="text" value="{{ $content->title }}" name="title"
+                   class="form-control @error('title') is-invalid @enderror" id="title">
+            @error('title')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="body">متن :</label>
+            <textarea type="text" name="body"
+                      class="form-control @error('body') is-invalid @enderror" id="body">{{ $content->body }}</textarea>
+            @error('body')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br/>
+            <label for="logo">لوگو:</label>
+            <input name="logo" value="{{ $content->logo }}" type="file"
+                   class="form-control-file @error('logo') is-invalid @enderror" id="logo">
+            @error('logo')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+
+            <?php
+            break;
+            case 'JANEBI':
+            ?>
+            <label for="title">عنوان :</label>
+            <input type="text" value="{{ $content->title }}" name="title"
+                   class="form-control @error('title') is-invalid @enderror" id="title">
+            @error('title')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="shortText">متن پیش نمایش :</label>
+            <input type="text" value="{{ $content->shortText }}" name="shortText"
+                   class="form-control @error('shortText') is-invalid @enderror" id="shortText">
+            @error('shortText')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="body">متن :</label>
+            <textarea type="text" name="body"
+                      class="form-control @error('body') is-invalid @enderror" id="body">{{ $content->body }}</textarea>
+            @error('body')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="video">فیلم :</label>
+            <input name="video" value="{{ $content->video }}" type="file" multiple
+                   class="form-control-file @error('video') is-invalid @enderror" id="video">
+            @error('video')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            <br>
+            <label for="preImage">تصویر پیش نمایش فیلم:</label>
+            <input name="preImage" value="{{ $content->preImage }}" type="file" multiple
+                   class="form-control-file @error('preImage') is-invalid @enderror" id="preImage">
+            @error('preImage')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="image">تصویر:</label>
+            <input name="image" value="{{ $content->image }}" type="file"
+                   class="form-control-file @error('image') is-invalid @enderror" id="image">
+            @error('image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <br>
+            <label for="banerImage">تصویر بنر:</label>
+            <input name="banerImage" value="{{ $content->banerImage }}" type="file"
+                   class="form-control-file @error('banerImage') is-invalid @enderror" id="banerImage">
+            @error('banerImage')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <?php
+            break;
+            };
+            ?>
         </div>
 
         <button onclick="uploading()" type="submit" class="btn btn-primary">ویرایش</button>
