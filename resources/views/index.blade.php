@@ -6,46 +6,65 @@
     <script type="text/javascript" src="{{ asset('/js/animate.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/owl.carousel.min.js') }}"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.owl-carousel1').owlCarousel({
                 stagePadding: 30,
-                margin:10,
-                rtl:true,
-                nav:true,
-                autoplay:true,
-                autoplayTimeout:5000,
-                responsive:{
-                    0:{
-                        items:1
+                margin: 10,
+                rtl: true,
+                nav: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                responsive: {
+                    0: {
+                        items: 1
                     },
-                    600:{
-                        items:3
+                    600: {
+                        items: 3
                     },
-                    1000:{
-                        items:4
+                    1000: {
+                        items: 4
                     }
                 }
             })
             $('.owl-carousel2').owlCarousel({
                 stagePadding: 30,
-                margin:10,
-                rtl:true,
-                nav:true,
+                margin: 10,
+                rtl: true,
+                nav: true,
 
-                responsive:{
-                    0:{
-                        items:1
+                responsive: {
+                    0: {
+                        items: 1
                     },
-                    600:{
-                        items:3
+                    600: {
+                        items: 3
                     },
-                    1000:{
-                        items:3
+                    1000: {
+                        items: 3
                     }
                 }
             })
-            $( ".owl-prev").html('<i class="material-icons">arrow_forward</i>');
-            $( ".owl-next").html('<i class="material-icons">arrow_back</i>');
+            $('.owl-carousel3').owlCarousel({
+                stagePadding: 30,
+                margin: 10,
+                rtl: true,
+                nav: true,
+
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 3
+                    }
+                }
+            })
+
+            $(".owl-prev").html('<i class="material-icons">arrow_forward</i>');
+            $(".owl-next").html('<i class="material-icons">arrow_back</i>');
         })
     </script>
 @endsection
@@ -57,7 +76,8 @@
     <div id="back-canvas" style="height: 300px;width: 100%;background: var(--pr-green);">
 
         <div id="particle-canvas">
-            <span style="font-size: 1.73333rem;top: 45px;" align="center" class="old-font text-white mt-2 font-weight-bold">
+            <span style="font-size: 1.73333rem;top: 45px;" align="center"
+                  class="old-font text-white mt-2 font-weight-bold">
                 تو کارت حرفه ای شو
             </span>
             <section class="container" style="margin-top: 60px">
@@ -78,7 +98,10 @@
                 @foreach($kasbokars as $kasb)
                     <div class="item">
                         <div class="d-flex align-items-center" style="height: 100%">
-                            <div class="col-xs-6 col-sm-6" style="height: 100%;border-left: 1px solid #f1f3f8;padding-right: 0 !important;"><img style="border-radius: 50px;border: 7px outset var(--pr-green);" class="mt-2" src="{{ asset($kasb->logo) }}" alt="{{ $kasb->title }}"></div>
+                            <div class="col-xs-6 col-sm-6"
+                                 style="height: 100%;border-left: 1px solid #f1f3f8;padding-right: 0 !important;"><img
+                                    style="border-radius: 50px;border: 7px outset var(--pr-green);" class="mt-2"
+                                    src="{{ asset($kasb->logo) }}" alt="{{ $kasb->title }}"></div>
                             <div class="col-xs-6 col-sm-6">
                                 <h6 class="font-weight-bold old-font f-14">{{ $kasb->title }}</h6>
                                 <p class="mt-3 f-12">{{ \Str::limit($kasb->body , 20) }}</p>
@@ -91,17 +114,27 @@
         </section>
         <section id="prerequisites" class="content-section">
             <h4 class="font-weight-bold old-font" style="margin-right: 30px">پیش نیاز ها</h4>
-{{--            <div class="dot-back"></div>--}}
+                        <div class="dot-back"></div>
             <div class="owl-carousel owl-carousel2 owl-theme mt-4">
                 @foreach($pres as $pre)
                     <div class="item">
                         <div class="d-flex align-items-center" style="height: 100%">
                             <a href="#!">
+
                                 <img src="{{ asset($pre->image) }}" class="video-img" alt="{{ $pre->title }}">
+
                                 <h6 class="f-10 text-white content-title">{{ $pre->title }}</h6>
-                                <div class="play-div">
+                                <div class="{{ auth()->check() ? in_array($pre->_id , $contentsReadedId) ? 'play-div-check' : 'play-div' : 'play-div' }}">
                                     <i class="material-icons-two-tone">
-                                        play_arrow
+                                        @auth
+                                            @if(in_array($pre->_id, $contentsReadedId))
+                                                check
+                                            @else
+                                                play_arrow
+                                            @endif
+                                        @else
+                                            play_arrow
+                                        @endauth
                                     </i>
                                 </div>
                             </a>
@@ -110,5 +143,48 @@
                 @endforeach
             </div>
         </section>
+        <section id="step" class="content-section">
+            <h4 class="font-weight-bold old-font" style="margin-right: 30px">محتوای مرحله ایا</h4>
+            <div class="dot-back"></div>
+            <div class="owl-carousel owl-carousel3 owl-theme mt-4">
+                @foreach($steps as $step)
+                    <div class="item step-item">
+                        <div class="d-flex align-items-center">
+                            <div class="open-or-not">
+                                <i class="material-icons-two-tone">
+                                    @auth
+                                        @if(auth()->user()->level >= $step->level)
+                                            lock_open
+                                        @else
+                                            lock
+                                        @endif
+                                    @else
+                                        lock
+                                    @endauth
+                                </i>
+                            </div>
+                            <div class="col-md-12">
+
+                                <div class="row">
+                                    <a href="#!">
+                                        <img style="border-radius: 5px 5px 0 0;height: 11rem;" src="{{ $step->banerImage }}" alt="{{ $step->title }}">
+                                    </a>
+                                </div>
+                                <div class="col-sm-12 col-md-12 mt-2" style="text-align: center">
+                                   <span class="my-blue-color f-12"> مرحله {{ $step->level }}</span>
+                                    <br>
+                                    <span class="font-weight-bold f-14 old-font">{{ $step->title }}</span>
+                                    <br>
+                                    <br>
+                                    <p class="f-10">{{ \Str::limit($step->body , 70) }}</p>
+                                    <a href="#!" class="btn-more">مطالعه</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
     </section>
+
 @endsection
