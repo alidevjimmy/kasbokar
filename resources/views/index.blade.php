@@ -5,32 +5,56 @@
 @section('script')
     <script type="text/javascript" src="{{ asset('/js/animate.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/owl.carousel.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/owl.theme.default.min.css') }}"></script>
     <script type="text/javascript">
-        $('.owl-carousel').owlCarousel({
-            stagePadding: 50,
-            loop:true,
-            margin:10,
-            nav:true,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:3
-                },
-                1000:{
-                    items:5
+        $(document).ready(function() {
+            $('.owl-carousel1').owlCarousel({
+                stagePadding: 30,
+                margin:10,
+                rtl:true,
+                nav:true,
+                autoplay:true,
+                autoplayTimeout:5000,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:3
+                    },
+                    1000:{
+                        items:4
+                    }
                 }
-            }
+            })
+            $('.owl-carousel2').owlCarousel({
+                stagePadding: 30,
+                margin:10,
+                rtl:true,
+                nav:true,
+
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:3
+                    },
+                    1000:{
+                        items:3
+                    }
+                }
+            })
+            $( ".owl-prev").html('<i class="material-icons">arrow_forward</i>');
+            $( ".owl-next").html('<i class="material-icons">arrow_back</i>');
         })
     </script>
 @endsection
 @section('style')
     <link rel="stylesheet" href="{{ asset('/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/owl.theme.default.min.css') }}">
 @endsection
 @section('canvas')
-    <div id="back-canvas" style="height: 300px;width: 100%;background: linear-gradient(90deg,var(--pr-blue),var(--pr-blue2));">
+    <div id="back-canvas" style="height: 300px;width: 100%;background: var(--pr-green);">
 
         <div id="particle-canvas">
             <span style="font-size: 1.73333rem;top: 45px;" align="center" class="old-font text-white mt-2 font-weight-bold">
@@ -49,21 +73,42 @@
 @endsection
 @section('content')
     <section id="content" class="content">
-        <div class="kasbokar">
-            <div class="owl-carousel owl-theme">
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>1</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>2</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>3</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>4</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>5</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>6</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>7</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>8</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>9</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>10</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>11</h4></div>
-                <div class="item" style="width: 100px;height: 100px;background-color: #0c5460"><h4>12</h4></div>
+        <section class="kasbokar" id="kasbokar">
+            <div class="owl-carousel owl-carousel1 owl-theme">
+                @foreach($kasbokars as $kasb)
+                    <div class="item">
+                        <div class="d-flex align-items-center" style="height: 100%">
+                            <div class="col-xs-6 col-sm-6" style="height: 100%;border-left: 1px solid #f1f3f8;padding-right: 0 !important;"><img style="border-radius: 50px;border: 7px outset var(--pr-green);" class="mt-2" src="{{ asset($kasb->logo) }}" alt="{{ $kasb->title }}"></div>
+                            <div class="col-xs-6 col-sm-6">
+                                <h6 class="font-weight-bold old-font f-14">{{ $kasb->title }}</h6>
+                                <p class="mt-3 f-12">{{ \Str::limit($kasb->body , 20) }}</p>
+                                <a href="#!" class="btn-more f-12">بیشتر <i class="material-icons-two-tone btn-icons">arrow_back</i></a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        </div>
+        </section>
+        <section id="prerequisites" class="content-section">
+            <h4 class="font-weight-bold old-font" style="margin-right: 30px">پیش نیاز ها</h4>
+{{--            <div class="dot-back"></div>--}}
+            <div class="owl-carousel owl-carousel2 owl-theme mt-4">
+                @foreach($pres as $pre)
+                    <div class="item">
+                        <div class="d-flex align-items-center" style="height: 100%">
+                            <a href="#!">
+                                <img src="{{ asset($pre->image) }}" class="video-img" alt="{{ $pre->title }}">
+                                <h6 class="f-10 text-white content-title">{{ $pre->title }}</h6>
+                                <div class="play-div">
+                                    <i class="material-icons-two-tone">
+                                        play_arrow
+                                    </i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
     </section>
 @endsection

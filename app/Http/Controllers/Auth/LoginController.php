@@ -37,4 +37,10 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function authenticated() {
+        if (auth()->check()) {
+            return redirect(isset($_SESSION['redirect']) ? $_SESSION['redirect'] : '/');
+        }
+    }
 }

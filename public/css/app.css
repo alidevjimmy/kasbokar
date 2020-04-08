@@ -10953,6 +10953,32 @@ body {
     right: -10px;
 }
 
+.btn-more {
+    border: none !important;
+    font-size: 12px;
+    padding: 7px 16px;
+    color: #fff !important;
+    background-color: var(--pr-blue);
+    border-radius: 50px;
+    position: absolute;
+    left: -9px;
+    bottom: -29px;
+    padding-top: 4px;
+}
+.btn-more {
+    cursor: pointer !important;
+}
+
+.btn-more i {
+    position: relative;
+    font-size: 15px;
+    top: 6px;
+    right: 1px;
+}
+.btn-more:hover .btn-icons {
+    right: 10px;
+}
+
 .btn-hashie {
     border: none !important;
     font-size: 12px;
@@ -11033,9 +11059,9 @@ font-size: 40px !important;
     right: unset !important;
 }
 
-.content-menu-pointer {
-    cursor: context-menu !important;
-}
+/*.content-menu-pointer {*/
+/*    cursor: context-menu !important;*/
+/*}*/
 .two-tone-icon-hover:hover {
     opacity: 0.8;
 }
@@ -11056,9 +11082,7 @@ font-size: 40px !important;
     box-shadow: rgba(143, 143, 143, 0.21) 0px 0px 2px 1px;
     border: none !important;
 }
-a:hover , button {
-    cursor: context-menu !important;
-}
+
 
 button:hover {
     opacity: 0.8;
@@ -11109,9 +11133,6 @@ button:hover {
     margin: 0 21px;
     box-shadow: 0 5px 10px 0 rgba(20,83,155,.05);
 }
-* {
-    cursor: context-menu !important;
-}
 *::selection {
     background-color: var(--pr-green);
     color : var(--pr-blue)
@@ -11127,3 +11148,138 @@ input:hover {
     color: #888;
 }
 
+#content {
+    position: relative;
+    bottom: 84px;
+    z-index: 100;
+}
+.kasbokar .owl-carousel .item {
+    height: 10rem;
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 0 5px 10px 0 rgba(20,83,155,.05);
+    border-radius: .3333rem;
+}
+.prerequisites .owl-carousel .item {
+    height: 10rem;
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 0 5px 10px 0 rgba(20,83,155,.05);
+    border-radius: .3333rem;
+}
+.video-img{
+    box-shadow: 0 5px 10px 0 rgba(20,83,155,.05) !important;
+    border-radius: .3333rem !important;
+}
+
+.owl-dot span {
+
+}
+.owl-theme .owl-dots .owl-dot.active span {
+    width: 25px;
+    background: var(--pr-blue) !important;
+    transition: 0.3s all !important;
+}
+
+.owl-prev {
+    background-color: var(--pr-blue) !important;
+    color: #fff !important;
+    opacity: 1 !important;
+    padding: 10px !important;
+    border-radius: 50px !important;
+    line-height: 10px !important;
+    position: absolute;
+    right: 13px;
+    top: 55px;
+    /*border: 8px solid var(--pr-blue2) !important;*/
+}
+.owl-prev {
+    background-color: 8px solid var(--pr-blue2);
+}
+
+.owl-next {
+    background-color: var(--pr-blue) !important;
+    color: #fff !important;
+    padding: 10px !important;
+    border-radius: 50px !important;
+    line-height: 10px !important;
+    position: absolute;
+    left: 13px;
+    top: 55px;
+    transition: 0.3s all;
+}
+.owl-next:focus , .owl-prev:focus {
+    opacity: 0.8 !important;
+}
+.owl-theme .owl-nav .disabled {
+    background-color: #D6D6D6 !important;
+    cursor: default !important;
+    border : none !important;
+    opacity: 1 !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .owl-prev , .owl-next {
+        display: none !important;
+    }
+}
+
+.dot-back {
+    content: "";
+    position: absolute;
+    bottom: -202px;
+    right: -5.3rem;
+    background: url(/images/6fde913.svg) no-repeat;
+    width: 12rem;
+    height: 19rem;
+    z-index: -1;
+}
+
+.content-section {
+   margin-top: 60px
+}
+
+.owl-dots {
+    margin-top: 32px !important;
+}
+
+.owl-stage {
+    /*padding-right: 0 !important;*/
+    /*padding-left: 0 !important;*/
+}
+.content-title {
+    position: absolute;
+    z-index: 1000;
+    top: 15px;
+    right: 20px;
+    font-size: 14px !important;
+    color: #333 !important;
+    background-color: #fff;
+    padding: 5px 36px;
+    border-radius: 50px;
+    box-shadow: 0 5px 10px 0 rgba(20,83,155,.05);
+}
+
+.play-div {
+    position: relative;
+    top: -104px;
+    right: 132px;
+    width: 50px;
+    height: 50px;
+    z-index: 10000000;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 50px;
+    line-height: 4px;
+    font-size: 40px !important;
+    box-shadow: 0 5px 10px 0 rgba(20,83,155,.05);
+}
+.play-div i {
+    position: relative;
+    top: 4px;
+    right: 3px;
+}
+.play-div:hover {
+    background-color: var(--pr-green);
+    cursor: pointer;
+}

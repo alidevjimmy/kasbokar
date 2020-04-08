@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', 'AppController@index')->name('index');
 
 Auth::routes();

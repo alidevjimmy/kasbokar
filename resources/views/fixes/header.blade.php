@@ -6,7 +6,7 @@
             </a>
             <a class="d-block mr-1 mt-2" href="{{ route('index') }}">
                 <span class="f-10 old-font d-block"
-                      style="color : black;font-family: IRANSans2 !important">ساناز رحیمی</span>
+                      style="color : black;font-family: IRANSans2 !important;text-align: right">ساناز رحیمی</span>
                 <span class="f-12 font-weight-bold my-green-color"
                       style="color: var(--pr-green)">« مدرسه کسب و کار » </span>
             </a>
@@ -16,11 +16,14 @@
                aria-haspopup="true" style="font-size: 40px">account_circle</i>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 @auth
-                    <a class="dropdown-item drop-down-item " href="#!">پروفایل</a>
+                    <a class="dropdown-item drop-down-item " href="#!"><i class="material-icons-two-tone partner-icon">portrait</i>پروفایل </a>
+                    @if(auth()->user()->isAdmin)
+                        <a class="dropdown-item drop-down-item" target="_blank" href="{{ route('admin.index') }}"><i class="material-icons-two-tone partner-icon">how_to_reg</i>پنل مدیریت </a>
+                    @endif
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <button class="dropdown-item drop-down-item">
-                            خروج
+                            <i class="material-icons-two-tone partner-icon">exit_to_app</i>  خروج
                         </button>
                     </form>
                 @else
