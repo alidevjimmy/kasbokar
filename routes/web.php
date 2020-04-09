@@ -28,3 +28,7 @@ Route::group([
     Route::resource('/content' , 'ContentController');
     Route::get('/whichContent' , 'ContentController@whichContent')->name('whichContent');
 });
+
+
+Route::get('/profile/{user}' , 'UserController@profile')->name('profile')->middleware('auth');
+Route::post('/profile/{user}/edit' , 'UserController@userUpdate')->name('profile.edit')->middleware('auth');

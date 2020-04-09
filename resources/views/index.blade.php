@@ -62,6 +62,24 @@
                     }
                 }
             })
+            $('.owl-carousel4').owlCarousel({
+                stagePadding: 30,
+                margin: 10,
+                rtl: true,
+                nav: true,
+
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 4
+                    }
+                }
+            })
 
             $(".owl-prev").html('<i class="material-icons">arrow_forward</i>');
             $(".owl-next").html('<i class="material-icons">arrow_back</i>');
@@ -144,17 +162,21 @@
             </div>
         </section>
         <section id="step" class="content-section">
-            <h4 class="font-weight-bold old-font" style="margin-right: 30px">محتوای مرحله ایا</h4>
+            <h4 class="font-weight-bold old-font" style="margin-right: 30px">محتوای مرحله ای</h4>
             <div class="dot-back"></div>
             <div class="owl-carousel owl-carousel3 owl-theme mt-4">
                 @foreach($steps as $step)
                     <div class="item step-item">
                         <div class="d-flex align-items-center">
-                            <div class="open-or-not">
+                            <div class="{{ auth()->check() ? in_array($step->_id , $contentsReadedId) ? 'open-or-not-check' : 'open-or-not' : 'open-or-not' }}">
                                 <i class="material-icons-two-tone">
                                     @auth
                                         @if(auth()->user()->level >= $step->level)
-                                            lock_open
+                                            @if(in_array($step->_id , $contentsReadedId))
+                                                check
+                                            @else
+                                                lock_open
+                                            @endif
                                         @else
                                             lock
                                         @endif
@@ -178,6 +200,37 @@
                                     <br>
                                     <p class="f-10">{{ \Str::limit($step->body , 70) }}</p>
                                     <a href="#!" class="btn-more">مطالعه</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+        <section id="janebi" class="content-section">
+            <h4 class="font-weight-bold old-font" style="margin-right: 30px">محتوای جانبی / اخبار و حواشی</h4>
+            <div class="dot-back"></div>
+            <div class="owl-carousel owl-carousel4 owl-theme mt-4">
+                @foreach($janebies as $janebi)
+                    <div class="item step-item">
+                        <div class="d-flex align-items-center">
+                            <div class="col-md-12">
+                                <div class="row" style="border-bottom: 1px solid #f1f3f8">
+                                    <a href="#!">
+                                        <img style="border-radius: 5px 5px 0 0;height: 11rem;" src="{{ $janebi->banerImage }}" alt="{{ $janebi->title }}">
+                                    </a>
+                                    <div class="btn-see-div">
+                                        <a href="#!" class="btn-see">
+                                            مشاهده
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 mt-2" style="text-align: center">
+                                    <br>
+                                    <span class="font-weight-bold f-14 old-font">{{ $janebi->title }}</span>
+                                    <br>
+                                    <br>
+                                    <p class="f-10">{{ \Str::limit($janebi->body , 70) }}</p>
                                 </div>
                             </div>
                         </div>

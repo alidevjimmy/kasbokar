@@ -11,6 +11,7 @@ class AppController extends Controller
     public function index()
     {
         $kasbokars = Content::where('type' , 'INTRODUCTION')->latest()->get();
+        $janebies = Content::where('type' , 'JANEBI')->latest()->get();
         $pres = Content::where('type' , 'PREREQUISITES')->get();
         $steps = Content::where('type' , 'STEP')->orderBy('level' , 'asc')->get();
         $contentsReadedId = [];
@@ -25,6 +26,12 @@ class AppController extends Controller
                 $contentsReadedId[] = $uc->content_id;
             }
         }
-        return view('index' , ['kasbokars' => $kasbokars , 'steps' => $steps ,'pres' => $pres , 'contentsReadedId' => $contentsReadedId]);
+        return view('index' , [
+            'kasbokars' => $kasbokars,
+            'steps' => $steps,
+            'pres' => $pres,
+            'contentsReadedId' => $contentsReadedId,
+            'janebies' => $janebies
+        ]);
     }
 }

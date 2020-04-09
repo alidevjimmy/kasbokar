@@ -16,9 +16,21 @@
     @yield('style')
 </head>
 <body>
+    <div class="splash-screen" style="text-align: center">
+        <div class="splash-logo">
+        </div>
+    </div>
     <div id="app">
         @include('fixes.header')
         @yield('canvas')
+        @if(session('status') && session('message'))
+            <div class="alert {{ session('status') == 'success' ? 'alert-success' : 'alert-danger' }} alert-dismissible fade show" role="alert">
+                <span class="old-font f-14">{{ session('message') }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         @yield('content')
         @include('fixes.footer')
     </div>
@@ -26,5 +38,12 @@
     <script type="text/javascript" src="{{ '/js/jquery.min.js' }}"></script>
     <script type="text/javascript" src="{{ '/js/bootstrap.bundle.min.js' }}"></script>
 @yield('script')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.splash-screen').css({
+            display : 'none'
+        })
+    })
+</script>
 </body>
 </html>
