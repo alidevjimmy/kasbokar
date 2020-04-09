@@ -123,7 +123,7 @@
                             <div class="col-xs-6 col-sm-6">
                                 <h6 class="font-weight-bold old-font f-14">{{ $kasb->title }}</h6>
                                 <p class="mt-3 f-12">{{ \Str::limit($kasb->body , 20) }}</p>
-                                <a href="#!" class="btn-more f-12">بیشتر <i class="material-icons-two-tone btn-icons">arrow_back</i></a>
+                                <a href="{{ route('content.show' , ['content' => $kasb->_id , 'type' => 'INTRODUCTION']) }}" class="btn-more f-12">بیشتر <i class="material-icons-two-tone btn-icons">arrow_back</i></a>
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                 @foreach($pres as $pre)
                     <div class="item">
                         <div class="d-flex align-items-center" style="height: 100%">
-                            <a href="#!">
+                            <a href="{{ route('content.show' , ['content' => $pre->_id , 'type' => 'PREREQUISITES']) }}">
 
                                 <img src="{{ asset($pre->image) }}" class="video-img" alt="{{ $pre->title }}">
 
@@ -188,7 +188,7 @@
                             <div class="col-md-12">
 
                                 <div class="row">
-                                    <a href="#!">
+                                    <a href="{{ route('content.show' , ['content' => $step->_id , 'type' => 'STEP']) }}">
                                         <img style="border-radius: 5px 5px 0 0;height: 11rem;" src="{{ $step->banerImage }}" alt="{{ $step->title }}">
                                     </a>
                                 </div>
@@ -199,7 +199,7 @@
                                     <br>
                                     <br>
                                     <p class="f-10">{{ \Str::limit($step->body , 70) }}</p>
-                                    <a href="#!" class="btn-more">مطالعه</a>
+                                    <a href="{{ route('content.show' , ['content' => $step->_id , 'type' => 'STEP']) }}" class="btn-more">مطالعه</a>
                                 </div>
                             </div>
                         </div>
@@ -216,11 +216,11 @@
                         <div class="d-flex align-items-center">
                             <div class="col-md-12">
                                 <div class="row" style="border-bottom: 1px solid #f1f3f8">
-                                    <a href="#!">
+                                    <a href="{{ route('content.show' , ['content' => $janebi->_id , 'type' => 'JANEBI']) }}">
                                         <img style="border-radius: 5px 5px 0 0;height: 11rem;" src="{{ $janebi->banerImage }}" alt="{{ $janebi->title }}">
                                     </a>
                                     <div class="btn-see-div">
-                                        <a href="#!" class="btn-see">
+                                        <a href="{{ route('content.show' , ['content' => $janebi->_id , 'type' => 'JANEBI']) }}" class="btn-see">
                                             مشاهده
                                         </a>
                                     </div>

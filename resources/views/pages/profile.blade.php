@@ -39,6 +39,7 @@
                     @switch($page)
                         @case('myInformation')
                         <div class="col-md-6" style="margin: auto">
+                            <h5 class="my-blue-color font-weight-bold old-font" align="center">مرحله شما : {{ $user->level }}</h5>
                             <form method="POST" action="{{ route('profile.edit' , ['user' => $user->id]) }}">
                                 @csrf
 

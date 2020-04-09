@@ -21,7 +21,7 @@ class UserController extends Controller
             foreach ($contentIds as $ci) {
                 $ids[] = $ci->content_id;
             }
-            $readedContents =  Content::findMany($ids);
+            $readedContents =  Content::latest()->findMany($ids);
         }
         return view('pages.profile', ['user' => $user , 'page' => $request->page , 'readedContents' => $readedContents]);
     }
