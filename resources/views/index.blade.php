@@ -118,7 +118,7 @@
                         <div class="d-flex align-items-center" style="height: 100%">
                             <div class="col-xs-6 col-sm-6"
                                  style="height: 100%;border-left: 1px solid #f1f3f8;padding-right: 0 !important;"><img
-                                    style="border-radius: 50px;border: 7px outset var(--pr-green);" class="mt-2"
+                                    style="border-radius: 50%;border: 7px outset #fff;" class="mt-2"
                                     src="{{ asset($kasb->logo) }}" alt="{{ $kasb->title }}"></div>
                             <div class="col-xs-6 col-sm-6">
                                 <h6 class="font-weight-bold old-font f-14">{{ $kasb->title }}</h6>

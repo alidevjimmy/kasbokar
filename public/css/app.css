@@ -11235,7 +11235,7 @@ input:hover {
 }
 
 .content-section {
-   margin-top: 60px
+   margin-top: 90px
 }
 
 .owl-dots {
@@ -11260,9 +11260,13 @@ input:hover {
 }
 
 .play-div {
-    position: relative;
-    top: -104px;
-    right: 132px;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     width: 50px;
     height: 50px;
     z-index: 10000000;
@@ -11485,6 +11489,7 @@ a{
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
 }
 
 /* Track */

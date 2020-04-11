@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Content::class , 'user_content' , 'user_id' , 'content_id');
     }
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('active' , true);
+    }
 }

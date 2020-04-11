@@ -33,6 +33,7 @@
                    aria-haspopup="true" style="font-size: 40px">account_circle</i>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     @auth
+                        <a class="dropdown-item drop-down-item my-green-color font-weight-bold old-font" style='text-align : center !important'>مرحله شما : {{ auth()->user()->level }} </a>
                         <a class="dropdown-item drop-down-item " href="{{ route('profile' , ['user' => auth()->user()->id , 'page' => 'myInformation']) }}"><i class="material-icons-two-tone partner-icon">portrait</i>پروفایل </a>
                         @if(auth()->user()->isAdmin)
                             <a class="dropdown-item drop-down-item" target="_blank" href="{{ route('admin.index') }}"><i class="material-icons-two-tone partner-icon">how_to_reg</i>پنل مدیریت </a>
