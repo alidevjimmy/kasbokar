@@ -13,14 +13,13 @@ class AppController extends Controller
         $kasbokars = Content::where('type' , 'INTRODUCTION')->latest()->get();
         $janebies = Content::where('type' , 'JANEBI')->latest()->get();
         $pres = Content::where('type' , 'PREREQUISITES')->get();
-        $steps = Content::where('type' , 'STEP')->orderBy('level' , 'asc')->get();
+        $stepsAndEvents = Content::where('type' , 'STEP')->orWhere('type' , 'EVENT')->orderBy('level' , 'asc')->get();
         $contentsReadedId = [];
         if (auth()->check())
         {
             $user = auth()->user();
             $user_contents = DB::table('user_content')
                 ->where('user_id' , $user->id)
-                ->where('read' , true)
                 ->get();
             foreach ($user_contents as $uc) {
                 $contentsReadedId[] = $uc->content_id;
@@ -28,7 +27,7 @@ class AppController extends Controller
         }
         return view('index' , [
             'kasbokars' => $kasbokars,
-            'steps' => $steps,
+            'stepsAndEvents' => $stepsAndEvents,
             'pres' => $pres,
             'contentsReadedId' => $contentsReadedId,
             'janebies' => $janebies

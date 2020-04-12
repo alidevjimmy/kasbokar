@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Content;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContentController extends Controller
 {
@@ -31,9 +32,16 @@ class ContentController extends Controller
                             'message' => "مرحله شما {$user->level} است ولی حداقل مرحله مورد نیاز {$content->level} است"
                         ]);
                     }
-                    $contents = Content::where('type', 'STEP')->where('level', '<', $content->level)->get();
-                    foreach ($contents as $c) {
-                        $c
+                    $contents = Content::where('type', 'STEP')->orWhere('type' , 'EVENT')->orWhere('type' , 'PREREQUISITES')->where('level', '<', $content->level)->get();
+                    return $contents;
+                    foreach($contents as $c) {
+                        $userReadedContent = DB::table('user_content')->where('user_id' , $user->id)->where('content_id' , $c->_id)->first();
+                        if (!$userReadedContent) {
+                            return back()->with([
+                                'status' => 'error',
+                                'message' => $c->type == 'STEP' ? 'شما محتوای مرحله ای ' : ''
+                            ]);
+                        }
                     }
                 }
                 break;

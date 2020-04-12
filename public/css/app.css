@@ -10910,7 +10910,7 @@ a.text-dark:focus {
 @font-face {
     font-family: IRANSans;
     font-weight: normal;
-    font-style: normal;
+    font-style: normal; 
     src : url("../fonts/38d4b5f.woff2") format('woff2');
 }
 body {
@@ -11222,16 +11222,26 @@ input:hover {
     .owl-prev , .owl-next {
         display: none !important;
     }
+    .up-footer {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        height: 166px !important;
+    }
+    .footer {
+        height : 100px !important;
+    }
 }
 
 .dot-back {
     content: "";
     position: absolute;
-    right: -5.3rem;
     background: url(/images/6fde913.svg) no-repeat;
     width: 12rem;
     height: 19rem;
     z-index: -1;
+    margin-top: 24px;
 }
 
 .content-section {
@@ -11288,13 +11298,17 @@ input:hover {
 }
 
 .play-div-check {
-    position: relative;
-    top: -104px;
-    right: 132px;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
     width: 50px;
     height: 50px;
+    right: 0;
     z-index: 10000000;
-    background-color: var(--pr-green);
+    background-color: #4caf50 ;
     padding: 10px;
     border-radius: 50px;
     line-height: 4px;
@@ -11328,13 +11342,13 @@ input:hover {
     background-color: var(--pr-green) ;
     padding-right: 10px;
     width: 100%;
-    height: 100px;
+    height: 218px;
     position: absolute;
     bottom: -40px;
 }
 .up-footer {
     width: 100%;
-    height: 576px;
+    height: 850px;
     background-image: url("../images/bg-footer.png");
     background-repeat: repeat-x;
     background-size: contain;
@@ -11531,4 +11545,101 @@ a{
     background-color: #f1f3f8;
     padding: 10px;
     border-radius: 5px;
+}
+
+/* stepper start */
+.wrapper-progressBar {
+    width: 100%
+}
+
+.progressBar {
+}
+
+.progressBar li {
+    list-style-type: none;
+    float: left;
+    width: 33%;
+    position: relative;
+    text-align: center;
+}
+
+.progressBar li:before {
+    content: " ";
+    line-height: 30px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px;
+    background-color: white
+}
+
+.progressBar li:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: #ddd;
+    top: 15px;
+    left: -50%;
+    z-index: -1;
+}
+
+.progressBar li:first-child:after {
+    content: none;
+}
+
+.progressBar li.active {
+    color: dodgerblue;
+}
+
+.progressBar li.active:before {
+    border-color: dodgerblue;
+    background-color: dodgerblue
+}
+
+.progressBar .active:after {
+    background-color: dodgerblue !important;
+}
+.progressBar li.success {
+    color: #4caf50 !important;
+}
+
+.progressBar li.success:before {
+    border-color: #4caf50 !important;
+    background-color: #4caf50
+}
+
+.progressBar .success:after {
+    background-color: #4caf50;
+}
+
+.my-shadow {
+    box-shadow: 0 5px 10px 0 rgba(20,83,155,.05);
+}
+.success-image {
+    float: left;
+    position: relative;
+    width: 200px;
+    /* top: -20px; */
+    left: 0;
+    bottom: 241px;
+}
+.gold-color {
+    background: linear-gradient(90deg,#FCC201,#EEB609);
+}
+.step-active {
+    font-size: 20px;
+    position: absolute;
+    top: -1px;
+    color: white;
+    left: 49.5%;
+}
+.step {
+    font-size: 20px;
+    position: absolute;
+    top: -1px;
+    left: 49%;
 }
