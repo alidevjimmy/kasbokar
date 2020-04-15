@@ -236,7 +236,7 @@ CREATE TABLE public.users (
     deleted_at timestamp(0) without time zone,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
-    CONSTRAINT "users_workStatus_check" CHECK ((("workStatus")::text = ANY ((ARRAY['EMPLOYEE'::character varying, 'HOMEKEEPER'::character varying, 'STUDENT'::character varying, 'JOBKEEPER'::character varying])::text[])))
+    CONSTRAINT "users_workStatus_check" CHECK ((("workStatus")::text = ANY (ARRAY[('EMPLOYEE'::character varying)::text, ('HOMEKEEPER'::character varying)::text, ('STUDENT'::character varying)::text, ('JOBKEEPER'::character varying)::text])))
 );
 
 
@@ -356,6 +356,7 @@ COPY public.password_resets (email, token, created_at) FROM stdin;
 --
 
 COPY public.user_content (id, user_id, content_id, read, deleted_at, created_at, updated_at) FROM stdin;
+1	1	5e91b65987080000c1005aa2	t	\N	\N	\N
 \.
 
 
@@ -364,7 +365,7 @@ COPY public.user_content (id, user_id, content_id, read, deleted_at, created_at,
 --
 
 COPY public.users (id, "fullName", email, phone, level, "isAdmin", active, "workStatus", email_verified_at, password, remember_token, deleted_at, created_at, updated_at) FROM stdin;
-1	علی حمرانی	ali.hamrani80@gmail.com	09384720059	1	t	f	STUDENT	\N	$2y$10$Hct6/zU695MC6DuXbD.hQ.d0qTP9ql6aOzLT4yKV9.p7IO.ERtcKS	\N	\N	2020-04-11 11:49:16	2020-04-11 11:49:16
+1	علی حمرانی	ali.hamrani80@gmail.com	09384720059	4	t	f	STUDENT	\N	$2y$10$Hct6/zU695MC6DuXbD.hQ.d0qTP9ql6aOzLT4yKV9.p7IO.ERtcKS	\N	\N	2020-04-11 11:49:16	2020-04-11 11:49:16
 \.
 
 
