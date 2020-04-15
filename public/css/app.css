@@ -11644,5 +11644,5 @@ a{
     left: 49%;
 }
 .progressBar {
-    direction: rtl !important;
+    direction: ltr !important;
 }
