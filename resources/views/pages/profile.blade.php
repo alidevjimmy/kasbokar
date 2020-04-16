@@ -8,7 +8,7 @@
     </button>
 @endsection
 @section('content')
-    <div class="steper">
+    <div class="steper div-scrolable">
         <div class="container">
             <a href="{{ route('index') }}">
                 <i class="material-icons" style="position: relative;top: 8px">home</i>

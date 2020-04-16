@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -38,9 +39,55 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function authenticated() {
-        if (auth()->check()) {
-            return redirect(isset($_SESSION['redirect']) ? $_SESSION['redirect'] : '/');
+    public function login(Request $request)
+    {   
+        $this->validateLogin($request);
+        $redirect = $request->redirect ?? '/';
+        if (method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
         }
+
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponse($request , $redirect);
+        }
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
+    protected function sendLoginResponse(Request $request , $redirect)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($request, $this->guard()->user() , $redirect)
+                ?: redirect()->intended($this->redirectPath());
+    }
+
+    protected function authenticated(Request $request, $user , $redirect = '/')
+    {
+        if (auth()->check()) {
+            return redirect($redirect);
+        }
+    }
+
+    public function username()
+    {
+        return 'phone';
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return $this->loggedOut($request) ?: back();
     }
 }

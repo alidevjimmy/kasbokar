@@ -11646,3 +11646,19 @@ a{
 .progressBar {
     direction: ltr !important;
 }
+
+.video-div {
+    text-align: center;
+    text-align: -webkit-center;
+}
+.video-div video {
+    max-width: 100%;
+}
+
+.cant-video {
+    width: 100%;
+    height: 200px;
+    background-color: #f1f3f8;
+    text-align: center;
+    line-height: 103px;
+}

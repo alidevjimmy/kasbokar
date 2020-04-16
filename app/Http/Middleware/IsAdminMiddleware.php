@@ -21,6 +21,7 @@ class IsAdminMiddleware
             }
             return back();
         }
-        return redirect(route('login'));
+        $url = $request->url();
+        return redirect(route('login' , ['redirect' => $url]));
     }
 }

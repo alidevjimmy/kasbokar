@@ -12,43 +12,71 @@ class ContentController extends Controller
 
     public function show(Request $request, Content $content)
     {
+
         $request->validate([
             'type' => 'required|in:' . self::TYPES
         ]);
+        $canSee = [
+            'can' => true,
+            'why' => '',
+            'contents' => []
+        ];
+        $readed = false;
+        $pre = Content::where('type', 'STEP')
+            ->orWhere('type', 'EVENT')
+            ->orWhere('type', 'PREREQUISITES')
+            ->where('level', (string) ((int) $content->level - 1))
+            ->first();
+        $next = Content::where('type', 'STEP')
+            ->orWhere('type', 'EVENT')
+            ->orWhere('type', 'PREREQUISITES')
+            ->where('level', (string) ((int) $content->level + 1))
+            ->first();
         switch ($request->type) {
             case 'EVENT':
             case 'STEP':
                 if (!auth()->check()) {
-                    return back()->with([
-                        'status' => 'error',
-                        'work' => 'login',
-                        'message' => "برای دسترسی به این محتوا باید وارد شوید"
-                    ]);
+                    $canSee['can'] = false;
+                    $canSee['why'] = 'login';
+                    return view('pages.content', ['content' => $content, 'type' => $request->type, 'canSee' => $canSee, 'pre' => $pre, 'next' => $next ,'readed' => $readed]);
                 } else {
                     $user = auth()->user();
                     if ($user->level < $content->level) {
-                        return back()->with([
-                            'status' => 'error',
-                            'message' => "مرحله شما {$user->level} است ولی حداقل مرحله مورد نیاز {$content->level} است"
-                        ]);
+                        $canSee['can'] = false;
+                        $canSee['why'] = 'level';
+                        return view('pages.content', ['content' => $content, 'type' => $request->type, 'canSee' => $canSee, 'pre' => $pre, 'next' => $next ,'readed' => $readed]);
                     }
-                    $contents = Content::where('type', 'STEP')->orWhere('type' , 'EVENT')->orWhere('type' , 'PREREQUISITES')->where('level', '<', $content->level)->get();
-                    return $contents;
-                    foreach($contents as $c) {
-                        $userReadedContent = DB::table('user_content')->where('user_id' , $user->id)->where('content_id' , $c->_id)->first();
+                    $contents = Content::where('type', 'STEP')
+                        ->orWhere('type', 'EVENT')
+                        ->orWhere('type', 'PREREQUISITES')
+                        ->orWhere('shouldJobs', 'like', "%{$user->workStatus}%")
+                        ->where('level', '<', $content->level)
+                        ->get();
+                    $notReadedContents = [];
+                    foreach ($contents as $c) {
+                        $userReadedContent = DB::table('user_content')->where('user_id', $user->id)->where('content_id', $c->_id)->first();
                         if (!$userReadedContent) {
-                            return back()->with([
-                                'status' => 'error',
-                                'message' => $c->type == 'STEP' ? 'شما محتوای مرحله ای ' : ''
-                            ]);
+                            $notReadedContents[] = $c;
                         }
                     }
+                    if (count($notReadedContents) == 0) {
+                        $readed = DB::table('user_content')->where('user_id', auth()->user()->id)->where('content_id', $content->_id)->exists();
+                        return view('pages.content', ['content' => $content, 'type' => $request->type, 'canSee' => $canSee, 'pre' => $pre, 'next' => $next ,'readed' => $readed]);
+                    }
+                    $canSee['can'] = false;
+                    $canSee['why'] = 'content';
+                    $canSee['contents'] = $notReadedContents;
+                    return view('pages.content', ['content' => $content, 'type' => $request->type, 'canSee' => $canSee, 'pre' => $pre, 'next' => $next ,'readed' => $readed]);
                 }
                 break;
             case 'INTRODUCTION':
             case 'JANEBI':
+                return view('pages.content', ['content' => $content, 'type' => $request->type]);
             case 'PREREQUISITES':
-                return view('pages.content', compact('content'));
+                if (auth()->check()) {
+                    $readed = DB::table('user_content')->where('user_id', auth()->user()->id)->where('content_id', $content->_id)->exists();
+                }
+                return view('pages.content', ['content' => $content, 'type' => $request->type , 'pre' => $pre , 'next' => $next ,'readed' => $readed]);
                 break;
         }
     }
