@@ -11232,6 +11232,13 @@ input:hover {
     .footer {
         height : 100px !important;
     }
+    .i-more {
+        position: relative;
+        float: left;
+        left: 42px !important;
+        top: 5px;
+        color: #8e8e8e;
+    }
 }
 
 .dot-back {
@@ -11573,7 +11580,8 @@ a{
     display: block;
     text-align: center;
     margin: 0 auto 10px;
-    background-color: white
+    background-color: dodgerblue;
+    color : white !important;
 }
 
 .progressBar li:after {
@@ -11661,4 +11669,11 @@ a{
     background-color: #f1f3f8;
     text-align: center;
     line-height: 103px;
+}
+.i-more {
+    position: relative;
+    float: left;
+    left: 153px;
+    top: 5px;
+    color: #8e8e8e;
 }

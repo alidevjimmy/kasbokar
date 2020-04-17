@@ -95,12 +95,12 @@
 
     <div id="particle-canvas">
         <span style="font-size: 1.73333rem;top: 45px;" align="center" class="old-font text-white mt-2 font-weight-bold">
-            تو کارت حرفه ای شو
+            آموزش کارآفرینی برای همه
         </span>
         <section class="container" style="margin-top: 60px">
             <section class="row">
                 <form action="#" style="width: 100%" class="form-search">
-                    <input type="text" class="search-input" placeholder="جستوجو در بین چالش ها ، پیش نیاز ها و ...">
+                    <input type="text" class="search-input" placeholder="دنبال چیز خاصی میگردی؟ اینجا بگرد...">
                     <i class="material-icons-two-tone f-40 icon-search">search</i>
                 </form>
             </section>
@@ -133,7 +133,8 @@
                 <div class="container my-shadow" style="border-radius: 5px" dir="rtl">
                     <div class="row">
                         <div class="wrapper-progressBar">
-                            <h3 align="center" class='mt-4 mb-5 old-font'>موفقیت در کسب و کار در یک نگاه</h6>
+                            <h3 align="center" class='mt-4 mb-5 old-font'>سه قدم و خورده ای تا یادگیری کسب و کار</h6>
+                            <i class="material-icons-two-tone black-50 i-more">more_horiz</i>
                                 <ul class="progressBar">
                                     <?php
                                     if (auth()->check()) {
@@ -149,9 +150,11 @@
                                         $pres_count = -1;
                                     }
                                     ?>
-                                    <li class="{{ $checkPassAllPres ==  $pres_count ? 'active' : '' }}"><span class="step {{ $checkPassAllPres ==  $pres_count ? 'step-active' : '' }}">3</span>محتوای های مرحله ای و چالش ها رو تموم کنید</li>
-                                    <li class="{{ auth()->check() ? $checkPassAllPres ==  $pres_count ? 'success' : 'active': '' }}"><span class="step {{ auth()->check() ? 'step-active' : '' }}">2</span>پیش نیاز ها رو پشت سر بگذارید</li>
-                                    <li class="{{ auth()->check() ? 'success' : 'active' }}"><span class="step step-active">1</span>ثبت نام کنید</li>
+
+                                    <li class=""><span class="step step-active">3</span>چالش ها رو پشت سر بذارین و وارد مرحله بعدی بشید</li>
+                                    <li class=""><span class="step step-active">2</span>ببینید که چرا یادگیری کسب و کار؟</li>
+                                    <li class=""><span class="step step-active">1</span>ثبت نام کنید</li>
+                                    
                                 </ul>
                         </div>
                     </div>
@@ -164,7 +167,7 @@
     <section id="prerequisites" class="content-section">
         <div class="container">
             <div class="row">
-                <h4 class="font-weight-bold old-font" style="margin-right: 30px">پیش نیاز ها</h4>
+                <h4 class="font-weight-bold old-font" style="margin-right: 30px">چرا یادگیری کسب و کار؟</h4>
                 <div class="dot-back"></div>
                 <div class="owl-carousel owl-carousel2 owl-theme mt-4">
                     @foreach($pres as $pre)
@@ -199,7 +202,7 @@
     <section id="step" class="content-section">
         <div class="container">
             <div class="row">
-                <h4 class="font-weight-bold old-font" style="margin-right: 30px">چالش ها و محتوای مرحله ای</h4>
+                <h4 class="font-weight-bold old-font" style="margin-right: 30px">محتوای مرحله ای</h4>
                 <div class="dot-back"></div>
                 <div class="owl-carousel owl-carousel3 owl-theme mt-4">
                     @foreach($stepsAndEvents as $step)
@@ -254,7 +257,7 @@
     <section id="janebi" class="content-section">
         <div class="container">
             <div class="row">
-                <h4 class="font-weight-bold old-font" style="margin-right: 30px">محتوای جانبی / اخبار و حواشی</h4>
+                <h4 class="font-weight-bold old-font" style="margin-right: 30px">خرده نوشته ها</h4>
                 <div class="dot-back"></div>
                 <div class="owl-carousel owl-carousel4 owl-theme mt-4">
                     @foreach($janebies as $janebi)

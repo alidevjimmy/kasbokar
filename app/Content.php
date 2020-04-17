@@ -19,4 +19,9 @@ class Content extends Model
     {
         return $this->belongsToMany(User::class , 'user_content' , 'content_id' , 'user_id');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

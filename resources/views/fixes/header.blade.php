@@ -16,15 +16,13 @@
             <div class="d-none d-lg-block" id="navbarSupportedContent" style="width: 100%">
                 <ul class="navbar-nav mr-auto" style="width: 100%;place-content: center">
                     <li class="nav-item">
-                        <a class="nav-link top-links" href="#">پیش نیازها</a>
+                        <a class="nav-link top-links" href="#">چرا یادگیری کسب و کار؟</a>
                     </li><li class="nav-item">
-                        <a class="nav-link top-links" href="#">محتوای مرحله ای</a>
-                    </li><li class="nav-item">
-                        <a class="nav-link top-links" href="#">محتوای جانبی / حواشی</a>
-                    </li><li class="nav-item">
-                        <a class="nav-link top-links" href="#">چالش ها</a>
+                        <a class="nav-link top-links" href="#">برو به مرحله من</a>
                     </li><li class="nav-item">
                         <a class="nav-link top-links" href="#">معرفی کسب و کار ها</a>
+                    </li><li class="nav-item">
+                        <a class="nav-link top-links" href="#">خورده نوشته ها</a>
                     </li>
                 </ul>
             </div>
