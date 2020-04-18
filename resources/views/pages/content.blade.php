@@ -41,9 +41,9 @@
         </span>
     </div>
 </div>
-<div class="container mt-4 profile-div">
+<div class="container mt-4">
     <div class="row">
-        <div class="col-md-12 pt-4 pb-4">
+        <div class="col-md-8 pt-4 pb-4 profile-div">
             <div style="text-align:center;width:100%">
                 <h5 align="center" class="old-font" style="font-weight:bold">{{ $content->title }}</h5>
                 <i class="material-icons-two-tone" style="    font-size: 16px;
@@ -63,38 +63,19 @@
             @endsection
 
             <div style="width: 100%" class="video-div mt-3">
-                @auth
-                    <video id="my-video" class="video-js" controls preload="auto" width="640" height="264" poster="{{ $content->image }}" data-setup="{}">
-                        <source src="{{ asset($content->video) }}" type="video/mp4" />
-                        <source src="{{ asset($content->video) }}" type="video/webm" />
-                        <p class="vjs-no-js">
-                            برای مشاهده این ویدیو باید جاواسکرپت مرورگر خود را فعال کنید.
-                            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                        </p>
-                    </video>
-                @else
-                    <div class="cant-video">
-                        <i class="material-icons-two-tone f-40">
-                            videocam_off
-                        </i>
-                        <p style="font-weight: bold">
-                            برای مشاهده فیلم باید 
-                            <a href="{{ route('register' , ['redirect' => route('content.show' , ['content' => $content , 'type' => $type])]) }}" class="my-green-color">
-                                ثبت نام کنید</a> یا <a href="{{ route('login' , ['redirect' => route('content.show' , ['content' => $content , 'type' => $type])]) }}" class="my-green-color">وارد شوید</a>
-                        </p>
-                    </div>
-                @endauth
-                <div class="container mt-4">
-                    <p style="text-align: right">
-                        {{ $content->body }}
+                <video id="my-video" class="video-js" controls preload="auto" width="640" height="264" poster="{{ $content->image }}" data-setup="{}">
+                    <source src="{{ asset($content->video) }}" type="video/mp4" />
+                    <source src="{{ asset($content->video) }}" type="video/webm" />
+                    <p class="vjs-no-js">
+                        برای مشاهده این ویدیو باید جاواسکرپت مرورگر خود را فعال کنید.
+                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                     </p>
-                </div>
-                <div class="mt-5">
-                    <div class="custom-control custom-switch" dir="ltr">
-                        <input type="checkbox" class="custom-control-input" id="customSwitch1" {{ auth()->check() ? $readed ? 'checked' : '' : '' }}>
-                        <label class="custom-control-label old-font my-blue-color" style="font-weight:bold" for="customSwitch1">خوانده شد</label>
-
-                    </div>
+                </video>
+                <hr>
+                <div class="mt-4">
+                    <p style="text-align: right">
+                        {!! $content->body !!}
+                    </p>
                 </div>
             </div>
             @break
@@ -109,10 +90,19 @@
             @break
             @endswitch
         </div>
+        <div class="col-md-4 d-none d-sm-block">
+            <div class="profile-div">
+                <ul class="ul-cat p-0">
+                    @foreach($categories as $cat)
+                        <li class="li-cat"><a href="#!" class="f-12">{{ $cat->name }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="container mt-3 mb-5">
+<!-- <div class="container mt-3 mb-5">
     <div class="row">
         <div style="width: 50%">
             @if(isset($pre))
@@ -137,6 +127,6 @@
             @endif
         </div>
     </div>
-</div>
+</div> -->
 
 @endsection

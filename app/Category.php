@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    protected $fillable = ['image' , 'name' , 'level'];
+    use SoftDeletes;
+    protected $fillable = ['image' , 'name' , 'level' , 'body'];
     protected $table = 'categories';
     protected $connection = 'pgsql';
 

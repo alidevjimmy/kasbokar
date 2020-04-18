@@ -134,7 +134,7 @@
                     <div class="row">
                         <div class="wrapper-progressBar">
                             <h3 align="center" class='mt-4 mb-5 old-font'>سه قدم و خورده ای تا یادگیری کسب و کار</h6>
-                            <i class="material-icons-two-tone black-50 i-more">more_horiz</i>
+                                <i class="material-icons-two-tone black-50 i-more">more_horiz</i>
                                 <ul class="progressBar">
                                     <?php
                                     if (auth()->check()) {
@@ -154,7 +154,7 @@
                                     <li class=""><span class="step step-active">3</span>چالش ها رو پشت سر بذارین و وارد مرحله بعدی بشید</li>
                                     <li class=""><span class="step step-active">2</span>ببینید که چرا یادگیری کسب و کار؟</li>
                                     <li class=""><span class="step step-active">1</span>ثبت نام کنید</li>
-                                    
+
                                 </ul>
                         </div>
                     </div>
@@ -205,46 +205,34 @@
                 <h4 class="font-weight-bold old-font" style="margin-right: 30px">محتوای مرحله ای</h4>
                 <div class="dot-back"></div>
                 <div class="owl-carousel owl-carousel3 owl-theme mt-4">
-                    @foreach($stepsAndEvents as $step)
+                    @foreach($categories as $cat)
                     <div class="item step-item">
                         <div class="d-flex align-items-center">
-                            <div class="{{ auth()->check() ? in_array($step->_id , $contentsReadedId) ? 'open-or-not-check' : 'open-or-not' : 'open-or-not' }}">
+                            <div class="open-or-not">
                                 <i class="material-icons-two-tone">
                                     @auth
-                                    @if(auth()->user()->level >= $step->level)
-                                    @if(in_array($step->_id , $contentsReadedId))
-                                    check
+                                    @if(auth()->user()->level >= $cat->level)
+                                        lock_open
                                     @else
-                                    lock_open
-                                    @endif
-                                    @else
-                                    lock
-                                    @endif
-                                    @else
-                                    lock
+                                        lock
+                                    @endif    
                                     @endauth
                                 </i>
                             </div>
                             <div class="col-md-12">
-
                                 <div class="row">
-                                    <a href="{{ route('content.show' , ['content' => $step->_id , 'type' => $step->type]) }}">
-                                        <img style="border-radius: 5px 5px 0 0;height: 11rem;" src="{{ $step->type == 'STEP' ? $step->banerImage : $step->image }}" alt="{{ $step->title }}">
+                                    <a href="{{ route('content.search' , ['Nivel' => $cat->id]) }}">
+                                        <img style="border-radius: 5px 5px 0 0;height: 11rem;" src="{{ $cat->image }}" alt="{{ $cat->title }}">
                                     </a>
-                                    <h6 class="f-10 text-white content-title" style="background: white;
-    color: #333 !important;
-    font-weight: bold;
-    font-size: 12px !important;
-    border: 3px solid var(--pr-green);">{{ $step->type == 'STEP' ? 'محتوای مرحله ای' : 'چالش' }}</h6>
                                 </div>
                                 <div class="col-sm-12 col-md-12 mt-2" style="text-align: center">
-                                    <span class="my-blue-color f-12"> مرحله {{ $step->level }}</span>
+                                    <span class="my-blue-color f-12"> مرحله {{ $cat->level }}</span>
                                     <br>
-                                    <span class="font-weight-bold f-14 old-font">{{ $step->title }}</span>
+                                    <span class="font-weight-bold f-14 old-font">{{ $cat->title }}</span>
                                     <br>
                                     <br>
-                                    <p class="f-10">{{ \Str::limit($step->body , 70) }}</p>
-                                    <a href="{{ route('content.show' , ['content' => $step->_id , 'type' => $step->type]) }}" class="btn-more">مطالعه</a>
+                                    <p class="f-10">{{ \Str::limit($cat->body , 70) }}</p>
+                                    <a href="{{ route('content.search' , ['level' => $cat->id]) }}" class="btn-more">مطالعه</a>
                                 </div>
                             </div>
                         </div>

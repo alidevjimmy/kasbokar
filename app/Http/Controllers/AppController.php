@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Content;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ class AppController extends Controller
         $kasbokars = Content::where('type' , 'INTRODUCTION')->latest()->get();
         $janebies = Content::where('type' , 'JANEBI')->latest()->get();
         $pres = Content::where('type' , 'PREREQUISITES')->get();
-        $stepsAndEvents = Content::where('type' , 'STEP')->orWhere('type' , 'EVENT')->orderBy('level' , 'asc')->get();
+        $categories = Category::orderBy('level' , 'asc')->get();
         $contentsReadedId = [];
         if (auth()->check())
         {
@@ -27,7 +28,7 @@ class AppController extends Controller
         }
         return view('index' , [
             'kasbokars' => $kasbokars,
-            'stepsAndEvents' => $stepsAndEvents,
+            'categories' => $categories,
             'pres' => $pres,
             'contentsReadedId' => $contentsReadedId,
             'janebies' => $janebies

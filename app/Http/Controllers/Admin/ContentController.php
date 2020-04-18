@@ -35,7 +35,8 @@ class ContentController extends Controller
         $request->validate([
             'type' => "in:" . self::TYPES
         ]);
-        return view('admin.pages.content.create', ['type' => $request->type]);
+        $catagories = \App\Category::latest()->get();
+        return view('admin.pages.content.create', ['type' => $request->type, 'categories' => $catagories]);
     }
 
     /**
@@ -74,9 +75,10 @@ class ContentController extends Controller
      * @param \App\Content $content
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Request $request , Content $content)
+    public function edit(Request $request, Content $content)
     {
-        return view('admin.pages.content.edit', ['content' => $content , 'type' => $request->type]);
+        $categories = \App\Category::latest()->get();
+        return view('admin.pages.content.edit', ['content' => $content, 'type' => $request->type , 'categories' => $categories]);
     }
 
     /**
@@ -93,19 +95,19 @@ class ContentController extends Controller
         ]);
         switch ($request->type) {
             case 'EVENT':
-                return $this->updateEvent($content , $request);
+                return $this->updateEvent($content, $request);
                 break;
             case 'PREREQUISITES':
-                return $this->updatePrerequisites($content , $request);
+                return $this->updatePrerequisites($content, $request);
                 break;
             case 'STEP':
-                return $this->updateStep($content , $request);
+                return $this->updateStep($content, $request);
                 break;
             case 'INTRODUCTION':
-                return $this->updateIntroduction($content , $request);
+                return $this->updateIntroduction($content, $request);
                 break;
             case 'JANEBI':
-                return $this->updateJanebi($content , $request);
+                return $this->updateJanebi($content, $request);
                 break;
         }
     }
@@ -136,13 +138,19 @@ class ContentController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required',
-            'level' => 'required',
+            'category_id' => 'required',
             'body' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg'
+            'preImage' => 'required|mimes:jpg,png,jpeg',
+            'video' => 'required|mimes:mp4,wmv,mpg,flv'
         ]);
         $type = 'EVENT';
-        $image = $this->uploadImage($request, 'image');
-        $validatedData['image'] = $image;
+
+        
+        $preImage = $this->uploadImage($request, 'preImage');
+        $validatedData['preImage'] = $preImage;
+        $video = $this->uploadVideo($request, 'video');
+        $validatedData['video'] = $video;
+
         $validatedData['type'] = $type;
         Content::create($validatedData);
         return redirect(route('admin.content.index', ['type' => $type]))->with([
@@ -155,16 +163,15 @@ class ContentController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required',
-            'level' => 'required',
             'body' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg',
-            'video' => 'required|mimes:mp4,wmv,mpg,flv'
+            'video' => 'required|mimes:mp4,wmv,mpg,flv',
+            'image' => 'required|mimes:png,jpg,jpeg'
         ]);
         $type = 'PREREQUISITES';
-        $image = $this->uploadImage($request, 'image');
+        $image = $this->uploadImage($request , 'image');
         $video = $this->uploadVideo($request, 'video');
-        $validatedData['image'] = $image;
         $validatedData['video'] = $video;
+        $validatedData['image'] = $image;
         $validatedData['type'] = $type;
         Content::create($validatedData);
         return redirect(route('admin.content.index', ['type' => $type]))->with([
@@ -178,10 +185,9 @@ class ContentController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'shortText' => 'required',
-            'level' => 'required',
+            'category_id' => 'required',
             'body' => 'required',
             'shouldJobs' => 'array',
-            'image' => 'required|mimes:jpg,png,jpeg',
             'preImage' => 'required|mimes:jpg,png,jpeg',
             'banerImage' => 'required|mimes:jpg,png,jpeg',
             'video' => 'required|mimes:mp4,wmv,mpg,flv',
@@ -189,11 +195,10 @@ class ContentController extends Controller
         $shouldJobs = json_encode($request->shouldJobs);
         $validatedData['shouldJobs'] = $shouldJobs;
         $type = 'STEP';
-        $image = $this->uploadImage($request, 'image');
+        
         $preImage = $this->uploadImage($request, 'preImage');
         $banerImage = $this->uploadImage($request, 'banerImage');
         $video = $this->uploadVideo($request, 'video');
-        $validatedData['image'] = $image;
         $validatedData['preImage'] = $preImage;
         $validatedData['banerImage'] = $banerImage;
         $validatedData['video'] = $video;
@@ -211,17 +216,15 @@ class ContentController extends Controller
             'title' => 'required',
             'shortText' => 'required',
             'body' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg',
             'preImage' => 'required|mimes:jpg,png,jpeg',
             'banerImage' => 'required|mimes:jpg,png,jpeg',
             'video' => 'required|mimes:mp4,wmv,mpg,flv',
         ]);
         $type = 'JANEBI';
-        $image = $this->uploadImage($request, 'image');
+        
         $preImage = $this->uploadImage($request, 'preImage');
         $banerImage = $this->uploadImage($request, 'banerImage');
         $video = $this->uploadVideo($request, 'video');
-        $validatedData['image'] = $image;
         $validatedData['preImage'] = $preImage;
         $validatedData['banerImage'] = $banerImage;
         $validatedData['video'] = $video;
@@ -251,40 +254,19 @@ class ContentController extends Controller
         ]);
     }
 
-    protected function updateEvent($content , $request)
+    protected function updateEvent($content, $request)
     {
         $validatedData = $request->validate([
             'title' => 'required',
-            'level' => 'required',
+            'category_id' => 'required',
             'body' => 'required',
-            'image' => 'mimes:jpg,png,jpeg'
+            'preImage' => 'mimes:jpg,png,jpeg',
+            'video' => 'mimes:mp4,wmv,mpg,flv',
         ]);
         $type = 'EVENT';
-        if ($request->image) {
-            $image = $this->uploadImage($request, 'image');
-            $validatedData['image'] = $image;
-        }
-        $validatedData['type'] = $type;
-        $content->update($validatedData);
-        return redirect(route('admin.content.index', ['type' => $type]))->with([
-            'status' => 'success',
-            'message' => 'چالش ویرایش شد'
-        ]);
-    }
-
-    protected function updatePrerequisites($content , $request)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required',
-            'level' => 'required',
-            'body' => 'required',
-            'image' => 'mimes:jpg,png,jpeg',
-            'video' => 'mimes:mp4,wmv,mpg,flv'
-        ]);
-        $type = 'PREREQUISITES';
-        if ($request->image) {
-            $image = $this->uploadImage($request, 'image');
-            $validatedData['image'] = $image;
+        if ($request->preImage) {
+            $preImage = $this->uploadImage($request, 'preImage');
+            $validatedData['preImage'] = $preImage;
         }
         if ($request->video) {
             $video = $this->uploadVideo($request, 'video');
@@ -294,19 +276,43 @@ class ContentController extends Controller
         $content->update($validatedData);
         return redirect(route('admin.content.index', ['type' => $type]))->with([
             'status' => 'success',
+            'message' => 'چالش ویرایش شد'
+        ]);
+    }
+
+    protected function updatePrerequisites($content, $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'video' => 'mimes:mp4,wmv,mpg,flv',
+            'image' => 'mimes:jpeg,png,jpg'
+        ]);
+        $type = 'PREREQUISITES';
+        if ($request->video) {
+            $video = $this->uploadVideo($request, 'video');
+            $validatedData['video'] = $video;
+        }
+        if ($request->image) {
+            $image = $this->uploadImage($request, 'image');
+            $validatedData['image'] = $image;
+        }
+        $validatedData['type'] = $type;
+        $content->update($validatedData);
+        return redirect(route('admin.content.index', ['type' => $type]))->with([
+            'status' => 'success',
             'message' => 'پیش نیاز ویرایش شد'
         ]);
     }
 
-    protected function updateStep($content , $request)
+    protected function updateStep($content, $request)
     {
         $validatedData = $request->validate([
             'title' => 'required',
             'shortText' => 'required',
-            'level' => 'required',
+            'category_id' => 'required',
             'body' => 'required',
             'shouldJobs' => 'array',
-            'image' => 'mimes:jpg,png,jpeg',
             'preImage' => 'mimes:jpg,png,jpeg',
             'banerImage' => 'mimes:jpg,png,jpeg',
             'video' => 'mimes:mp4,wmv,mpg,flv',
@@ -314,10 +320,6 @@ class ContentController extends Controller
         $shouldJobs = json_encode($request->shouldJobs);
         $validatedData['shouldJobs'] = $shouldJobs;
         $type = 'STEP';
-        if ($request->image) {
-            $image = $this->uploadImage($request, 'image');
-            $validatedData['image'] = $image;
-        }
         if ($request->preImage) {
             $preImage = $this->uploadImage($request, 'preImage');
             $validatedData['preImage'] = $preImage;
@@ -338,22 +340,17 @@ class ContentController extends Controller
         ]);
     }
 
-    protected function updateJanebi($content , $request)
+    protected function updateJanebi($content, $request)
     {
         $validatedData = $request->validate([
             'title' => 'required',
             'shortText' => 'required',
             'body' => 'required',
-            'image' => 'mimes:jpg,png,jpeg',
             'preImage' => 'mimes:jpg,png,jpeg',
             'banerImage' => 'mimes:jpg,png,jpeg',
             'video' => 'mimes:mp4,wmv,mpg,flv',
         ]);
         $type = 'JANEBI';
-        if ($request->image) {
-            $image = $this->uploadImage($request, 'image');
-            $validatedData['image'] = $image;
-        }
         if ($request->preImage) {
             $preImage = $this->uploadImage($request, 'preImage');
             $validatedData['preImage'] = $preImage;
@@ -374,7 +371,7 @@ class ContentController extends Controller
         ]);
     }
 
-    protected function updateIntroduction($content , $request)
+    protected function updateIntroduction($content, $request)
     {
         $validatedData = $request->validate([
             'title' => 'required',
@@ -394,7 +391,7 @@ class ContentController extends Controller
         ]);
     }
 
-    protected function uploadImage($request, $fieldName)
+    public function uploadImage($request, $fieldName)
     {
         $fileName = time() . '_' . $fieldName . '.' . $request->file($fieldName)->extension();
         $request->file($fieldName)->move(public_path('uploads/images'), $fileName);

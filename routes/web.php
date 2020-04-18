@@ -26,10 +26,13 @@ Route::group([
 
     Route::get('/index' , 'AdminController@index')->name('index');
     Route::resource('/content' , 'ContentController');
+    Route::resource('/category' , 'CategoryController');
     Route::get('/whichContent' , 'ContentController@whichContent')->name('whichContent');
+    Route::post('/uploadImage' , 'UploadController@uploadImage')->name('upload.image');
 });
 
 
 Route::get('/profile/{user}' , 'UserController@profile')->name('profile')->middleware('auth');
 Route::post('/profile/{user}/edit' , 'UserController@userUpdate')->name('profile.edit')->middleware('auth');
 Route::get('/content/{content}' , 'ContentController@show')->name('content.show');
+Route::get('/s' , 'ContentController@search')->name('content.search');

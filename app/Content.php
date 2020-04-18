@@ -24,4 +24,17 @@ class Content extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeSearch($query , $input) 
+    {
+        if (isset($input['Nivel']) && !empty($input['Nivel'])) {
+            $query->where('category_id' , (integer)$input['Nivel']);
+        }
+        if (isset($input['type']) && !empty($input['type'])) {
+            $query->where('type' , $input['type']);
+        }
+        if (isset($input['search']) && !empty($input['search'])) {
+            $query->where('title' , 'LIKE' , '%'.$input['search'].'%');
+        }
+    }
 }

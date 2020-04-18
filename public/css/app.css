@@ -11660,7 +11660,7 @@ a{
     text-align: -webkit-center;
 }
 .video-div video {
-    max-width: 100%;
+    width: 100%;
 }
 
 .cant-video {
@@ -11676,4 +11676,27 @@ a{
     left: 153px;
     top: 5px;
     color: #8e8e8e;
+}
+p img {
+    width: auto!important;
+    height: auto!important;
+    max-width: 100%;
+}
+
+.ul-cat {
+    width: 100%;
+}
+
+.li-cat{
+    width: 100%;
+    list-style-type: none;
+    border-bottom: 1px solid #f1f3f8;
+    padding: 10px 0;
+}
+.li-cat:hover {
+    background-color: #f1f3f8;
+}
+.li-cat a{
+    padding: 20px;
+    height: 100%;
 }
