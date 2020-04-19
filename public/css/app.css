@@ -11700,3 +11700,20 @@ p img {
     padding: 20px;
     height: 100%;
 }
+.div-cat {
+    /* padding: 10px; */
+}
+
+.alert-danger {
+    color: white  !important;
+    background-color: #ff9800 !important;
+    border: 0 !important;
+
+}
+.video-js {
+    width: 100%;
+}
+
+.vjs-theme-forest .vjs-big-play-button {
+    color : transparent !important;
+}

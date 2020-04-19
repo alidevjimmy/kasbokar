@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Category;
 use App\Content;
 use Illuminate\Http\Request;
@@ -13,7 +14,6 @@ class ContentController extends Controller
 
     public function show(Request $request, Content $content)
     {
-
         $request->validate([
             'type' => 'required|in:' . self::TYPES
         ]);
@@ -22,7 +22,6 @@ class ContentController extends Controller
             'why' => '',
             'contents' => []
         ];
-        $readed = false;
         $categories = Category::orderBy('level', 'asc')->get();
         switch ($request->type) {
             case 'EVENT':
@@ -38,41 +37,22 @@ class ContentController extends Controller
                     ->where('level', (string) ((int) $content->level + 1))
                     ->first();
                 if (!auth()->check()) {
-                    $canSee['can'] = false;
-                    $canSee['why'] = 'login';
-                    return view('pages.content', ['content' => $content, 'type' => $request->type, 'canSee' => $canSee, 'pre' => $pre, 'next' => $next, 'readed' => $readed]);
-                } else {
-                    $user = auth()->user();
-                    if ($user->level < $content->level) {
-                        $canSee['can'] = false;
-                        $canSee['why'] = 'level';
-                        return view('pages.content', ['content' => $content, 'type' => $request->type, 'canSee' => $canSee, 'pre' => $pre, 'next' => $next, 'readed' => $readed]);
-                    }
-                    $contents = Content::where('type', 'STEP')
-                        ->orWhere('type', 'EVENT')
-                        ->orWhere('type', 'PREREQUISITES')
-                        ->orWhere('shouldJobs', 'like', "%{$user->workStatus}%")
-                        ->where('level', '<', $content->level)
-                        ->get();
-                    $notReadedContents = [];
-                    foreach ($contents as $c) {
-                        $userReadedContent = DB::table('user_content')->where('user_id', $user->id)->where('content_id', $c->_id)->first();
-                        if (!$userReadedContent) {
-                            $notReadedContents[] = $c;
-                        }
-                    }
-                    if (count($notReadedContents) == 0) {
-                        $readed = DB::table('user_content')->where('user_id', auth()->user()->id)->where('content_id', $content->_id)->exists();
-                        return view('pages.content', ['content' => $content, 'type' => $request->type, 'canSee' => $canSee, 'pre' => $pre, 'next' => $next, 'readed' => $readed]);
-                    }
-                    $canSee['can'] = false;
-                    $canSee['why'] = 'content';
-                    $canSee['contents'] = $notReadedContents;
-                    return view('pages.content', ['content' => $content, 'type' => $request->type, 'canSee' => $canSee, 'pre' => $pre, 'next' => $next, 'readed' => $readed]);
+                    return redirect(route('login' , ['redirect' => route('content.show' , ['type' => $content->type , 'content' => $content])]))->with([
+                        'status' => 'error',
+                        'message' => 'برای دسترسی باید ثبت نام کنید'
+                    ]);
                 }
+                $user = auth()->user();
+                if($user->level < $content->category->level) {
+                    return back()->with([
+                        'status' => 'error',
+                        'message' => " مرحله شما باید ".  $content->category->level  ." یا بیشتر باشد "
+                    ]); 
+                }
+                return view('pages.content', ['content' => $content, 'type' => $request->type, 'categories' => $categories]);
                 break;
             case 'INTRODUCTION':
-            case 'JANEBI':
+            case 'JANEBI':  
                 return view('pages.content', ['content' => $content, 'type' => $request->type]);
             case 'PREREQUISITES':
                 return view('pages.content', ['content' => $content, 'type' => $request->type, 'categories' => $categories]);
@@ -82,5 +62,26 @@ class ContentController extends Controller
     public function search(Request $request)
     {
         return Content::search($request->all())->get();
+    }
+
+    public function categoryShow(Request $request , Category $category) 
+    {
+        $catContents = Content::where('category_id' , $category->id)->whereIn('type' , ['EVENT' , 'STEP'])->get();
+        return view('pages.category' , ['catContents' => $catContents , 'category' => $category]);
+    }
+
+    public function saveAnswer(Request $request)
+    {
+        $validatedData = $request->validate([
+            'content_id' => 'required',
+            'answer' => 'required'
+        ]);
+        $content = Content::findOrFail($request->content_id);
+        $validatedData['user_id'] = auth()->user()->id;
+        Answer::create($validatedData);
+        return redirect(route('content.show' , ['content' => $content , 'type' => $content->type]))->with([
+            'status' => 'success',
+            'message' => 'پاسخ شما ارسال شد . شما می توانید در پروفایل خود پاسخ ها را مشاهده کنید'
+        ]);
     }
 }

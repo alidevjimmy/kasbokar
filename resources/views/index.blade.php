@@ -216,12 +216,14 @@
                                     @else
                                         lock
                                     @endif    
+                                    @else
+                                        lock   
                                     @endauth
                                 </i>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
-                                    <a href="{{ route('content.search' , ['Nivel' => $cat->id]) }}">
+                                    <a href="{{ route('category.show' , ['category' => $cat->id]) }}">
                                         <img style="border-radius: 5px 5px 0 0;height: 11rem;" src="{{ $cat->image }}" alt="{{ $cat->title }}">
                                     </a>
                                 </div>
@@ -232,7 +234,7 @@
                                     <br>
                                     <br>
                                     <p class="f-10">{{ \Str::limit($cat->body , 70) }}</p>
-                                    <a href="{{ route('content.search' , ['level' => $cat->id]) }}" class="btn-more">مطالعه</a>
+                                    <a href="{{ route('category.show' , ['category' => $cat->id]) }}" class="btn-more">مطالعه</a>
                                 </div>
                             </div>
                         </div>
@@ -267,7 +269,7 @@
                                     <span class="font-weight-bold f-14 old-font">{{ $janebi->title }}</span>
                                     <br>
                                     <br>
-                                    <p class="f-10">{{ \Str::limit($janebi->body , 70) }}</p>
+                                    <p class="f-10">{{ \Str::limit($janebi->shortText , 70) }}</p>
                                 </div>
                             </div>
                         </div>

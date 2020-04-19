@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class CreateReplaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('replays', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('level');
-            $table->string('image');
+            $table->text('replay');
+            $table->unsignedBigInteger('answer_id');
+            $table->foreign('answer_id')->references('id')->on('answers')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('replays');
     }
 }

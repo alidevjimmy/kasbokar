@@ -16,13 +16,14 @@
             <div class="d-none d-lg-block" id="navbarSupportedContent" style="width: 100%">
                 <ul class="navbar-nav mr-auto" style="width: 100%;place-content: center">
                     <li class="nav-item">
-                        <a class="nav-link top-links" href="#">چرا یادگیری کسب و کار؟</a>
+                        <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'PREREQUISITES']) }}">چرا یادگیری کسب و کار؟</a>
                     </li><li class="nav-item">
-                        <a class="nav-link top-links" href="#">برو به مرحله من</a>
+                        <a class="nav-link top-links" href="/redirectToPath">برو به مرحله من</a>
                     </li><li class="nav-item">
-                        <a class="nav-link top-links" href="#">معرفی کسب و کار ها</a>
+                        
+                        <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'PREREQUISITES']) }}">معرفی کسب و کار ها</a>
                     </li><li class="nav-item">
-                        <a class="nav-link top-links" href="#">خورده نوشته ها</a>
+                        <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'JANEBI']) }}">خورده نوشته ها</a>
                     </li>
                 </ul>
             </div>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-{{ $content->title }}
+    جستوجو
 @endsection
 @section('back-icon')
 <button onclick="return history.go(-1)" class="back-icon d-sm-block d-md-none">
@@ -35,15 +35,6 @@
             };
             ?>
         </a>
-        @switch($content->type)
-        @case('STEP')
-        @case('EVENT')
-        <i class="material-icons" style="position: relative;top: 10px">keyboard_arrow_left</i>
-        <a href="{{ route('category.show' , ['category' => $content->category->id]) }}">
-            مرحله {{ $content->category->level }} - {{ $content->category->name }}
-        </a>
-        @break
-        @endswitch
         <i class="material-icons" style="position: relative;top: 10px">keyboard_arrow_left</i>
         <span>
             {{ $content->title }}
@@ -72,7 +63,7 @@
             @endsection
 
             <div style="width: 100%" class="video-div mt-3">
-                <video id="my-video" class="video-js vjs-theme-forest" controls preload="auto" width="640" height="264" poster="{{ $content->image }}" data-setup="{}">
+                <video id="my-video" class="video-js" controls preload="auto" width="640" height="264" poster="{{ $content->image }}" data-setup="{}">
                     <source src="{{ asset($content->video) }}" type="video/mp4" />
                     <source src="{{ asset($content->video) }}" type="video/webm" />
                     <p class="vjs-no-js">
@@ -89,55 +80,7 @@
             </div>
             @break
             @case('STEP')
-            @section('style')
-            <link href="{{ asset('/css/videojs.css') }}" rel="stylesheet">
-            @endsection
-            @section('script')
-            <script type="text/javascript" src="{{ asset('/js/videojs.js') }}"></script>
-            <script type="text/javascript">
-                window.HELP_IMPROVE_VIDEOJS = false;
-                var options = {
-                    autoplayfalse : false,
-                };
 
-                var player = videojs('my-video', options, function onPlayerReady() {
-                    videojs.log('Your player is ready!');
-
-                    // In this context, `this` is the player that was created by Video.js.
-                    this.play();
-
-                    // How about an event listener?
-                    this.on('ended', function() {
-                        videojs.log('Awww...over so soon?!');
-                    });
-                });
-            </script>
-            @endsection
-            <div style="width: 100%" class="video-div mt-3">
-                <video id="my-video" class="video-js vjs-theme-forest" controls preload="auto" width="640" height="264" poster="{{ $content->preImage }}" data-setup="{}">
-                    <source src="{{ asset($content->video) }}" type="video/mp4" />
-                    <source src="{{ asset($content->video) }}" type="video/webm" />
-                    <p class="vjs-no-js">
-                        برای مشاهده این ویدیو باید جاواسکرپت مرورگر خود را فعال کنید.
-                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                    </p>
-                </video>
-                <hr>
-                <div class="mt-4">
-                    <p style="text-align: right">
-                        {!! $content->body !!}
-                    </p>
-                </div>
-                <hr>
-                <h6 align="center" class="my-blue-color">ارسال پاسخ</h6>
-                <br>
-                <form action="{{ route('save.answer' , ['content_id' => $content->id]) }}" method="post" class="form-group">
-                    @csrf
-                    <textarea class="form-control" name="answer" id="answer" cols="30" rows="10" placeholder="پاسخ خود را تایپ کنید"></textarea>
-                    <br>
-                    <button type="submit" class="btn-back float-left">ارسال</button>
-                </form>
-            </div>
             @break
             @case('INTRODUCTION')
 
@@ -151,7 +94,7 @@
             <div class="profile-div">
                 <ul class="ul-cat p-0">
                     @foreach($categories as $cat)
-                    <li class="li-cat"><a href="{{ route('category.show' , ['category' => $cat->id]) }}" class="f-12">{{ $cat->name }}</a></li>
+                        <li class="li-cat"><a href="#!" class="f-12">{{ $cat->name }}</a></li>
                     @endforeach
                 </ul>
             </div>
@@ -185,5 +128,5 @@
         </div>
     </div>
 </div> -->
-<div style="height: 100px"></div>
+
 @endsection

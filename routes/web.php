@@ -11,6 +11,8 @@
 |
 */
 
+use App\Category;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'AppController@index')->name('index');
@@ -36,3 +38,15 @@ Route::get('/profile/{user}' , 'UserController@profile')->name('profile')->middl
 Route::post('/profile/{user}/edit' , 'UserController@userUpdate')->name('profile.edit')->middleware('auth');
 Route::get('/content/{content}' , 'ContentController@show')->name('content.show');
 Route::get('/s' , 'ContentController@search')->name('content.search');
+Route::get('/category/{category}' , 'ContentController@categoryShow')->name('category.show');
+Route::get('/redirectToPath' , function () {
+    if (auth()->check()) {
+        $user = auth()->user();
+        $cat = Category::where('level' , $user->level)->first();
+        return redirect(route('category.show' , ['category' => $cat]));
+    } 
+    else {
+        return redirect(route('login' , ['redirect' => '/redirectToPath']));
+    }
+});
+Route::post('/save/answer' , 'ContentController@saveAnswer')->name('save.answer')->middleware('auth');

@@ -77,14 +77,6 @@ switch ($type) {
                 </span>
                 @enderror
                 <br>
-                <label for="image">تصویر :</label>
-                <input name="image" value="{{ old('image') }}" type="file" class="form-control-file @error('image') is-invalid @enderror" id="image">
-                @error('image')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-                <br>
                 <label for="video">فیلم :</label>
                 <input name="video" value="{{ old('video') }}" type="file" class="form-control-file @error('video') is-invalid @enderror" id="video">
                 @error('video')
@@ -218,14 +210,7 @@ switch ($type) {
                 </span>
                 @enderror
                 <br>
-                <label for="image">تصویر:</label>
-                <input name="image" value="{{ old('image') }}" type="file" class="form-control-file @error('image') is-invalid @enderror" id="image">
-                @error('image')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-                <br>
+        
                 <label for="banerImage">تصویر بنر:</label>
                 <input name="banerImage" value="{{ old('banerImage') }}" type="file" class="form-control-file @error('banerImage') is-invalid @enderror" id="banerImage">
                 @error('banerImage')
@@ -301,14 +286,6 @@ switch ($type) {
                 <label for="preImage">تصویر پیش نمایش فیلم:</label>
                 <input name="preImage" value="{{ old('preImage') }}" type="file" multiple class="form-control-file @error('preImage') is-invalid @enderror" id="preImage">
                 @error('preImage')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-                <br>
-                <label for="image">تصویر:</label>
-                <input name="image" value="{{ old('image') }}" type="file" class="form-control-file @error('image') is-invalid @enderror" id="image">
-                @error('image')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

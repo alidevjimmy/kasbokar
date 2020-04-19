@@ -2,38 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Content;
+use App\Replay;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function profile(Request $request , User $user)
+    public function profile(Request $request, User $user)
     {
         $request->validate([
             'page' => 'required|in:myInformation,readedContent,myAnswers,myReplays'
         ]);
+        $user = auth()->user();
         $readedContents = [];
-        if ($request->page == 'readedContent') {
-            $contentIds = DB::table('user_content')->select('content_id')->where('user_id' , $user->id)->where('read' , true)->get();
-            $ids = [];
-            foreach ($contentIds as $ci) {
-                $ids[] = $ci->content_id;
-            }
-            $readedContents =  Content::latest()->findMany($ids);
+        $myAnswers = [];
+        switch ($request->page) {
+            case 'myInformation':
+                return view('pages.profile', ['user' => $user, 'page' => $request->page]);
+                break;
+            case 'readedContent':
+                $contentIds = DB::table('user_content')->select('content_id')->where('user_id', $user->id)->where('read', true)->get();
+                $ids = [];
+                foreach ($contentIds as $ci) {
+                    $ids[] = $ci->content_id;
+                }
+                $readedContents =  Content::latest()->findMany($ids);
+                return view('pages.profile', ['user' => $user, 'page' => $request->page, 'readedContents' => $readedContents]);
+                break;
+            case 'myAnswers':
+                return Answer::find(1)->content;
+                $myAnswers = Answer::where('user_id', $user->id)->get();
+                return view('pages.profile', ['user' => $user, 'page' => $request->page, 'myAnswers' => $myAnswers]);
+                break;
         }
-        return view('pages.profile', ['user' => $user , 'page' => $request->page , 'readedContents' => $readedContents]);
     }
 
-    public function userUpdate(Request $request , User $user)
+    public function userUpdate(Request $request, User $user)
     {
         $validatedDate = $request->validate([
             'fullName' => ['required', 'string', 'max:255'],
             'workStatus' => ['required', 'string']
         ]);
         $user->update($validatedDate);
-        return redirect(route('profile' , ['user' => $user , 'page' => 'myInformation']))->with([
+        return redirect(route('profile', ['user' => $user, 'page' => 'myInformation']))->with([
             'status' => 'success',
             'message' => 'اطلاعات با موفقیت ویرایش شد'
         ]);

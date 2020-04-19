@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +15,11 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     @yield('style')
+    <!-- <script language="JavaScript">
+        document.oncontextmenu = new Function("return false;")
+    </script> -->
 </head>
+
 <body>
     <div class="splash-screen" style="text-align: center">
         <div class="splash-logo">
@@ -24,12 +29,12 @@
         @include('fixes.header')
         @yield('canvas')
         @if(session('status') && session('message'))
-            <div class="alert {{ session('status') == 'success' ? 'alert-success' : 'alert-danger' }} alert-dismissible fade show" role="alert">
-                <span class="old-font f-14">{{ session('message') }}</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <div class="alert {{ session('status') == 'success' ? 'alert-success' : 'alert-danger' }} alert-dismissible fade show" role="alert">
+            <span class="old-font f-14">{{ session('message') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         @endif
         @yield('content')
         @include('fixes.footer')
@@ -37,13 +42,14 @@
 
     <script type="text/javascript" src="{{ '/js/jquery.min.js' }}"></script>
     <script type="text/javascript" src="{{ '/js/bootstrap.bundle.min.js' }}"></script>
-@yield('script')
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.splash-screen').css({
-            display : 'none'
+    @yield('script')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.splash-screen').css({
+                display: 'none'
+            })
         })
-    })
-</script>
+    </script>
 </body>
+
 </html>

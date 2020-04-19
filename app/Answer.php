@@ -10,10 +10,20 @@ class Answer extends Model
     use SoftDeletes;
     protected $connection = 'pgsql';
     protected $table = 'answers';
-    protected $fillable = ['user_id' , 'content_id' , 'answer' , 'replay' , 'accepted'];
+    protected $fillable = ['user_id' , 'content_id' , 'answer' , 'accepted'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function replays()
+    {
+        return $this->hasMany(Replay::class);
+    }
+
+    public function content()
+    {
+        return $this->belongsTo(Content::class , 'content_id' , '_id');
     }
 }
