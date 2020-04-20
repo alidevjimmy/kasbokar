@@ -18,7 +18,6 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->integer('level');
             $table->string('image');
-            // $table->softDeletes();
             $table->timestamps();
         });
     }
