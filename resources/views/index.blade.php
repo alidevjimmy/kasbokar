@@ -230,7 +230,7 @@
                                 <div class="col-sm-12 col-md-12 mt-2" style="text-align: center">
                                     <span class="my-blue-color f-12"> مرحله {{ $cat->level }}</span>
                                     <br>
-                                    <span class="font-weight-bold f-14 old-font">{{ $cat->name }}</span>
+                                    <span class="font-weight-bold f-14 old-font">{{ \Str::limit($cat->name , 30 ) }}</span>
                                     <br>
                                     <br>
                                     <p class="f-10">{{ \Str::limit($cat->body , 70) }}</p>
