@@ -6,13 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
-    use HybridRelations;
     protected $connection = 'pgsql';
     protected $table = 'users';
     /**

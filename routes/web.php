@@ -29,8 +29,13 @@ Route::group([
     Route::get('/index' , 'AdminController@index')->name('index');
     Route::resource('/content' , 'ContentController');
     Route::resource('/category' , 'CategoryController');
+    Route::resource('/answer' , 'RepAndAnswerController');
     Route::get('/whichContent' , 'ContentController@whichContent')->name('whichContent');
     Route::post('/uploadImage' , 'UploadController@uploadImage')->name('upload.image');
+    Route::post('/answer/{answer}' , 'RepAndAnswerController@update')->name('answer.update');
+    Route::delete('/replay/{replay}' , 'RepAndAnswerController@destroy')->name('replay.destroy');
+    Route::get('/replay/{replay}/edit' , 'RepAndAnswerController@editReplay')->name('replay.edit');
+    Route::patch('/replay/{replay}' , 'RepAndAnswerController@updateReplay')->name('replay.update');
 });
 
 

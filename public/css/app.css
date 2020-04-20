@@ -11717,3 +11717,27 @@ p img {
 .vjs-theme-forest .vjs-big-play-button {
     color : transparent !important;
 }
+.div-rep {
+    background-color: white;
+    padding: 10px;
+}
+.ans-status {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.66667;
+    color: var(--pr-blue);
+    background-color: #fafafc;
+    padding: 7px 16px;
+    border-radius: 50px;
+    float: left;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+.ans-border {
+    border: 3px solid var(--pr-green);
+    padding-top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 12px;
+}

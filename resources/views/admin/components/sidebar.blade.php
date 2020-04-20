@@ -71,7 +71,30 @@
         </div>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
-
+    <div class="sidebar-heading">
+        Answer And Replays
+    </div>
+    <li class="nav-item">
+        <a class="nav-link collapsed d-none d-md-block" href="" data-toggle="collapse" data-target="#collapseTwo2"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-list-alt"></i>
+            <span>پاسخ ها</span>
+        </a>
+        <div class="d-md-none">
+            <a class="nav-link collapsed" href="">
+                <i class="fas fa-microphone"></i>
+                <span>پاسخ ها</span>
+            </a>
+        </div>
+        <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">مدیریت پاسخ ها :</h6>
+                <a class="collapse-item" href="{{ route('admin.answer.index' , ['type' => 'ANSWER']) }}"> همه پاسخ های ارسال شده</a>
+                <a class="collapse-item" href="{{ route('admin.answer.index' , ['type' => 'REPLAY']) }}">همه پاسخ های ادمین</a>
+            </div>
+        </div>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>

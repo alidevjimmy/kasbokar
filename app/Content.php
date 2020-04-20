@@ -37,4 +37,9 @@ class Content extends Model
             $query->where('title' , 'LIKE' , '%'.$input['search'].'%');
         }
     }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class , 'content_id' , '_id');
+    }
 }

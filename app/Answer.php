@@ -24,6 +24,6 @@ class Answer extends Model
 
     public function content()
     {
-        return $this->belongsTo(Content::class , 'content_id' , '_id');
+        return $this->belongsTo(Content::class);
     }
 }

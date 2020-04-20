@@ -9,7 +9,7 @@ class Replay extends Model
 {
     use SoftDeletes;
     protected $fillable = ['replay' , 'answer_id'];
-    protected $table = 'categories';
+    protected $table = 'replays';
     protected $connection = 'pgsql';
 
     public function answer()

@@ -14,7 +14,7 @@ class UserController extends Controller
     public function profile(Request $request, User $user)
     {
         $request->validate([
-            'page' => 'required|in:myInformation,readedContent,myAnswers,myReplays'
+            'page' => 'required|in:myInformation,readedContent,myAnswers'
         ]);
         $user = auth()->user();
         $readedContents = [];
@@ -33,8 +33,9 @@ class UserController extends Controller
                 return view('pages.profile', ['user' => $user, 'page' => $request->page, 'readedContents' => $readedContents]);
                 break;
             case 'myAnswers':
-                return Answer::find(1)->content;
-                $myAnswers = Answer::where('user_id', $user->id)->get();
+                $myAnswers = Content::whereHas('answers' , function($q) use($user) {
+                                            $q->where('user_id' , $user->id);
+                })->with('answers')->get();
                 return view('pages.profile', ['user' => $user, 'page' => $request->page, 'myAnswers' => $myAnswers]);
                 break;
         }

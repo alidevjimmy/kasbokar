@@ -80,7 +80,7 @@ switch ($type) {
 
                                     <td><a href="{{ asset($content->video) }}" target="_blank">فیلم</a></td>
                                     <td><img src="{{ asset($content->preImage) }}" alt="تصویر" width="100" height="100" width="100" height="100" /></td>
-                                    <td><a class="btn btn-primary" href="!#">مشاهده</a></td>
+                                    <td><a class="btn btn-primary" href="{{ route('admin.answer.index' , ['type' => 'ANSWER' , 'filter' => $content->id]) }}">مشاهده</a></td>
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('admin.content.edit' , ['content' => $content->id , 'type' => $type]) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
