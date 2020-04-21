@@ -46,7 +46,7 @@ class User extends Authenticatable
     }
     public function contents()
     {
-        return $this->belongsToMany(Content::class , 'user_content' , 'user_id' , 'content_id');
+        return $this->belongsToMany(Content::class);
     }
 
     public function scopeIsActive($query)

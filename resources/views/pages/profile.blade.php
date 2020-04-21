@@ -28,6 +28,7 @@
                     <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'readedContent']) }}" class="{{ $page == 'readedContent' ? 'profile-page' : null }}">محتواهای خوانده شده</a>
                     </li>
                     <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myAnswers']) }}" class="{{ $page == 'myAnswers' ? 'profile-page' : null }}">مشاهده پاسخ ها</a></li>
+                    <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'resume']) }}" class="{{ $page == 'resume' ? 'profile-page' : null }}">رزومه</a></li>
                 </ul>
             </div>
             <div class="col-md-12 mt-5">
@@ -182,6 +183,9 @@
                     <br>
                 </div>
                 @endif
+                @break
+                @case('resume')
+                    رزومه من
                 @break
                 @endswitch
             </div>
