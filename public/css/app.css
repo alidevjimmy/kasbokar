@@ -11751,3 +11751,11 @@ p img {
     top: 0;
     right: -16px;
 }
+hr {
+    border-top : 5px #F1F3F8 dotted !important;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    border-color: var(--pr-green);
+    background-color: var(--pr-green);
+}

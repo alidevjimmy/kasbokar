@@ -18,9 +18,10 @@ class AppController extends Controller
         $contentsReadedId = [];
         if (auth()->check())
         {
-            $user = auth()->user();
+            $user = auth()->user(); 
             $user_contents = DB::table('user_content')
                 ->where('user_id' , $user->id)
+                ->where('read' , true)
                 ->get();
             foreach ($user_contents as $uc) {
                 $contentsReadedId[] = $uc->content_id;

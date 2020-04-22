@@ -53,7 +53,7 @@
                             <?php
                             $contentReaded = null;
                             if (auth()->check()) {
-                                $contentReaded = Illuminate\Support\Facades\DB::table('user_content')->where('user_id', auth()->user()->id)->where('content_id', $c->id)->exists();
+                                $contentReaded = Illuminate\Support\Facades\DB::table('user_content')->where('user_id', auth()->user()->id)->where('content_id', $c->id)->where('read' , true)->exists();
                             }
                             ?>
                             @if($contentReaded)

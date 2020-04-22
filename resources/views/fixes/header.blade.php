@@ -44,7 +44,7 @@
                             </button>
                         </form>
                     @else
-                        <a class="dropdown-item drop-down-item" href="{{ route('login') }}"><i class="material-icons-two-tone partner-icon">person_outline</i>ورود </a>
+                        <a class="dropdown-item drop-down-item" href="{{ route('login' , ['redirect' => \Request::getRequestUri() ]) }}"><i class="material-icons-two-tone partner-icon">person_outline</i>ورود </a>
                         <a class="dropdown-item drop-down-item" href="{{ route('register') }}"><i class="material-icons-two-tone partner-icon">person_add</i>ثبت نام </a>
                     @endauth
                 </div>

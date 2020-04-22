@@ -47,11 +47,12 @@ Route::get('/category/{category}' , 'ContentController@categoryShow')->name('cat
 Route::get('/redirectToPath' , function () {
     if (auth()->check()) {
         $user = auth()->user();
-        $cat = Category::where('level' , $user->level)->first();
-        return redirect(route('category.show' , ['category' => $cat]));
+        $cat = Category::where('level' , $user->level)->firstOrFail();
+        return redirect(route('category.show' , ['category' => $cat->id]));
     } 
     else {
         return redirect(route('login' , ['redirect' => '/redirectToPath']));
     }
 });
 Route::post('/save/answer' , 'ContentController@saveAnswer')->name('save.answer')->middleware('auth');
+Route::match(['post' , 'put'],'/content/changeStatus/{content}' , 'ContentController@changeStatus')->name('content.changeStatus');

@@ -86,7 +86,7 @@
                 <h6 align="center" class="my-blue-color">ارسال پاسخ</h6>
                 <div style="text-align: center;width:100%">
                     <p>
-                    <small>شما میتوانید پاسخ های ارسالی یا دریافتی خود را در پروفایل خود مشاهده کنید</small>
+                        <small>شما میتوانید پاسخ های ارسالی یا دریافتی خود را در پروفایل خود مشاهده کنید</small>
                     </p>
                     <p>
                         <small><a class="my-green-color" href="{{ route('profile' , ['page' => 'myAnswers','user' => auth()->user()->id , 'event' => $content->id]) }}">مشاهده پاسخ های ارسالی و دریافتی شما برای این چالش</a></small>
@@ -124,6 +124,15 @@
                         {!! $content->body !!}
                     </p>
                 </div>
+                <hr>
+                <div class="custom-control custom-switch" dir="ltr">
+                    <form action="{{ route('content.changeStatus' , ['content' => $content->id]) }}" method="post">
+                        @csrf
+                        @method('put')
+                        <input onchange="this.form.submit()" type="checkbox" name="read" class="custom-control-input" id="customSwitch1" {{ $readed ? 'checked' : null }}>
+                        <label class="custom-control-label" for="customSwitch1">خوانده شد</label>
+                    </form>
+                </div>
             </div>
             @break
             @case('STEP')
@@ -148,13 +157,51 @@
                         {!! $content->body !!}
                     </p>
                 </div>
+                <hr>
+                <div class="custom-control custom-switch" dir="ltr">
+                    <form action="{{ route('content.changeStatus' , ['content' => $content->id]) }}" method="post">
+                        @csrf
+                        @method('put')
+                        <input onchange="this.form.submit()" type="checkbox" name="read" class="custom-control-input" id="customSwitch1" {{ $readed ? 'checked' : null }}>
+                        <label class="custom-control-label" for="customSwitch1">خوانده شد</label>
+                    </form>
+                </div>
             </div>
             @break
             @case('INTRODUCTION')
-
+            <div style="width: 100%" class="video-div mt-3">
+                <br>
+                <img src="{{ asset($content->logo) }}" alt="{{ $content->title }}" style="border-radius: 50%;border:10px solid #f1f3f8">
+                <div class="mt-4">
+                    <p style="text-align: right">
+                        {!! $content->body !!}
+                    </p>
+                </div>
+            </div>
             @break
             @case('JANEBI')
-
+            @section('style')
+            <link href="{{ asset('/css/videojs.css') }}" rel="stylesheet">
+            @endsection
+            @section('script')
+            <script type="text/javascript" src="{{ asset('/js/videojs.js') }}"></script>
+            @endsection
+            <div style="width: 100%" class="video-div mt-3">
+                <video id="my-video" class="video-js vjs-theme-forest" controls preload="auto" width="640" height="264" poster="{{ $content->preImage }}" data-setup="{}">
+                    <source src="{{ asset($content->video) }}" type="video/mp4" />
+                    <source src="{{ asset($content->video) }}" type="video/webm" />
+                    <p class="vjs-no-js">
+                        برای مشاهده این ویدیو باید جاواسکرپت مرورگر خود را فعال کنید.
+                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                    </p>
+                </video>
+                <hr>
+                <div class="mt-4">
+                    <p style="text-align: right">
+                        {!! $content->body !!}
+                    </p>
+                </div>
+            </div>
             @break
             @endswitch
         </div>
