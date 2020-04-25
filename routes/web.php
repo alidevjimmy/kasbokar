@@ -47,7 +47,13 @@ Route::get('/category/{category}' , 'ContentController@categoryShow')->name('cat
 Route::get('/redirectToPath' , function () {
     if (auth()->check()) {
         $user = auth()->user();
-        $cat = Category::where('level' , $user->level)->firstOrFail();
+        $cat = Category::where('level' , $user->level)->first();
+        if (!$cat) {
+            return back()->with([
+                'status' => 'error',
+                'message' => 'شما تمام مرحله ها را به پایان رسانده اید!'
+            ]);
+        }
         return redirect(route('category.show' , ['category' => $cat->id]));
     } 
     else {

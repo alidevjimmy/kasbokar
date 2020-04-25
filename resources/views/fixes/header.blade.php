@@ -21,7 +21,7 @@
                         <a class="nav-link top-links" href="/redirectToPath">برو به مرحله من</a>
                     </li><li class="nav-item">
                         
-                        <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'PREREQUISITES']) }}">معرفی کسب و کار ها</a>
+                        <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'INTRODUCTION']) }}">معرفی کسب و کار ها</a>
                     </li><li class="nav-item">
                         <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'JANEBI']) }}">خورده نوشته ها</a>
                     </li>

@@ -92,15 +92,14 @@
 @endsection
 @section('canvas')
 <div id="back-canvas" style="height: 300px;width: 100%;background: var(--pr-green);">
-
     <div id="particle-canvas">
         <span style="font-size: 1.73333rem;top: 45px;" align="center" class="old-font text-white mt-2 font-weight-bold">
             آموزش کارآفرینی برای همه
         </span>
         <section class="container" style="margin-top: 60px">
             <section class="row">
-                <form action="#" style="width: 100%" class="form-search">
-                    <input type="text" class="search-input" placeholder="دنبال چیز خاصی میگردی؟ اینجا بگرد...">
+                <form action="{{ route('content.search') }}" style="width: 100%" class="form-search">
+                    <input type="text" name="search" class="search-input" placeholder="دنبال چیز خاصی میگردی؟ اینجا بگرد...">
                     <i class="material-icons-two-tone f-40 icon-search">search</i>
                 </form>
             </section>

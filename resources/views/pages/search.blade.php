@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    جستوجو
+جستوجو
 @endsection
 @section('back-icon')
 <button onclick="return history.go(-1)" class="back-icon d-sm-block d-md-none">
@@ -14,119 +14,109 @@
             <i class="material-icons" style="position: relative;top: 8px">home</i>
         </a>
         <i class="material-icons" style="position: relative;top: 10px">keyboard_arrow_left</i>
-        <a href="#!">
-            <?php
-            switch ($type) {
-                case 'EVENT':
-                    echo 'جالش ها';
-                    break;
-                case 'PREREQUISITES':
-                    echo 'پیش نیاز ها';
-                    break;
-                case 'STEP':
-                    echo 'محتواهای مرحله';
-                    break;
-                case 'INTRODUCTION':
-                    echo 'معرفی کسب و کار ها';
-                    break;
-                case 'JANEBI':
-                    echo 'محتواهای جانبی';
-                    break;
-            };
-            ?>
-        </a>
-        <i class="material-icons" style="position: relative;top: 10px">keyboard_arrow_left</i>
         <span>
-            {{ $content->title }}
+            جستوجو
         </span>
     </div>
 </div>
+<section class="container" style="margin-top: 60px">
+    <section class="row">
+        <form action="{{ route('content.search') }}" style="width: 100%" class="form-search">
+            <input type="text" name="search" value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}" class="search-input" placeholder="دنبال چیز خاصی میگردی؟ اینجا بگرد...">
+            <i class="material-icons-two-tone f-40 icon-search" style="position: relative;
+    left: 30px;
+    top:unset !important;
+    float: left;
+    bottom: 50px;">search</i>
+        </form>
+    </section>
+</section>
+@if(count($contents) == 0)
+<br>
+<div class="container">
+    <br>
+    <h4 align="center">نتیجه ای یافت نشد!</h4>
+</div>
+@endif
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-8 pt-4 pb-4 profile-div">
-            <div style="text-align:center;width:100%">
-                <h5 align="center" class="old-font" style="font-weight:bold">{{ $content->title }}</h5>
-                <i class="material-icons-two-tone" style="    font-size: 16px;
-    vertical-align: middle;">schedule</i>
-                <span>{{ jdate($content->created_at)->format('%A, %d %B %y') }}</span>
-            </div>
-            @switch($type)
-            @case('EVENT')
+        @foreach($contents as $c)
+        <?php
+        switch ($c->type) {
+            case 'STEP':
+                $image = 'banerImage';
+                $body = 'shortText';
+                $btnText = 'مطالعه';
+                $type = 'محتوا';
+                break;
+            case 'EVENT':
+                $image = 'image';
+                $body = 'body';
+                $btnText = 'حل چالش';
+                $type = 'چالش';
+                break;
+            case 'INTRODUCTION':
+                $image = 'logo';
+                $body = 'body';
+                $btnText = 'بیشتر';
+                $type = 'معرفی کسب و کار';
+                break;
+            case 'PREREQUISITES':
+                $image = 'image';
+                $body = 'body';
+                $btnText = 'مطالعه';
+                $type = 'چرا یادگیری کسب و کار';
+                break;
+            case 'JANEBI':
+                $image = 'banerImage';
+                $body = 'shortText';
+                $btnText = 'مطالعه';
+                $type = 'خرده نوشته ها';
+                break;
+        }
+        ?>
+        <div class="col-md-6 col-sm-12 mt-3">
+            <div class="container profile-div div-cat d-flex" style="border-radius: 0 50px 50px 0px;">
+                <div class="col-md-4 col-sm-6 p-0">
+                    <a href="{{ route('content.show' , ['type' => $c->type,  'content' => $c->id]) }}">
+                        <img width="100%" height="100%" src="{{ $c[$image] }}" alt="{{ $c->title }}" style="position: relative;
+    right: -16px;
+    border-radius: 50px 50px 50px 0;">
+                        <?php
+                        $contentReaded = null;
+                        if (auth()->check()) {
+                            $contentReaded = Illuminate\Support\Facades\DB::table('user_content')->where('user_id', auth()->user()->id)->where('content_id', $c->id)->where('read', true)->exists();
+                        }
+                        ?>
+                        @if($contentReaded)
+                        <div class="passed-cat">
+                            <div class="play-div-check">
+                                <i class="material-icons-two-tone">
+                                    check
+                                </i>
+                            </div>
+                        </div>
+                        @endif
+                    </a>
 
-            @break
-            @case('PREREQUISITES')
-            @section('style')
-            <link href="{{ asset('/css/videojs.css') }}" rel="stylesheet">
-            @endsection
-            @section('script')
-            <script type="text/javascript" src="{{ asset('/js/videojs.js') }}"></script>
-            @endsection
+                </div>
+                <div class="col-md-8 col-sm-6 p-3">
+                    @if($c->type == 'EVENT' || $c->type == 'STEP')
+                        <div class="sticky-level">
+                            <span>{{ $c->category->level }}</span>
+                        </div>
+                    @endif
+                    <h6>{{ $c->title }}</h6>
+                    <p class="f-12 mt-4">{{ \Str::limit($c[$body] , 23) }}</p>
+                    <span class="f-12 text-black-50">نوع : {{ $type }}</span>
+                    <a href="{{ route('content.show' , ['type' => $c->type,  'content' => $c->id]) }}" class="btn-more f-12" style="float: left;position: relative;bottom:unset !important;left:-19px;">{{ $btnText }}</a>
 
-            <div style="width: 100%" class="video-div mt-3">
-                <video id="my-video" class="video-js" controls preload="auto" width="640" height="264" poster="{{ $content->image }}" data-setup="{}">
-                    <source src="{{ asset($content->video) }}" type="video/mp4" />
-                    <source src="{{ asset($content->video) }}" type="video/webm" />
-                    <p class="vjs-no-js">
-                        برای مشاهده این ویدیو باید جاواسکرپت مرورگر خود را فعال کنید.
-                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                    </p>
-                </video>
-                <hr>
-                <div class="mt-4">
-                    <p style="text-align: right">
-                        {!! $content->body !!}
-                    </p>
                 </div>
             </div>
-            @break
-            @case('STEP')
 
-            @break
-            @case('INTRODUCTION')
-
-            @break
-            @case('JANEBI')
-
-            @break
-            @endswitch
         </div>
-        <div class="col-md-4 d-none d-sm-block">
-            <div class="profile-div">
-                <ul class="ul-cat p-0">
-                    @foreach($categories as $cat)
-                        <li class="li-cat"><a href="#!" class="f-12">{{ $cat->name }}</a></li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
-
-<!-- <div class="container mt-3 mb-5">
-    <div class="row">
-        <div style="width: 50%">
-            @if(isset($pre))
-            <a href="{{ route('content.show' , ['content' => $pre , 'type' => $pre->type]) }}" class="btn-back">
-                قبلی
-            </a>
-            @else
-            <a href="#!" style="background-color: #f1f3f8" class="btn-back">
-                قبلی
-            </a>
-            @endif
-        </div>
-        <div style="text-align: left;width: 50%">
-            @if(isset($next))
-            <a href="{{ route('content.show' , ['content' => $next , 'type' => $next->type]) }}" class="btn-back">
-                بعدی
-            </a>
-            @else
-            <a href="#!" style="background-color: #f1f3f8" class="btn-back">
-                بعدی
-            </a>
-            @endif
-        </div>
-    </div>
-</div> -->
-
+<div style="height: 100px"></div>
 @endsection

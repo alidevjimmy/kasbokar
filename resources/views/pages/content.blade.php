@@ -14,14 +14,14 @@
             <i class="material-icons" style="position: relative;top: 8px">home</i>
         </a>
         <i class="material-icons" style="position: relative;top: 10px">keyboard_arrow_left</i>
-        <a href="#!">
+        <a href="{{ route('content.search' , ['type' => $type]) }}">
             <?php
             switch ($type) {
                 case 'EVENT':
                     echo 'جالش ها';
                     break;
                 case 'PREREQUISITES':
-                    echo 'پیش نیاز ها';
+                    echo 'چرا یادگیری کسب و کار';
                     break;
                 case 'STEP':
                     echo 'محتواهای مرحله';
@@ -171,7 +171,7 @@
             @case('INTRODUCTION')
             <div style="width: 100%" class="video-div mt-3">
                 <br>
-                <img src="{{ asset($content->logo) }}" alt="{{ $content->title }}" style="border-radius: 50%;border:10px solid #f1f3f8">
+                <img src="{{ asset($content->logo) }}" width="200" height="200" alt="{{ $content->title }}" style="border-radius: 50%;border:10px solid #f1f3f8">
                 <div class="mt-4">
                     <p style="text-align: right">
                         {!! $content->body !!}

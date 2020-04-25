@@ -14,10 +14,6 @@
             <i class="material-icons" style="position: relative;top: 8px">home</i>
         </a>
         <i class="material-icons" style="position: relative;top: 10px">keyboard_arrow_left</i>
-        <a href="{{ route('content.search' , ['type' => ['STEP' , 'EVENT']]) }}">
-            محتوای مرحله ای
-        </a>
-        <i class="material-icons" style="position: relative;top: 10px">keyboard_arrow_left</i>
         <span>
             مرحله {{ $category->level }} - {{ $category->name }}
         </span>

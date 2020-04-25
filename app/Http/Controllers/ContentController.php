@@ -67,7 +67,8 @@ class ContentController extends Controller
     }
     public function search(Request $request)
     {
-        return Content::search($request->all())->get();
+        $contents = Content::search($request->all())->latest()->get();
+        return view('pages.search' , ['contents' => $contents]);
     }
 
     public function categoryShow(Request $request, Category $category)
