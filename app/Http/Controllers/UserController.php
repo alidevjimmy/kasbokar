@@ -16,7 +16,9 @@ class UserController extends Controller
         $request->validate([
             'page' => 'required|in:myInformation,readedContent,myAnswers,resume'
         ]);
-        $user = auth()->user();
+        if (auth()->user()->id != $user->id) {
+            abort(404);
+        }
         $readedContents = [];
         $myAnswers = [];
         switch ($request->page) {
@@ -48,12 +50,46 @@ class UserController extends Controller
     {
         $validatedDate = $request->validate([
             'fullName' => ['required', 'string', 'max:255'],
-            'workStatus' => ['required', 'string']
+            'workStatus' => ['required', 'string'],
         ]);
+        if (auth()->user()->id != $user->id) {
+            abort(404);
+        }
         $user->update($validatedDate);
         return redirect(route('profile', ['user' => $user, 'page' => 'myInformation']))->with([
             'status' => 'success',
             'message' => 'اطلاعات با موفقیت ویرایش شد'
         ]);
+    }
+
+    public function userResume(User $user , Request $request)
+    {
+        $request->validate([
+            'page' => 'required|in:resume'
+        ]);
+        return view('pages.profile',  ['user' => $user , 'page' => 'resume']);
+    }
+
+    public function editResume(Request $request , User $user)
+    {
+        $request->validate([
+            'section' => 'required|in:name&about,avatar,username,expriences,favs'
+        ]);
+        if (auth()->user()->id != $user->id) {
+            abort(404);
+        }
+
+    }
+
+    public function createResume(Request $request , User $user)
+    {
+        $request->validate([
+            'section' => 'required|in:expriences,favs'
+        ]);
+        if (auth()->user()->id != $user->id) {
+            abort(404);
+        }
+        
+        return view('pages.profiles.create' , ['user' => $user , 'section' => $request->section]);
     }
 }

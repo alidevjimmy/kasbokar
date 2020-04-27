@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,16 +11,18 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    use SoftDeletes;
+    use SoftDeletes , CascadeSoftDeletes;
     protected $connection = 'pgsql';
     protected $table = 'users';
+    protected $cascadeDeletes = ['favs' , 'expriences' , 'contents' , 'answers'];
+    protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'fullName', 'email', 'password','phone' , 'level' , 'isAdmin' , 'workStatus' , 'active'
+        'fullName', 'email', 'password','phone' , 'level' , 'isAdmin' , 'workStatus' , 'active' , 'username' , 'about' , 'avatar'
     ];
 
     /**
@@ -52,5 +55,15 @@ class User extends Authenticatable
     public function scopeIsActive($query)
     {
         return $query->where('active' , true);
+    }
+
+    public function experiences()
+    {
+        return $this->hasMany(Expriece::class);
+    }
+
+    public function favs()
+    {
+        return $this->hasMany(Fav::class);
     }
 }

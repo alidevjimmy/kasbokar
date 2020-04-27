@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
+        "iatstuti/laravel-cascade-soft-deletes": "^3.0",
         "jenssegers/mongodb": "^3.6",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",

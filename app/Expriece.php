@@ -5,16 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Replay extends Model
+class Expriece extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['replay' , 'answer_id'];
-    protected $table = 'replays';
+    protected $fillable = ['title' , 'media' , 'description' , 'user_id'];
     protected $connection = 'pgsql';
+    protected $table = 'expriences';
     protected $dates = ['deleted_at'];
-    
-    public function answer()
+    public function user()
     {
-        return $this->belongsTo(Answer::class);
+        return $this->belongsTo(User::class);
     }
 }

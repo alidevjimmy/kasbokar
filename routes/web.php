@@ -11,6 +11,7 @@
 |
 */
 
+use App\Answer;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,3 +63,6 @@ Route::get('/redirectToPath' , function () {
 });
 Route::post('/save/answer' , 'ContentController@saveAnswer')->name('save.answer')->middleware('auth');
 Route::match(['post' , 'put'],'/content/changeStatus/{content}' , 'ContentController@changeStatus')->name('content.changeStatus');
+Route::get('/user/{user}/resume' , 'UserController@userResume')->name('user.resume');
+Route::get('/user/{user}/resume/edit' , 'UserController@editResume')->name('user.resume.edit');
+Route::get('/user/{user}/resume/create' , 'UserController@createResume')->name('user.resume.create');

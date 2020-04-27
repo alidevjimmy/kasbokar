@@ -2,16 +2,19 @@
 
 namespace App;
 
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Jenssegers\Mongodb\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 class Content extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes , CascadeSoftDeletes;
     protected $guarded = [];
     protected $connection = 'mongodb';
     protected $collection = 'contents';
 
+    protected $cascadeDeletes = ['answers'];
+    protected $dates = ['deleted_at'];
 
     public function users()
     {

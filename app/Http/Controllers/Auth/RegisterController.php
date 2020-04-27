@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -66,12 +68,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        do {
+            $username = $data['fullName'].random_int(10,100);
+        } while(User::where('username' , $username)->exists());
         return User::create([
             'fullName' => $data['fullName'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'workStatus' => $data['workStatus'],
             'password' => Hash::make($data['password']),
+            'username' => $username
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+        
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath())->with([
+                            'status' => 'success',
+                            'message' => 'ثبت نام شما با موفقیت انجام شد.'
+                        ]);
     }
 }

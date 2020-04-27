@@ -21,7 +21,12 @@
 </div>
 <div class="container mt-4">
     <div class="row">
+
+        @switch($page)
+        @case('myInformation')
         <div class="col-md-12 profile-div">
+            @if(auth()->check())
+            @if(auth()->user()->id == $user->id)
             <div class="col-md-12 div-scrolable">
                 <ul class="profile-ul">
                     <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myInformation']) }}" class="{{ $page == 'myInformation' ? 'profile-page' : null }}">اطلاعات شخصی</a></li>
@@ -31,9 +36,9 @@
                     <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'resume']) }}" class="{{ $page == 'resume' ? 'profile-page' : null }}">رزومه</a></li>
                 </ul>
             </div>
+            @endif
+            @endif
             <div class="col-md-12 mt-5">
-                @switch($page)
-                @case('myInformation')
                 <div class="col-md-6" style="margin: auto">
                     <h5 class="my-blue-color font-weight-bold old-font" align="center">مرحله شما : {{ $user->level }}</h5>
                     <form method="POST" action="{{ route('profile.edit' , ['user' => $user->id]) }}">
@@ -43,8 +48,6 @@
                             <label for="fullName" class="col-md-4 col-form-label text-md-right f-size-14 font-weight-bold">{{ __('نام کامل') }}</label>
 
                             <div class="col-md-12">
-
-
                                 <i class="fa fa-user input-icon"></i> <input id="fullName" type="text" placeholder="نام کامل..." class="form-control f-size-12 @error('fullName') is-invalid @enderror" name="fullName" value="{{ $user->fullName }}" style="padding-right: 30px" autocomplete="fullName" autofocus>
 
                                 @error('fullName')
@@ -54,7 +57,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <label for="workStatus" class="col-md-4 col-form-label text-md-right f-size-14 font-weight-bold">{{ __('وضعیت شغلی') }}</label>
 
@@ -97,8 +99,25 @@
                     </form>
                 </div>
                 <br>
-                @break
-                @case('readedContent')
+            </div>
+        </div>
+        @break
+        @case('readedContent')
+        <div class="col-md-12 profile-div">
+            @if(auth()->check())
+            @if(auth()->user()->id == $user->id)
+            <div class="col-md-12 div-scrolable">
+                <ul class="profile-ul">
+                    <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myInformation']) }}" class="{{ $page == 'myInformation' ? 'profile-page' : null }}">اطلاعات شخصی</a></li>
+                    <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'readedContent']) }}" class="{{ $page == 'readedContent' ? 'profile-page' : null }}">محتواهای خوانده شده</a>
+                    </li>
+                    <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myAnswers']) }}" class="{{ $page == 'myAnswers' ? 'profile-page' : null }}">مشاهده پاسخ ها</a></li>
+                    <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'resume']) }}" class="{{ $page == 'resume' ? 'profile-page' : null }}">رزومه</a></li>
+                </ul>
+            </div>
+            @endif
+            @endif
+            <div class="col-md-12 mt-5">
                 <div class="container">
                     <div class="row">
                         @if(count($readedContents) > 0)
@@ -143,8 +162,25 @@
                         @endif
                     </div>
                 </div>
-                @break
-                @case('myAnswers')
+            </div>
+        </div>
+        @break
+        @case('myAnswers')
+        <div class="col-md-12 profile-div">
+            @if(auth()->check())
+            @if(auth()->user()->id == $user->id)
+            <div class="col-md-12 div-scrolable">
+                <ul class="profile-ul">
+                    <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myInformation']) }}" class="{{ $page == 'myInformation' ? 'profile-page' : null }}">اطلاعات شخصی</a></li>
+                    <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'readedContent']) }}" class="{{ $page == 'readedContent' ? 'profile-page' : null }}">محتواهای خوانده شده</a>
+                    </li>
+                    <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myAnswers']) }}" class="{{ $page == 'myAnswers' ? 'profile-page' : null }}">مشاهده پاسخ ها</a></li>
+                    <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'resume']) }}" class="{{ $page == 'resume' ? 'profile-page' : null }}">رزومه</a></li>
+                </ul>
+            </div>
+            @endif
+            @endif
+            <div class="col-md-12 mt-5">
                 @if(count($myAnswers) > 0)
                 @foreach($myAnswers as $ans)
                 <div class="{{ isset($_GET['event']) ? $_GET['event'] == $ans->id ? 'ans-border' : '' : '' }}">
@@ -183,14 +219,100 @@
                     <br>
                 </div>
                 @endif
-                @break
-                @case('resume')
-                    رزومه من
-                @break
-                @endswitch
             </div>
         </div>
+        @break
+        @case('resume')
+        <div class="col-md-12">
+            <div class="profile-div">
+                @if(auth()->check())
+                @if(auth()->user()->id == $user->id)
+                <div class="col-md-12 div-scrolable">
+                    <ul class="profile-ul">
+                        <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myInformation']) }}" class="{{ $page == 'myInformation' ? 'profile-page' : null }}">اطلاعات شخصی</a></li>
+                        <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'readedContent']) }}" class="{{ $page == 'readedContent' ? 'profile-page' : null }}">محتواهای خوانده شده</a>
+                        </li>
+                        <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myAnswers']) }}" class="{{ $page == 'myAnswers' ? 'profile-page' : null }}">مشاهده پاسخ ها</a></li>
+                        <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'resume']) }}" class="{{ $page == 'resume' ? 'profile-page' : null }}">رزومه</a></li>
+                    </ul>
+                </div>
+                @endif
+                @endif
+            </div>
+        </div class="col-md-12">
+        <div class="col-md-4 mt-2">
+            <div class="profile-div border-radius-def">
+                <div class="profile-header border-radius-def" style="border-radius : 5px 5px 0 0 !important">
+                    @auth
+                    @if(auth()->user()->id == $user->id)
+                    <a href="#!" style="position: absolute;
+    top: 10px;
+    right: 34px;"><i class="material-icons-two-tone">create</i></a>
+                    @endif
+                    @endauth
+                    <img src="{{ asset('/images/default.png') }}" alt="آواتار" width="100" class="avatar-img">
+                    <span class="my-blue-color username-txt">
+                        @auth
+                        @if(auth()->user()->id == $user->id)
+                        <a href="#!" style="position: absolute;
+    right: -30px;
+    bottom: 3px;"><i class="material-icons-two-tone">create</i></a>
+                        @endif
+                        @endauth
+                        <a class="my-blue-color" href="{{ route('user.resume' , ['user' => $user->id , 'page' => 'resume']) }}">
+                            {{ $user->username }}@
+                        </a>
+                    </span>
+                </div>
+                <div class="pt-5 pr-2 pl-2 d-flex">
+                    <div class="col-md-4">
+                        <span class="f-10" style="font-weight: bold">دنبال شونده ها</span>
+                        <p style="text-align: center" class="f-14">0</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="f-10" style="font-weight: bold">دنبال کننده ها</span>
+                        <p style="text-align: center" class="f-14">0</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="f-10" style="font-weight: bold">محتوای منتشر شده</span>
+                        <p style="text-align: center" class="f-14">0</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="col-md-8 mt-2 ">
+            <div class="profile-div border-radius-def p-4">
+                @auth
+                @if(auth()->user()->id == $user->id)
+                <a href="#!" class="float-left"><i class="material-icons-two-tone">create</i></a>
+                @endif
+                @endauth
+                <h5 class="old-font"> {{ $user->fullName }}</h5>
+                <span>{{ !$user->about ? '_______' : $user->about}}</span>
+            </div>
+            <div class="profile-div border-radius-def p-4 mt-2">
+                @auth
+                @if(auth()->user()->id == $user->id)
+                <a href="{{ route('user.resume.create' , ['section' => 'expriences' , 'user' => $user]) }}" class="float-left"><i class="material-icons-two-tone">add</i></a>
+                @endif
+                @endauth
+                <h5 class="old-font"><span class="black-50">تجربیات</h5>
+            </div>
+            <div class="profile-div border-radius-def p-4 mt-2">
+                @auth
+                @if(auth()->user()->id == $user->id)
+                <a href="{{ route('user.resume.create' , ['section' => 'favs' , 'user' => $user]) }}" class="float-left"><i class="material-icons-two-tone">add</i></a>
+                @endif
+                @endauth
+                <h5 class="old-font"><span class="black-50">علاقه مندی ها</h5>
+            </div>
+        </div>
+        @break
+        @endswitch
     </div>
+</div>
+</div>
 </div>
 <br>
 @endsection
