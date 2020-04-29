@@ -91,6 +91,9 @@
       <path value="$PROJECT_DIR$/vendor/jenssegers/mongodb" />
       <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/vendor/beberlei/assert" />
+      <path value="$PROJECT_DIR$/vendor/iatstuti/laravel-cascade-soft-deletes" />
+      <path value="$PROJECT_DIR$/vendor/morilog/jalali" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

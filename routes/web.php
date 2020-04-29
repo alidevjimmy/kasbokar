@@ -56,7 +56,7 @@ Route::get('/redirectToPath' , function () {
             ]);
         }
         return redirect(route('category.show' , ['category' => $cat->id]));
-    } 
+    }
     else {
         return redirect(route('login' , ['redirect' => '/redirectToPath']));
     }
@@ -64,5 +64,7 @@ Route::get('/redirectToPath' , function () {
 Route::post('/save/answer' , 'ContentController@saveAnswer')->name('save.answer')->middleware('auth');
 Route::match(['post' , 'put'],'/content/changeStatus/{content}' , 'ContentController@changeStatus')->name('content.changeStatus');
 Route::get('/user/{user}/resume' , 'UserController@userResume')->name('user.resume');
-Route::get('/user/{user}/resume/edit' , 'UserController@editResume')->name('user.resume.edit');
-Route::get('/user/{user}/resume/create' , 'UserController@createResume')->name('user.resume.create');
+Route::get('/user/{user}/resume/edit' , 'UserController@editResume')->name('user.resume.edit')->middleware('auth');
+Route::patch('/user/{user}/resume/edit' , 'UserController@updateResume')->name('user.resume.update')->middleware('auth');
+Route::get('/user/{user}/resume/create' , 'UserController@createResume')->name('user.resume.create')->middleware('auth');
+Route::post('/user/{user}/resume/create' , 'UserController@storeResume')->name('user.resume.store')->middleware('auth');

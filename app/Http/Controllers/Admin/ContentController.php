@@ -145,7 +145,7 @@ class ContentController extends Controller
         ]);
         $type = 'EVENT';
 
-        
+
         $preImage = $this->uploadImage($request, 'preImage');
         $validatedData['preImage'] = $preImage;
         $video = $this->uploadVideo($request, 'video');
@@ -195,7 +195,7 @@ class ContentController extends Controller
         $shouldJobs = json_encode($request->shouldJobs);
         $validatedData['shouldJobs'] = $shouldJobs;
         $type = 'STEP';
-        
+
         $preImage = $this->uploadImage($request, 'preImage');
         $banerImage = $this->uploadImage($request, 'banerImage');
         $video = $this->uploadVideo($request, 'video');
@@ -221,7 +221,7 @@ class ContentController extends Controller
             'video' => 'required|mimes:mp4,wmv,mpg,flv',
         ]);
         $type = 'JANEBI';
-        
+
         $preImage = $this->uploadImage($request, 'preImage');
         $banerImage = $this->uploadImage($request, 'banerImage');
         $video = $this->uploadVideo($request, 'video');

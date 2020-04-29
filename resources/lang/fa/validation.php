@@ -141,5 +141,6 @@ return [
         'banerImage' => 'تصویر بنر',
         'video' => 'فیلم',
         'shortText' => 'متن کوتاه',
+        'media' => 'قایل ضمیمه',
     ],
 ];

@@ -10910,7 +10910,7 @@ a.text-dark:focus {
 @font-face {
     font-family: IRANSans;
     font-weight: normal;
-    font-style: normal; 
+    font-style: normal;
     src : url("../fonts/38d4b5f.woff2") format('woff2');
 }
 body {
@@ -11801,4 +11801,37 @@ hr {
     top: 75px;
     float: left;
     left: 10px;
+}
+.zamime-btn {
+    border: 1px solid #eeeeee;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 50px;
+}
+.icon-in-btn {
+    position: relative;
+    top: 7px;
+}
+.pin-link {
+    float: left;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+.f-16 {
+    font-size: 16px !important;
+}
+.level-icon {
+    font-size: 35px !important;
+    color: var(--pr-blue);
+    position: absolute;
+    top: 58px;
+}
+.level-span {
+    font-size: 16px;
+    position: absolute;
+    color: white;
+    background-color: var(--pr-blue);
+    top: 63px;
+    right: 28px;
 }

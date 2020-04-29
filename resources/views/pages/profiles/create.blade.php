@@ -33,7 +33,7 @@
     <div class="row profile-div p-4">
         <h5 class="old-font">اضافه کردن {{ $section_fa }}</h5>
         <div class="col-md-6 mt-4" style="margin: auto">
-            <form method="POST" action="#!">
+            <form method="POST" action="{{ route('user.resume.store' , ['section' => $section , 'user' => $user]) }}" enctype="multipart/form-data">
                 @csrf
 
                 @if($section == 'expriences')
@@ -70,7 +70,7 @@
                     <label for="media" class="col-md-4 col-form-label text-md-right f-size-14 font-weight-bold">{{ __('فایل ضمیمه') }}</label>
 
                     <div class="col-md-12">
-                        <i class="fa fa-user input-icon"></i> <input id="media" type="file" placeholder="عنوان..." class="form-control f-size-12 @error('media') is-invalid @enderror" name="media" value="{{ old('media') }}" style="padding-right: 30px" autocomplete="media" autofocus>
+                        <i class="fa fa-user input-icon"></i> <input id="media" type="file" placeholder="فایل ضمیمه..." class="form-control f-size-12 @error('media') is-invalid @enderror" name="media" value="{{ old('media') }}" style="padding-right: 30px" autocomplete="media" autofocus>
 
                         @error('media')
                         <span class="invalid-feedback" role="alert">
@@ -80,11 +80,27 @@
                     </div>
                 </div>
                 @endif
+                @if($section == 'expriences')
+                    <div class="form-group row">
+                        <label for="link" class="col-md-4 col-form-label text-md-right f-size-14 font-weight-bold">{{ __('لینک') }}</label>
+
+                        <div class="col-md-12">
+                            <i class="fa fa-user input-icon"></i> <input id="link" type="text" placeholder="لینک..." class="form-control f-size-12 @error('link') is-invalid @enderror" name="link" value="{{ old('link') }}" style="padding-right: 30px" autocomplete="link" autofocus>
+
+                            @error('link')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                            <small>لینک اجباری نیست.</small>
+                        </div>
+                    </div>
+                @endif
                 <div class="form-group row mb-0">
                     <div class="col-md-12 btn-group" style="direction: ltr">
                         <div class="float-left">
                             <button style="width: 100%" type="submit" class="btn-back">
-                                {{ __('ویرایش') }}
+                                {{ __('ثبت') }}
                             </button>
                         </div>
                     </div>
