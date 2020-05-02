@@ -14,7 +14,7 @@ class User extends Authenticatable
     use SoftDeletes , CascadeSoftDeletes;
     protected $connection = 'pgsql';
     protected $table = 'users';
-    protected $cascadeDeletes = ['favs' , 'expriences' , 'contents' , 'answers'];
+    protected $cascadeDeletes = ['favs' , 'experiences' , 'contents' , 'answers'];
     protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.

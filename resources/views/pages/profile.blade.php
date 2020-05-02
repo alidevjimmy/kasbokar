@@ -368,10 +368,12 @@ new_releases
                 @foreach($exs as $e)
                     <div class="col-md-12 box-readed mt-2 mb-2 d-block">
                         <h6 class="font-weight-bold">{{ $e->title }}</h6>
-
+                        @auth
+                            @if(auth()->user()->id == $user->id)
                         <a href="{{ route('user.resume.edit' , ['section' => 'expriences' , 'user' => $user , 'favorexid' => $e->id]) }}"
                            class="pin-link"><i class="material-icons-two-tone f-16 f-16">create</i></a>
-
+                            @endif
+                        @endauth
                         <p>{{ $e->description }}</p>
                         @if($e->media)
                             <a class="zamime-btn" href="{{ asset($e->media) }}" target="_blank">فایل ضمیمه <i
@@ -396,8 +398,12 @@ new_releases
                 <br>
                 @foreach($favs as $f)
                     <div class="col-md-12 box-readed mt-2 mb-2 d-block">
+                        @auth
+                            @if(auth()->user()->id == $user->id)
                         <a href="{{ route('user.resume.edit' , ['section' => 'favs' , 'user' => $user , 'favorexid' => $f->id]) }}"
                            class="pin-link"><i class="material-icons-two-tone f-16 f-16">create</i></a>
+                            @endif
+                        @endauth
                         <p>{{ $f->description }}</p>
                     </div>
                 @endforeach

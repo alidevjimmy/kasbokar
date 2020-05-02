@@ -12,6 +12,7 @@ class Expriece extends Model
     protected $connection = 'pgsql';
     protected $table = 'exprieces';
     protected $dates = ['deleted_at'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

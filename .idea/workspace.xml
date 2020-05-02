@@ -2,17 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5202609-49c8-4b6b-99ab-8257fafdcb74" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/kasbokar.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kasbokar.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pages/exps/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pages/favs/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pages/users/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Expriece.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Expriece.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ContentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ContentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/fa/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/fa/validation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/components/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/components/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/profiles/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/profiles/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/profiles/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/profiles/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +138,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/pages" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -152,6 +150,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Codes\Projects\kasbokar\resources\views\admin\pages" />
       <recent name="E:\Projects\kasbokar\resources\views\components" />
     </key>
   </component>
@@ -185,6 +184,8 @@
       <workItem from="1588076876068" duration="107000" />
       <workItem from="1588077012397" duration="1937000" />
       <workItem from="1588132644151" duration="12906000" />
+      <workItem from="1588163344963" duration="302000" />
+      <workItem from="1588390355751" duration="5864000" />
     </task>
     <servers />
   </component>
@@ -196,10 +197,14 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="393" y="135" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.689@0.0.1280.689" timestamp="1586246875946" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1588079547170">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1588395588859">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588079547170" />
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588395588859" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1588163650106">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588163650106" />
     <state x="477" y="265" key="NewPhpFileDialog" timestamp="1586246447495">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
@@ -232,10 +237,10 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="297" y="153" key="run.anything.popup/0.0.1280.689@0.0.1280.689" timestamp="1586429875353" />
-    <state x="455" y="15" width="1008" height="1024" key="search.everywhere.popup" timestamp="1588151613127">
+    <state x="455" y="15" width="1008" height="1024" key="search.everywhere.popup" timestamp="1588395256087">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="303" y="10" width="672" height="678" key="search.everywhere.popup/0.0.1280.689@0.0.1280.689" timestamp="1586449026538" />
-    <state x="455" y="15" width="1008" height="1024" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588151613127" />
+    <state x="455" y="15" width="1008" height="1024" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588395256087" />
   </component>
 </project>

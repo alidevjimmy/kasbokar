@@ -37,6 +37,14 @@ Route::group([
     Route::delete('/replay/{replay}' , 'RepAndAnswerController@destroy')->name('replay.destroy');
     Route::get('/replay/{replay}/edit' , 'RepAndAnswerController@editReplay')->name('replay.edit');
     Route::patch('/replay/{replay}' , 'RepAndAnswerController@updateReplay')->name('replay.update');
+    Route::resource('/users' , 'UserController')->only(['index']);
+    Route::delete('/users/{id}' , 'UserController@destroy')->name('users.destroy');
+    Route::get('/users/{id}/expriences' , 'ExprinceController@index')->name('expriences.index');
+    Route::delete('/expriences/{id}' , 'ExprinceController@destroy')->name('expriences.destroy');
+    Route::get('/users/{id}/favs' , 'FavController@index')->name('favs.index');
+    Route::delete('/favs/{id}' , 'FavController@destroy')->name('favs.destroy');
+    Route::get('/users/{id}/comments' , 'CommentController@index')->name('comments.index');
+    Route::delete('/comments/{id}' , 'CommentController@destroy')->name('comments.destroy');
 });
 
 
