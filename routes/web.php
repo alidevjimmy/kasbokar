@@ -76,3 +76,8 @@ Route::get('/user/{user}/resume/edit' , 'UserController@editResume')->name('user
 Route::patch('/user/{user}/resume/edit' , 'UserController@updateResume')->name('user.resume.update')->middleware('auth');
 Route::get('/user/{user}/resume/create' , 'UserController@createResume')->name('user.resume.create')->middleware('auth');
 Route::post('/user/{user}/resume/create' , 'UserController@storeResume')->name('user.resume.store')->middleware('auth');
+Route::get('/contents/add' , 'ContentController@add')->name('contents.add');
+Route::get('/contents/{content}/edit' , 'ContentController@edit')->name('contents.edit')->middleware('auth');
+Route::post('/contents/add' , 'ContentController@store')->name('contents.store')->middleware('auth');
+Route::patch('/contents/{content}/edit' , 'ContentController@update')->name('contents.update')->middleware('auth');
+Route::delete('/contents/{content}' , 'ContentController@destroy')->name('contents.destroy')->middleware('auth');

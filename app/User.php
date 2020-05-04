@@ -14,7 +14,7 @@ class User extends Authenticatable
     use SoftDeletes , CascadeSoftDeletes;
     protected $connection = 'pgsql';
     protected $table = 'users';
-    protected $cascadeDeletes = ['favs' , 'experiences' , 'contents' , 'answers'];
+    protected $cascadeDeletes = ['favs' , 'experiences' , 'contents' , 'answers' , 'comments'];
     protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
@@ -65,5 +65,10 @@ class User extends Authenticatable
     public function favs()
     {
         return $this->hasMany(Fav::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

@@ -11835,3 +11835,29 @@ hr {
     top: 63px;
     right: 30px;
 }
+.dropdown i:hover{
+    cursor: pointer;
+}
+.no-auth {
+    position: fixed;
+    width: 100%;
+    min-height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    z-index:  1000000001;
+    backdrop-filter: blur(2px);
+    --webkit-backdrop-filter: blur(2px);
+}
+.no-login-border {
+    border-radius: 50%;
+    border: 10px solid #fff;
+    position: relative;
+    bottom: 9px;
+    right: 20px;
+}
+.alerting {
+    width: 100%;
+    padding: 20px;
+    border: 5px inset #fff;
+    border-radius: 50px;
+
+}

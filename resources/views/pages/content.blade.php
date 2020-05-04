@@ -203,6 +203,20 @@
                 </div>
             </div>
             @break
+            @case('content')
+            <div style="width: 100%" class="video-div mt-3">
+                <div class="w-100">
+                    <a class="font-weight-bold" href="{{ route('user.resume' , ['user' => $user->id , 'page' => 'resume']) }}"> <img src="{{ asset($user->avatar) }}" alt="{{ $user->username }}" width="50" style="border-radius: 50%"></a>
+                    <span class="f-14"> <a class="font-weight-bold" href="{{ route('user.resume' , ['user' => $user->id , 'page' => 'resume']) }}">{{ $user->username }}</a></span>
+                </div>
+                <div class="mt-4">
+                    <img src="{{ asset($content->image) }}" alt="{{ $content->title }}" style="width: 100%">
+                    <p style="text-align: right">
+                        {!! $content->body !!}
+                    </p>
+                </div>
+            </div>
+            @break
             @endswitch
         </div>
         <div class="col-md-4 d-none d-sm-block">

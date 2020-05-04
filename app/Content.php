@@ -13,7 +13,7 @@ class Content extends Model
     protected $connection = 'mongodb';
     protected $collection = 'contents';
 
-    protected $cascadeDeletes = ['answers'];
+    protected $cascadeDeletes = ['answers' , 'comments'];
     protected $dates = ['deleted_at'];
 
     public function users()
@@ -26,7 +26,7 @@ class Content extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function scopeSearch($query , $input) 
+    public function scopeSearch($query , $input)
     {
         if (isset($input['Nivel']) && !empty($input['Nivel'])) {
             $query->where('category_id' , (integer)$input['Nivel']);
@@ -42,5 +42,10 @@ class Content extends Model
     public function answers()
     {
         return $this->hasMany(Answer::class , 'content_id' , '_id');
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class , 'commentable');
     }
 }

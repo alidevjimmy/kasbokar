@@ -17,7 +17,7 @@ class UserController extends Controller
     public function profile(Request $request, User $user)
     {
         $request->validate([
-            'page' => 'required|in:myInformation,readedContent,myAnswers,resume'
+            'page' => 'required|in:myInformation,readedContent,myAnswers,resume,contents'
         ]);
         if (auth()->user()->id != $user->id) {
             abort(404);
@@ -48,6 +48,10 @@ class UserController extends Controller
                 $favs = Fav::where('user_id' , $user->id)->latest()->get();
                 $exs = Expriece::where('user_id' , $user->id)->isShow()->latest()->get();
                 return view('pages.profile', ['user' => $user , 'page' => 'resume' , 'contentCount' => $contentCount , 'favs' => $favs , 'exs' => $exs]);
+                break;
+            case 'contents':
+                $contents = Content::where('user_id' , $user->id)->latest()->get();
+                return view('pages.profile', ['user' => $user , 'page' => 'contents' , 'contents' => $contents]);
                 break;
         }
     }
