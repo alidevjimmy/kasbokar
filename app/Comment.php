@@ -10,7 +10,7 @@ class Comment extends Model
     use SoftDeletes;
     protected $connection = 'pgsql';
     protected $table = 'comments';
-    protected $fillable = ['user_id' , 'body' , 'commentable_id' , 'commentable_type'];
+    protected $fillable = ['user_id' , 'body' , 'commentable_id' , 'commentable_type' , 'parent_id'];
     protected $dates = ['deleted_at'];
 
     public function user()
@@ -22,4 +22,5 @@ class Comment extends Model
     {
         return $this->morphTo();
     }
+
 }

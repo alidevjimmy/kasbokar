@@ -24,6 +24,7 @@ class ContentController extends Controller
             'contents' => []
         ];
         $categories = Category::orderBy('level', 'asc')->get();
+        $comments = $content->comments;
         switch ($request->type) {
             case 'EVENT':
             case 'STEP':
@@ -38,7 +39,7 @@ class ContentController extends Controller
                     ->where('level', (string) ((int) $content->level + 1))
                     ->first();
                 if (!auth()->check()) {
-                    return redirect(route('login', ['redirect' => route('content.show', ['type' => $content->type, 'content' => $content])]))->with([
+                    return redirect(route('login', ['redirect' => route('content.show', ['type' => $content->type, 'content' => $content,'comments' => $comments])]))->with([
                         'status' => 'error',
                         'message' => 'برای دسترسی باید ثبت نام کنید'
                     ]);
@@ -51,21 +52,21 @@ class ContentController extends Controller
                         'message' => " مرحله شما باید " .  $content->category->level  . " یا بیشتر باشد "
                     ]);
                 }
-                return view('pages.content', ['content' => $content, 'type' => $request->type, 'categories' => $categories, 'readed' => $readed]);
+                return view('pages.content', ['content' => $content,'comments' => $comments, 'type' => $request->type, 'categories' => $categories, 'readed' => $readed]);
                 break;
             case 'INTRODUCTION':
             case 'JANEBI':
-                return view('pages.content', ['content' => $content, 'type' => $request->type , 'categories' => $categories]);
+                return view('pages.content', ['content' => $content,'comments' => $comments, 'type' => $request->type , 'categories' => $categories]);
             case 'content':
                 $user = User::findOrFail($content->user_id);
-                return view('pages.content' , ['content' => $content , 'type' => $request->type , 'categories' => $categories , 'user' => $user]);
+                return view('pages.content' , ['content' => $content,'comments' => $comments , 'type' => $request->type , 'categories' => $categories , 'user' => $user]);
             case 'PREREQUISITES':
                 $readed = false;
                 if (auth()->check()) {
                     $user = auth()->user();
                     $readed = DB::table('user_content')->where('user_id', $user->id)->where('content_id', $content->id)->where('read', true)->exists();
                 }
-                return view('pages.content', ['content' => $content, 'type' => $request->type, 'categories' => $categories, 'readed' => $readed]);
+                return view('pages.content', ['content' => $content,'comments' => $comments, 'type' => $request->type, 'categories' => $categories, 'readed' => $readed]);
                 break;
         }
     }
