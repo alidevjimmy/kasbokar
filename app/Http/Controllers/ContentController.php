@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Category;
+use App\Comment;
 use App\Content;
 use App\User;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class ContentController extends Controller
             'contents' => []
         ];
         $categories = Category::orderBy('level', 'asc')->get();
-        $comments = $content->comments;
+        $comments = Comment::where('commentable_id' , $content->id)->where('parent_id' , null)->get();
         switch ($request->type) {
             case 'EVENT':
             case 'STEP':

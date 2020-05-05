@@ -13,10 +13,13 @@ class CommentController extends Controller
         $validatedData = $request->validate([
             'body' => 'required',
         ]);
+        if ($request->parent) {
+            $validatedData['parent_id'] = $request->parent;
+        }
         $validatedData['user_id'] = auth()->user()->id;
         $content->comments()->create($validatedData);
         return redirect(route('content.show' , ['type' => $content->type , 'content' => $content]))->with([
-            'status' => 'error',
+            'status' => 'success',
             'message' => 'کامنت ثبت شد'
         ]);
     }
@@ -33,7 +36,7 @@ class CommentController extends Controller
         $comment->update($validatedData);
         $content = Content::findOrFail($comment->commentable_id);
         return redirect(route('content.show' , ['type' => $content->type, 'content' => $content]))->with([
-            'status' => 'error',
+            'status' => 'success',
             'message' => 'کامنت ویرایش شد'
         ]);
     }
@@ -46,7 +49,7 @@ class CommentController extends Controller
         $comment->delete();
         $content = Content::findOrFail($comment->commentable_id);
         return redirect(route('content.show' , ['type' => $content->type, 'content' => $content]))->with([
-            'status' => 'error',
+            'status' => 'success',
             'message' => 'کامنت حذف شد'
         ]);
     }

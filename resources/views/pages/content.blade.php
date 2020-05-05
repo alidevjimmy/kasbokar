@@ -269,40 +269,133 @@
                 </div>
             </div>
             @if(count($comments) > 0)
-                @foreach($comments as $c)
-                    <div class="col-md-8 profile-div mt-2 pt-4 pb-4">
-                        <div class="col-md-12">
-                            <div class="d-flex">
-                                <img src="{{ $c->user->avatar ? $c->user->avatar : asset('/images/default.png') }}"
-                                     alt="{{ $c->user->username }}" width="100" class="avatar-img"
-                                     style="position: unset !important;">
-                                <div class="d-block mr-1 mt-3">
-                                    <span class="mr-1 d-block">
-                                    <a href="{{ route('user.resume' , ['page' => 'resume' , 'user' => $c->user->id]) }}">{{ $c->user->username }}@</a></span>
-                                    <?php
-                                    $now = strtotime(\Carbon\Carbon::now());
-                                    $d = strtotime($c->created_at);
-                                    $date = Morilog\Jalali\Jalalian::forge($now - ($now - $d))->ago()
-                                    ?>
-                                    <span>{{ $date }}</span>
-                                </div>
+            @section('modal')
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#replay').on('show.bs.modal', function (event) {
+                            var button = $(event.relatedTarget) // Button that triggered the modal
+                            var recipient = button.data('whatever')
+                            var modal = $(this)
+                            modal.find('#parent').val(recipient)
+                        })
+                    })
+                </script>
+            @endsection
+            @foreach($comments as $c)
+                <div class="modal fade" id="replay" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content profile-div border-0" style="border-radius: 10px">
+                            <div class="modal-header">
+                                <h5 class="modal-title old-font" id="exampleModalLongTitle">ارسال پاسخ</h5>
+                                <button type="button" class="close float-left" data-dismiss="modal" aria-label="Close"
+                                        style="    position: absolute;
+    left: 10px;
+    top: 22px;">
+                                    <span aria-hidden="true"><i class="material-icons-two-tone">cancel</i></span>
+                                </button>
                             </div>
-                            <br>
-                            <p>{{ $c->body }}</p>
+                            <div class="modal-body">
+                                <form action="{{ route('comment.store' , ['content' => $content->id]) }}" method="post">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="body" class="col-form-label">متن</label>
+                                        <input type="text" id="parent" name="parent" class="d-none" required>
+                                        <textarea class="form-control" name="body" id="body"
+                                                  placeholder="متن پاسخ را وارد کنید" required></textarea>
+                                    </div>
+                                    <div class="modal-footer border-0">
+                                        <button type="button" class="btn-hashie" data-dismiss="modal">لغو</button>
+                                        <button type="submit" class="btn-back">ارسال</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    @endforeach
-                    </p>
-                    @else
-                        <div class="col-md-8 profile-div mt-2 pt-4 pb-4">
-                            <div class="col-md-12">
-                                <div style="text-align: center;width: 100%">
-                                    <h6 align="center">تا به حال نطری ثبت نشده </h6>
-                                    <br>
-                                </div>
+                </div>
+                <?php $childs = \App\Comment::where('parent_id', $c->id)->get(); ?>
+                <div class="col-md-8 profile-div mt-2 pt-4 pb-4">
+                    <div class="col-md-12">
+                        @auth
+                            <button class="btn-sm btn-hashie float-left" data-toggle="modal" data-target="#replay"
+                                    data-whatever="{{ $c->id }}">پاسخ دادن
+                            </button>
+                        @endauth
+                        <div class="d-flex">
+                            <img src="{{ $c->user->avatar ? $c->user->avatar : asset('/images/default.png') }}"
+                                 alt="{{ $c->user->username }}" width="100" class="avatar-img"
+                                 style="position: unset !important;">
+                            <div class="d-block mr-1 mt-3">
+                                    <span class="mr-1 d-block">
+                                    <a href="{{ route('user.resume' , ['page' => 'resume' , 'user' => $c->user->id]) }}">{{ $c->user->username }}@</a></span>
+                                <?php
+                                $now = strtotime(\Carbon\Carbon::now());
+                                $d = strtotime($c->created_at);
+                                $date = Morilog\Jalali\Jalalian::forge($now - ($now - $d))->ago()
+                                ?>
+                                <span>{{ $date }}</span>
                             </div>
                         </div>
-                    @endif
+                        <br>
+                        <p>{{ $c->body }}</p>
+                        @if(auth()->user()->id == $c->user_id)
+                            <form action="{{ route('comment.destroy' , ['comment' => $c->id]) }}"
+                                  method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="f-16 border-0 bg-transparent" style=""><i class="material-icons-two-tone f-16 f-16"
+                    onclick="return confirm('آیا از پاک کردن این پاسخ اطمینان دارید؟')" >delete</i></button>
+                            </form>
+                        @endif
+                        @foreach($childs as $ch)
+                            <div class="box-readed d-block">
+                                <div class="d-flex">
+                                    <img
+                                        src="{{ $ch->user->avatar ? $ch->user->avatar : asset('/images/default.png') }}"
+                                        alt="{{ $ch->user->username }}" width="100" class="avatar-img"
+                                        style="position: unset !important;">
+                                    <div class="d-block mr-1 mt-3">
+                                    <span class="mr-1 d-block">
+                                    <a href="{{ route('user.resume' , ['page' => 'resume' , 'user' => $ch->user->id]) }}">{{ $ch->user->username }}@</a></span>
+                                        <?php
+                                        $now = strtotime(\Carbon\Carbon::now());
+                                        $d = strtotime($ch->created_at);
+                                        $date = Morilog\Jalali\Jalalian::forge($now - ($now - $d))->ago()
+                                        ?>
+                                        <span>{{ $date }}</span>
+                                    </div>
+                                </div>
+                                <br>
+                                <p>{{ $ch->body }}</p>
+                                @if(auth()->user()->id == $ch->user_id)
+                                    <form action="{{ route('comment.destroy' , ['comment' => $ch->id]) }}"
+                                          method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="f-16 border-0 bg-transparent" style="    z-index: 10;
+    left: 30px;
+    bottom: 14px;
+    position: absolute;
+    top: unset;"><i class="material-icons-two-tone f-16 f-16"
+                    onclick="return confirm('آیا از پاک کردن این پاسخ اطمینان دارید؟')">delete</i></button>
+                                    </form>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endforeach
+                </p>
+                @else
+                    <div class="col-md-8 profile-div mt-2 pt-4 pb-4">
+                        <div class="col-md-12">
+                            <div style="text-align: center;width: 100%">
+                                <h6 align="center">تا به حال نطری ثبت نشده </h6>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                @endif
         </div>
     </div>
 
@@ -334,3 +427,4 @@
 </div> -->
     <div style="height: 100px"></div>
 @endsection
+

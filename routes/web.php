@@ -84,4 +84,4 @@ Route::delete('/contents/{content}' , 'ContentController@destroy')->name('conten
 
 Route::post('content/{content}/comment/' , 'CommentController@store')->name('comment.store')->middleware('auth');
 Route::patch('/comment/{comment}/edit' , 'CommentController@edit')->name('comment.edit')->middleware('auth');
-Route::delete('/comment/destroy' , 'CommentController@destroy')->name('comment.destroy')->middleware('auth');
+Route::delete('/comment/{comment}/destroy/' , 'CommentController@destroy')->name('comment.destroy')->middleware('auth');
