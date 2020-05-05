@@ -13,7 +13,7 @@ class Content extends Model
     protected $connection = 'mongodb';
     protected $collection = 'contents';
 
-    protected $cascadeDeletes = ['answers' , 'comments'];
+    protected $cascadeDeletes = ['answers' , 'comments' , 'suggests'];
     protected $dates = ['deleted_at'];
 
     public function users()
@@ -47,5 +47,9 @@ class Content extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class , 'commentable');
+    }
+    public function suggests()
+    {
+        return $this->hasMany(Suggest::class);
     }
 }

@@ -44,6 +44,7 @@
     <script type="text/javascript" src="{{ '/js/bootstrap.bundle.min.js' }}"></script>
     @yield('script')
     @yield('modal')
+    @yield('suggest')
     <script type="text/javascript">
         $(document).ready(function() {
             $('.splash-screen').css({

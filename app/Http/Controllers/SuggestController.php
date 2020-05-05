@@ -6,21 +6,18 @@ use App\Comment;
 use App\Content;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class SuggestController extends Controller
 {
     public function store(Request $request , Content $content)
     {
         $validatedData = $request->validate([
-            'body' => 'required',
+            'description' => 'required',
         ]);
-        if ($request->parent) {
-            $validatedData['parent_id'] = $request->parent;
-        }
         $validatedData['user_id'] = auth()->user()->id;
-        $content->comments()->create($validatedData);
+        $content->suggests()->create($validatedData);
         return redirect(route('content.show' , ['type' => $content->type , 'content' => $content]))->with([
             'status' => 'success',
-            'message' => 'پیشنهاد پست ثبت شد شما می توانید آنها را از پروفایل شخصی خود مدیریت کنید'
+            'message' => 'کامنت ثبت شد'
         ]);
     }
 
@@ -31,26 +28,26 @@ class CommentController extends Controller
             abort(404);
         }
         $validatedData = $request->validate([
-            'body' => 'required'
+            'description' => 'required'
         ]);
         $comment->update($validatedData);
         $content = Content::findOrFail($comment->commentable_id);
-        return redirect(route('content.show' , ['type' => $content->type, 'content' => $content]))->with([
+        return redirect(route('user.resume' , ['page' => 'resume' , 'user' => $user]))->with([
             'status' => 'success',
-            'message' => 'کامنت ویرایش شد'
+            'message' => 'پیشنهاد ویرایش شد.'
         ]);
     }
 
-    public function destroy(Comment $comment) {
+    public function destroy(Suggest $suggest) {
         $user = auth()->user();
-        if ($user->id != $comment->user_id) {
+        if ($user->id != $suggest->user_id) {
             abort(404);
         }
-        $comment->delete();
-        $content = Content::findOrFail($comment->commentable_id);
-        return redirect(route('content.show' , ['type' => $content->type, 'content' => $content]))->with([
+        $suggest->delete();
+        $content = Content::findOrFail($suggest->content_id);
+        return redirect(route('user.resume' , ['page' => 'resume' , 'user' => $user]))->with([
             'status' => 'success',
-            'message' => 'کامنت حذف شد'
+            'message' => 'پیشنهاد حذف شد.'
         ]);
     }
 }

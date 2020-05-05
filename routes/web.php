@@ -81,7 +81,11 @@ Route::get('/contents/{content}/edit' , 'ContentController@edit')->name('content
 Route::post('/contents/add' , 'ContentController@store')->name('contents.store')->middleware('auth');
 Route::patch('/contents/{content}/edit' , 'ContentController@update')->name('contents.update')->middleware('auth');
 Route::delete('/contents/{content}' , 'ContentController@destroy')->name('contents.destroy')->middleware('auth');
-
+// comments
 Route::post('content/{content}/comment/' , 'CommentController@store')->name('comment.store')->middleware('auth');
 Route::patch('/comment/{comment}/edit' , 'CommentController@edit')->name('comment.edit')->middleware('auth');
 Route::delete('/comment/{comment}/destroy/' , 'CommentController@destroy')->name('comment.destroy')->middleware('auth');
+// suggests
+Route::post('/content/{content}/suggest' , 'SuggestController@store')->name('suggest.store')->middleware('auth');
+Route::patch('/suggest/{suggest}/edit' , 'SuggestController@edit')->name('suggest.edit')->middleware('auth');
+Route::patch('/suggest/{suggest}/destroy' , 'SuggestController@destroy')->name('suggest.destroy')->middleware('auth');

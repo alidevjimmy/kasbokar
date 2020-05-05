@@ -265,7 +265,7 @@
                                 </p>
                             </div>
                         @endauth
-                    @endif
+
                 </div>
             </div>
             @if(count($comments) > 0)
@@ -396,8 +396,11 @@
                         </div>
                     </div>
                 @endif
+                @endif
         </div>
+
     </div>
+
 
     <!-- <div class="container mt-3 mb-5">
     <div class="row">
@@ -426,5 +429,40 @@
     </div>
 </div> -->
     <div style="height: 100px"></div>
+    @auth
+        <div class="position-fixed text-white owl-prev" data-toggle="modal" data-target="#suggest" id="suggest_btn" style="cursor: pointer;z-index: 1000000;bottom: 20px;right: 20px;top: unset!important;position: fixed!important;display: block !important;">
+            <i class="material-icons text-white" style="color: white!important;">share</i>
+        </div>
+        <div class="modal fade" id="suggest" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content profile-div border-0" style="border-radius: 10px">
+                    <div class="modal-header">
+                        <h5 class="modal-title old-font" id="exampleModalLongTitle">پیشنهاد این آگهی به دیگران</h5>
+                        <button type="button" class="close float-left" data-dismiss="modal" aria-label="Close"
+                                style="    position: absolute;
+    left: 10px;
+    top: 22px;">
+                            <span aria-hidden="true"><i class="material-icons-two-tone">cancel</i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('suggest.store' , ['content' => $content->id]) }}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="description" class="col-form-label">توضیحات</label>
+                                <textarea class="form-control" name="description" id="description"
+                                          placeholder="توضیحات را وارد کنید" required></textarea>
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="button" class="btn-hashie" data-dismiss="modal">لغو</button>
+                                <button type="submit" class="btn-back">ثبت</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endauth
 @endsection
 
