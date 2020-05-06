@@ -88,4 +88,4 @@ Route::delete('/comment/{comment}/destroy/' , 'CommentController@destroy')->name
 // suggests
 Route::post('/content/{content}/suggest' , 'SuggestController@store')->name('suggest.store')->middleware('auth');
 Route::patch('/suggest/{suggest}/edit' , 'SuggestController@edit')->name('suggest.edit')->middleware('auth');
-Route::patch('/suggest/{suggest}/destroy' , 'SuggestController@destroy')->name('suggest.destroy')->middleware('auth');
+Route::delete('/suggest/{suggest}/destroy' , 'SuggestController@destroy')->name('suggest.destroy')->middleware('auth');

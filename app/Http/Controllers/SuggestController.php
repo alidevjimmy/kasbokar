@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
 use App\Content;
+use App\Suggest;
 use Illuminate\Http\Request;
 
 class SuggestController extends Controller

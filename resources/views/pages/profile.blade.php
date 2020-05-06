@@ -280,232 +280,314 @@
                 </div>
         </div>
 
-    @break
-    @case('resume')
-    <div class="col-md-12">
-        <div class="profile-div">
-            @if(auth()->check())
-                @if(auth()->user()->id == $user->id)
-                    <div class="col-md-12 div-scrolable">
-                        <ul class="profile-ul">
-                            <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myInformation']) }}"
-                                   class="{{ $page == 'myInformation' ? 'profile-page' : null }}">اطلاعات شخصی</a>
-                            </li>
-                            <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'readedContent']) }}"
-                                   class="{{ $page == 'readedContent' ? 'profile-page' : null }}">محتواهای خوانده
-                                    شده</a>
-                            </li>
-                            <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myAnswers']) }}"
-                                   class="{{ $page == 'myAnswers' ? 'profile-page' : null }}">مشاهده پاسخ ها</a>
-                            </li>
-                            <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'resume']) }}"
-                                   class="{{ $page == 'resume' ? 'profile-page' : null }}">رزومه</a></li>
-                            <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'contents']) }}"
-                                   class="{{ $page == '' ? 'profile-page' : null }}">محتواهای منتشر شده</a></li>
-                        </ul>
-                    </div>
-                @endif
-            @endif
-        </div>
-    </div class="col-md-12">
-    <div class="col-md-4 mt-2">
-        <div class="profile-div border-radius-def">
-            <div class="profile-header border-radius-def" style="border-radius : 5px 5px 0 0 !important">
-                @auth
+        @break
+        @case('resume')
+        <div class="col-md-12">
+            <div class="profile-div">
+                @if(auth()->check())
                     @if(auth()->user()->id == $user->id)
-                        <a href="{{ route('user.resume.edit' , ['section' => 'name&about&avatar' , 'user' => $user]) }}"
-                           style="position: absolute;
+                        <div class="col-md-12 div-scrolable">
+                            <ul class="profile-ul">
+                                <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myInformation']) }}"
+                                       class="{{ $page == 'myInformation' ? 'profile-page' : null }}">اطلاعات شخصی</a>
+                                </li>
+                                <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'readedContent']) }}"
+                                       class="{{ $page == 'readedContent' ? 'profile-page' : null }}">محتواهای خوانده
+                                        شده</a>
+                                </li>
+                                <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myAnswers']) }}"
+                                       class="{{ $page == 'myAnswers' ? 'profile-page' : null }}">مشاهده پاسخ ها</a>
+                                </li>
+                                <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'resume']) }}"
+                                       class="{{ $page == 'resume' ? 'profile-page' : null }}">رزومه</a></li>
+                                <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'contents']) }}"
+                                       class="{{ $page == '' ? 'profile-page' : null }}">محتواهای منتشر شده</a></li>
+                            </ul>
+                        </div>
+                    @endif
+                @endif
+            </div>
+        </div class="col-md-12">
+        <div class="col-md-4 mt-2">
+            <div class="profile-div border-radius-def">
+                <div class="profile-header border-radius-def" style="border-radius : 5px 5px 0 0 !important">
+                    @auth
+                        @if(auth()->user()->id == $user->id)
+                            <a href="{{ route('user.resume.edit' , ['section' => 'name&about&avatar' , 'user' => $user]) }}"
+                               style="position: absolute;
     top: 10px;
     right: 34px;"><i class="material-icons-two-tone f-16">create</i></a>
-                    @endif
-                @endauth
-                <span class="material-icons level-icon">
-new_releases
-</span>
-                <span class="level-span">{{ $user->level }}</span>
-                <img src="{{ $user->avatar ? asset($user->avatar) : asset('/images/default.png') }}" alt="آواتار"
-                     width="100" class="avatar-img">
-                <span class="my-blue-color username-txt">
-                        @auth
-                        @if(auth()->user()->id == $user->id)
-                            <a href="{{ route('user.resume.edit' , ['section' => 'username' , 'user' => $user]) }}"
-                               style="position: absolute;
-    right: -30px;
-    bottom: 3px;"><i class="material-icons-two-tone f-16">create</i></a>
                         @endif
                     @endauth
+                    <span class="material-icons level-icon">
+new_releases
+</span>
+                    <span class="level-span">{{ $user->level }}</span>
+                    <img src="{{ $user->avatar ? asset($user->avatar) : asset('/images/default.png') }}" alt="آواتار"
+                         width="100" class="avatar-img">
+                    <span class="my-blue-color username-txt">
+                        @auth
+                            @if(auth()->user()->id == $user->id)
+                                <a href="{{ route('user.resume.edit' , ['section' => 'username' , 'user' => $user]) }}"
+                                   style="position: absolute;
+    right: -30px;
+    bottom: 3px;"><i class="material-icons-two-tone f-16">create</i></a>
+                            @endif
+                        @endauth
                         <a class="my-blue-color"
                            href="{{ route('user.resume' , ['user' => $user->id , 'page' => 'resume']) }}">
                             {{ $user->username }}@
                         </a>
                     </span>
+                </div>
+                <div class="pt-5 pr-2 pl-2 d-flex">
+                    <div class="col-md-4">
+                        <span class="f-10" style="font-weight: bold">دنبال شونده ها</span>
+                        <p style="text-align: center" class="f-14">0</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="f-10" style="font-weight: bold">دنبال کننده ها</span>
+                        <p style="text-align: center" class="f-14">0</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="f-10" style="font-weight: bold">محتوای منتشر شده</span>
+                        <p style="text-align: center" class="f-14">{{ $contentCount }}</p>
+                    </div>
+                </div>
+                <hr>
             </div>
-            <div class="pt-5 pr-2 pl-2 d-flex">
-                <div class="col-md-4">
-                    <span class="f-10" style="font-weight: bold">دنبال شونده ها</span>
-                    <p style="text-align: center" class="f-14">0</p>
-                </div>
-                <div class="col-md-4">
-                    <span class="f-10" style="font-weight: bold">دنبال کننده ها</span>
-                    <p style="text-align: center" class="f-14">0</p>
-                </div>
-                <div class="col-md-4">
-                    <span class="f-10" style="font-weight: bold">محتوای منتشر شده</span>
-                    <p style="text-align: center" class="f-14">{{ $contentCount }}</p>
-                </div>
+        </div>
+        <div class="col-md-8 mt-2 ">
+            <div class="profile-div border-radius-def p-4">
+                @auth
+                    @if(auth()->user()->id == $user->id)
+                        <a href="{{ route('user.resume.edit' , ['section' => 'name&about&avatar' , 'user' => $user]) }}"
+                           class="float-left"><i class="material-icons-two-tone f-16">create</i></a>
+                    @endif
+                @endauth
+                <h5 class="old-font"> {{ $user->fullName }}</h5>
+                <span>{{ !$user->about ? '...' : $user->about}}</span>
             </div>
-            <hr>
-        </div>
-    </div>
-    <div class="col-md-8 mt-2 ">
-        <div class="profile-div border-radius-def p-4">
-            @auth
-                @if(auth()->user()->id == $user->id)
-                    <a href="{{ route('user.resume.edit' , ['section' => 'name&about&avatar' , 'user' => $user]) }}"
-                       class="float-left"><i class="material-icons-two-tone f-16">create</i></a>
-                @endif
-            @endauth
-            <h5 class="old-font"> {{ $user->fullName }}</h5>
-            <span>{{ !$user->about ? '...' : $user->about}}</span>
-        </div>
-        <div class="profile-div border-radius-def p-4 mt-2">
-            @auth
-                @if(auth()->user()->id == $user->id)
-                    <a href="{{ route('user.resume.create' , ['section' => 'expriences' , 'user' => $user]) }}"
-                       class="float-left"><i class="material-icons-two-tone">add</i></a>
-                @endif
-            @endauth
-            <h5 class="old-font"><span class="black-50">تجربیات</h5>
-            <br>
-            @foreach($exs as $e)
-                <div class="col-md-12 box-readed mt-2 mb-2 d-block">
-                    <h6 class="font-weight-bold">{{ $e->title }}</h6>
-                    @auth
-                        @if(auth()->user()->id == $user->id)
-                            <a href="{{ route('user.resume.edit' , ['section' => 'expriences' , 'user' => $user , 'favorexid' => $e->id]) }}"
-                               class="pin-link"><i class="material-icons-two-tone f-16 f-16">create</i></a>
+            <div class="profile-div border-radius-def p-4 mt-2">
+                @auth
+                    @if(auth()->user()->id == $user->id)
+                        <a href="{{ route('user.resume.create' , ['section' => 'expriences' , 'user' => $user]) }}"
+                           class="float-left"><i class="material-icons-two-tone">add</i></a>
+                    @endif
+                @endauth
+                <h5 class="old-font"><span class="black-50">تجربیات</h5>
+                <br>
+                @foreach($exs as $e)
+                    <div class="col-md-12 box-readed mt-2 mb-2 d-block">
+                        <h6 class="font-weight-bold">{{ $e->title }}</h6>
+                        @auth
+                            @if(auth()->user()->id == $user->id)
+                                <a href="{{ route('user.resume.edit' , ['section' => 'expriences' , 'user' => $user , 'favorexid' => $e->id]) }}"
+                                   class="pin-link"><i class="material-icons-two-tone f-16 f-16">create</i></a>
+                            @endif
+                        @endauth
+                        <p>{{ $e->description }}</p>
+                        @if($e->media)
+                            <a class="zamime-btn" href="{{ asset($e->media) }}" target="_blank">فایل ضمیمه <i
+                                    class="material-icons-two-tone icon-in-btn">description</i></a>
                         @endif
-                    @endauth
-                    <p>{{ $e->description }}</p>
-                    @if($e->media)
-                        <a class="zamime-btn" href="{{ asset($e->media) }}" target="_blank">فایل ضمیمه <i
-                                class="material-icons-two-tone icon-in-btn">description</i></a>
-                    @endif
-                    @if($e->link)
-                        <a href="{{ $e->link }}" target="_blank" class="mr-4">لینک </a>
-                    @endif
+                        @if($e->link)
+                            <a href="{{ $e->link }}" target="_blank" class="mr-4">لینک </a>
+                        @endif
 
-                    <div style="height: 10px"></div>
+                        <div style="height: 10px"></div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="profile-div border-radius-def p-4 mt-2">
+                @auth
+                    @if(auth()->user()->id == $user->id)
+                        <a href="{{ route('user.resume.create' , ['section' => 'favs' , 'user' => $user]) }}"
+                           class="float-left"><i class="material-icons-two-tone">add</i></a>
+                    @endif
+                @endauth
+                <h5 class="old-font"><span class="black-50">علاقه مندی ها</h5>
+                <br>
+                @foreach($favs as $f)
+                    <div class="col-md-12 box-readed mt-2 mb-2 d-block">
+                        @auth
+                            @if(auth()->user()->id == $user->id)
+                                <a href="{{ route('user.resume.edit' , ['section' => 'favs' , 'user' => $user , 'favorexid' => $f->id]) }}"
+                                   class="pin-link"><i class="material-icons-two-tone f-16 f-16">create</i></a>
+                            @endif
+                        @endauth
+                        <p>{{ $f->description }}</p>
+                    </div>
+                @endforeach
+            </div>
+            <div class="mt-2">
+                <div class="border-radius-def p-4">
+                    <h5 class="mt-1 old-font font-weight-bold">پیشنهاد های {{ $user->fullName }}</h5>
                 </div>
-            @endforeach
-        </div>
-        <div class="profile-div border-radius-def p-4 mt-2">
-            @auth
-                @if(auth()->user()->id == $user->id)
-                    <a href="{{ route('user.resume.create' , ['section' => 'favs' , 'user' => $user]) }}"
-                       class="float-left"><i class="material-icons-two-tone">add</i></a>
-                @endif
-            @endauth
-            <h5 class="old-font"><span class="black-50">علاقه مندی ها</h5>
-            <br>
-            @foreach($favs as $f)
-                <div class="col-md-12 box-readed mt-2 mb-2 d-block">
-                    @auth
-                        @if(auth()->user()->id == $user->id)
-                            <a href="{{ route('user.resume.edit' , ['section' => 'favs' , 'user' => $user , 'favorexid' => $f->id]) }}"
-                               class="pin-link"><i class="material-icons-two-tone f-16 f-16">create</i></a>
+            </div>
+            @if (count($suggests))
+                @foreach($suggests as $suggest)
+                    <?php $content = \App\Content::where('_id', $suggest->content_id)->first() ?>
+                    <?php
+                    switch ($content->type) {
+                        case 'STEP':
+                            $image = 'bannerImage';
+                            break;
+                        case 'PREREQUISITES':
+                            $image = 'image';
+                            break;
+                        case 'contents':
+                            $image = 'image';
+                            break;
+                        case 'INTRODUCTION':
+                            $image = 'logo';
+                            break;
+                        case 'JANEBI':
+                            $image = 'bannerImage';
+                            break;
+                        case 'EVENT':
+                            $image = 'preImage';
+                            break;
+                    }
+                    ?>
+                        <div class="profile-div border-radius-def mb-2">
+                            <div class="w-100 border-bottom ">
+                                <div class="d-flex">
+                                    <img src="{{ asset($content[$image]) }}" alt="{{ $content->title }}" width="200" height="150"
+                                         style="border-top-right-radius: 5px">
+                                    <h6 class="mt-3 mr-3"><a
+                                            href="{{ route('content.show' , ['content'=> $content->id , 'type' => $content->type]) }}">{{ $content->title }}</a>
+                                    </h6>
+                                    @auth
+                                        @if(auth()->user()->id == $user->id)
+                                            <form action="{{ route('suggest.destroy' , ['suggest' => $suggest->id]) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" onclick="return confirm('آیا مایل یه پاک کردن این مورد هستید؟')" href="#!" style="position: absolute;
+    left: 20px;"
+                                                   class="float-left ml-2 mt-2 bg-transparent border-0"><i
+                                                        class="material-icons-two-tone f-16">delete</i></button>
+                                            </form>
+                                        @endif
+                                    @endauth
+                                </div>
+                            </div>
+                            <div class="w-100 p-3 d-flex">
+                                <img src="{{ $user->avatar ? $user->avatar : asset('/images/default.png') }}"
+                                     alt="{{ $user->username }}" width="100" class="avatar-img"
+                                     style="position: unset !important;">
+                                <div class="d-block mr-2 mt-3">
+                                    <span class="mr-1 d-block">
+                                    <a href="{{ route('user.resume' , ['page' => 'resume' , 'user' => $user->id]) }}">{{ $user->username }}@</a></span>
+                                    <small>{{ $user->fullName }}</small>
+                                </div>
+                            </div>
+                            <div class="w-100 p-3">
+                                {{ $suggest->description }}
+                            </div>
+                        </div>
+                        @endforeach
+                        @else
+
+                            <div style="text-align: center;width: 100%">
+                                <h6 align="center">پیشنهادی ثبت نشده است </h6>
+                            </div>
                         @endif
-                    @endauth
-                    <p>{{ $f->description }}</p>
-                </div>
-            @endforeach
         </div>
-    </div>
-    @break
-    @case('contents')
-    <div class="col-md-12 profile-div">
-        @if(auth()->check())
-            @if(auth()->user()->id == $user->id)
-                <div class="col-md-12 div-scrolable">
-                    <ul class="profile-ul">
-                        <li>
-                            <a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myInformation']) }}"
-                               class="{{ $page == 'myInformation' ? 'profile-page' : null }}">اطلاعات
-                                شخصی</a></li>
-                        <li>
-                            <a href="{{ route('profile' , ['user' => $user->id , 'page' => 'readedContent']) }}"
-                               class="{{ $page == 'readedContent' ? 'profile-page' : null }}">محتواهای
-                                خوانده شده</a>
-                        </li>
-                        <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myAnswers']) }}"
-                               class="{{ $page == 'myAnswers' ? 'profile-page' : null }}">مشاهده پاسخ ها</a>
-                        </li>
-                        <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'resume']) }}"
-                               class="{{ $page == 'resume' ? 'profile-page' : null }}">رزومه</a></li>
-                        <li><a href="{{ route('profile' , ['user' => $user->id , 'page' => 'contents']) }}"
-                               class="{{ $page == 'contents' ? 'profile-page' : null }}">محتواهای منتشر شده</a></li>
-                    </ul>
-                </div>
-            @endif
-        @endif
-        <div class="col-md-12 mt-5">
-            <div class="container">
-                <div class="row">
-                    @if(count($contents) > 0)
-                        @foreach($contents as $rc)
-                            @auth
-                                @if(auth()->user()->id == $user->id)
-                                    <a href="{{ route('contents.edit' , ['content' => $rc]) }}"
-                                       class="pin-link" style="z-index: 10;
+                    @break
+                    @case('contents')
+                    <div class="col-md-12 profile-div">
+                        @if(auth()->check())
+                            @if(auth()->user()->id == $user->id)
+                                <div class="col-md-12 div-scrolable">
+                                    <ul class="profile-ul">
+                                        <li>
+                                            <a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myInformation']) }}"
+                                               class="{{ $page == 'myInformation' ? 'profile-page' : null }}">اطلاعات
+                                                شخصی</a></li>
+                                        <li>
+                                            <a href="{{ route('profile' , ['user' => $user->id , 'page' => 'readedContent']) }}"
+                                               class="{{ $page == 'readedContent' ? 'profile-page' : null }}">محتواهای
+                                                خوانده شده</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('profile' , ['user' => $user->id , 'page' => 'myAnswers']) }}"
+                                               class="{{ $page == 'myAnswers' ? 'profile-page' : null }}">مشاهده پاسخ
+                                                ها</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('profile' , ['user' => $user->id , 'page' => 'resume']) }}"
+                                               class="{{ $page == 'resume' ? 'profile-page' : null }}">رزومه</a></li>
+                                        <li>
+                                            <a href="{{ route('profile' , ['user' => $user->id , 'page' => 'contents']) }}"
+                                               class="{{ $page == 'contents' ? 'profile-page' : null }}">محتواهای منتشر
+                                                شده</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endif
+                        @endif
+                        <div class="col-md-12 mt-5">
+                            <div class="container">
+                                <div class="row">
+                                    @if(count($contents) > 0)
+                                        @foreach($contents as $rc)
+                                            @auth
+                                                @if(auth()->user()->id == $user->id)
+                                                    <a href="{{ route('contents.edit' , ['content' => $rc]) }}"
+                                                       class="pin-link" style="z-index: 10;
     left: 34px;
     top: 28px;"><i class="material-icons-two-tone f-16 f-16">create</i></a>
-                                @endif
-                            @endauth
-                            @auth
-                                @if(auth()->user()->id == $user->id)
-                                    <form action="{{ route('contents.destroy' , ['content' => $rc]) }}"
-                                          method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="f-16 border-0 bg-transparent" style="    z-index: 10;
+                                                @endif
+                                            @endauth
+                                            @auth
+                                                @if(auth()->user()->id == $user->id)
+                                                    <form action="{{ route('contents.destroy' , ['content' => $rc]) }}"
+                                                          method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="f-16 border-0 bg-transparent" style="    z-index: 10;
     left: 30px;
     bottom: 14px;
     position: absolute;
     top: unset;"><i class="material-icons-two-tone f-16 f-16"
                     onclick="return confirm('آیا از پاک کردن این محتوا اطمینان دارید؟')">delete</i></button>
-                                    </form>
-                                @endif
-                            @endauth
-                            <a href="{{ route('content.show' , ['content' => $rc->id , 'type' => $rc->type]) }}"
-                               class="w-100">
-                                <div class="col-md-12 box-readed mt-2 mb-2">
-                                    <div class="col-md-3 col-xs-6">
-                                        <img src="{{ asset($rc->image) }}" alt="{{ $rc->title }}"
-                                             style="width: 100%;height: auto;border-radius: 5px">
-                                    </div>
-                                    <div class="col-md-9 col-xs-6">
-                                        <h6 class="f-14 font-weight-bold old-font">{{ $rc->title }}</h6>
-                                        <p class="f-10">{{ \Str::limit($rc->shortText , 70) }}</p>
-                                    </div>
+                                                    </form>
+                                                @endif
+                                            @endauth
+                                            <a href="{{ route('content.show' , ['content' => $rc->id , 'type' => $rc->type]) }}"
+                                               class="w-100">
+                                                <div class="col-md-12 box-readed mt-2 mb-2">
+                                                    <div class="col-md-3 col-xs-6">
+                                                        <img src="{{ asset($rc->image) }}" alt="{{ $rc->title }}"
+                                                             style="width: 100%;height: auto;border-radius: 5px">
+                                                    </div>
+                                                    <div class="col-md-9 col-xs-6">
+                                                        <h6 class="f-14 font-weight-bold old-font">{{ $rc->title }}</h6>
+                                                        <p class="f-10">{{ \Str::limit($rc->shortText , 70) }}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        @endforeach
+                                    @else
+                                        <div style="text-align: center;width: 100%">
+                                            <h4 align="center">شما محتوا ای ندارید </h4>
+                                            <h2 class="f-40" align="center"><i
+                                                    class="material-icons-two-tone">remove_red_eye</i>
+                                            </h2>
+                                            <p class="mt-2"><a href="{{ route('contents.add') }}">ایجاد محتوای جدید</a>
+                                            </p>
+                                            <br>
+                                        </div>
+                                    @endif
                                 </div>
-                            </a>
-                        @endforeach
-                    @else
-                        <div style="text-align: center;width: 100%">
-                            <h4 align="center">شما محتوا ای ندارید </h4>
-                            <h2 class="f-40" align="center"><i class="material-icons-two-tone">remove_red_eye</i>
-                            </h2>
-                            <p class="mt-2"><a href="{{ route('contents.add') }}">ایجاد محتوای جدید</a></p>
-                            <br>
+                            </div>
                         </div>
-                    @endif
+
+                    </div>
+                    @break
+                    @endswitch
                 </div>
-            </div>
-        </div>
-    </div>
-    @break
-    @endswitch
-    </div>
     </div>
     </div>
     </div>
