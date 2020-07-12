@@ -14,13 +14,13 @@ class AddParentIdToComments extends Migration
     public function up()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn('commentable_type');
-            $table->dropColumn('commentable_id');
+           // $table->dropColumn('commentable_type');
+           // $table->dropColumn('commentable_id');
             $table->string('body');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('commentable_type');
             $table->string('commentable_id');
-            $table->index(['commentable_type', 'notifiable_id']);
+            $table->index(['commentable_type', 'commentable_id']);
             $table->softDeletes();
         });
     }
@@ -33,13 +33,13 @@ class AddParentIdToComments extends Migration
     public function down()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn('commentable_type');
-            $table->dropColumn('commentable_id');
+            //$table->dropColumn('commentable_type');
+            //$table->dropColumn('commentable_id');
             $table->string('body');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('commentable_type');
             $table->string('commentable_id');
-            $table->index(['commentable_type', 'notifiable_id']);
+            $table->index(['commentable_type', 'commentable_id']);
             $table->softDeletes();
         });
     }
