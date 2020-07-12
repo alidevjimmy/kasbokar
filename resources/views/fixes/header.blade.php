@@ -16,36 +16,55 @@
             <div class="d-none d-lg-block" id="navbarSupportedContent" style="width: 100%">
                 <ul class="navbar-nav mr-auto" style="width: 100%;place-content: center">
                     <li class="nav-item">
-                        <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'PREREQUISITES']) }}">چرا یادگیری کسب و کار؟</a>
-                    </li><li class="nav-item">
+                        <a class="nav-link top-links"
+                           href="{{ route('content.search',  ['type' => 'PREREQUISITES']) }}">چرا یادگیری کسب و کار؟</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link top-links" href="/redirectToPath">برو به مرحله من</a>
-                    </li><li class="nav-item">
-                        
-                        <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'INTRODUCTION']) }}">معرفی کسب و کار ها</a>
-                    </li><li class="nav-item">
-                        <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'JANEBI']) }}">خورده نوشته ها</a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'INTRODUCTION']) }}">معرفی
+                            کسب و کار ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link top-links" href="{{ route('content.search',  ['type' => 'JANEBI']) }}">خورده
+                            نوشته ها</a>
                     </li>
                 </ul>
             </div>
+            <a href="{{ route('contents.add') }}" style="margin-top: 16px;">
+                <span class="material-icons-two-tone two-tone-icon-hover f-40" >
+                    add_circle
+                </span>
+            </a>
             <div class="dropdown">
-                <i class="material-icons-two-tone two-tone-icon-hover f-40 mt-3 content-menu-pointer" id="dropdownMenuButton" data-toggle="dropdown"
+                <i class="material-icons-two-tone two-tone-icon-hover f-40 mt-3 content-menu-pointer"
+                   id="dropdownMenuButton" data-toggle="dropdown"
                    aria-haspopup="true" style="font-size: 40px">account_circle</i>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     @auth
-                        <a class="dropdown-item drop-down-item my-green-color font-weight-bold old-font" style='text-align : center !important'>مرحله شما : {{ auth()->user()->level }} </a>
-                        <a class="dropdown-item drop-down-item " href="{{ route('profile' , ['user' => auth()->user()->id , 'page' => 'myInformation']) }}"><i class="material-icons-two-tone partner-icon">portrait</i>پروفایل </a>
+                        <a class="dropdown-item drop-down-item my-green-color font-weight-bold old-font"
+                           style='text-align : center !important'>مرحله شما : {{ auth()->user()->level }} </a>
+                        <a class="dropdown-item drop-down-item "
+                           href="{{ route('profile' , ['user' => auth()->user()->id , 'page' => 'myInformation']) }}"><i
+                                class="material-icons-two-tone partner-icon">portrait</i>پروفایل </a>
                         @if(auth()->user()->isAdmin)
-                            <a class="dropdown-item drop-down-item" target="_blank" href="{{ route('admin.index') }}"><i class="material-icons-two-tone partner-icon">how_to_reg</i>پنل مدیریت </a>
+                            <a class="dropdown-item drop-down-item" target="_blank" href="{{ route('admin.index') }}"><i
+                                    class="material-icons-two-tone partner-icon">how_to_reg</i>پنل مدیریت </a>
                         @endif
                         <form action="{{ route('logout') }}" method="post">
                             @csrf
                             <button class="dropdown-item drop-down-item">
-                                <i class="material-icons-two-tone partner-icon">exit_to_app</i>  خروج
+                                <i class="material-icons-two-tone partner-icon">exit_to_app</i> خروج
                             </button>
                         </form>
                     @else
-                        <a class="dropdown-item drop-down-item" href="{{ route('login' , ['redirect' => \Request::getRequestUri() ]) }}"><i class="material-icons-two-tone partner-icon">person_outline</i>ورود </a>
-                        <a class="dropdown-item drop-down-item" href="{{ route('register') }}"><i class="material-icons-two-tone partner-icon">person_add</i>ثبت نام </a>
+                        <a class="dropdown-item drop-down-item"
+                           href="{{ route('login' , ['redirect' => \Request::getRequestUri() ]) }}"><i
+                                class="material-icons-two-tone partner-icon">person_outline</i>ورود </a>
+                        <a class="dropdown-item drop-down-item" href="{{ route('register') }}"><i
+                                class="material-icons-two-tone partner-icon">person_add</i>ثبت نام </a>
                     @endauth
                 </div>
             </div>

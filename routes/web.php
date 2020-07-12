@@ -37,6 +37,14 @@ Route::group([
     Route::delete('/replay/{replay}' , 'RepAndAnswerController@destroy')->name('replay.destroy');
     Route::get('/replay/{replay}/edit' , 'RepAndAnswerController@editReplay')->name('replay.edit');
     Route::patch('/replay/{replay}' , 'RepAndAnswerController@updateReplay')->name('replay.update');
+    Route::resource('/users' , 'UserController')->only(['index']);
+    Route::delete('/users/{id}' , 'UserController@destroy')->name('users.destroy');
+    Route::get('/users/{id}/expriences' , 'ExprinceController@index')->name('expriences.index');
+    Route::delete('/expriences/{id}' , 'ExprinceController@destroy')->name('expriences.destroy');
+    Route::get('/users/{id}/favs' , 'FavController@index')->name('favs.index');
+    Route::delete('/favs/{id}' , 'FavController@destroy')->name('favs.destroy');
+    Route::get('/users/{id}/comments' , 'CommentController@index')->name('comments.index');
+    Route::delete('/comments/{id}' , 'CommentController@destroy')->name('comments.destroy');
 });
 
 
@@ -68,3 +76,16 @@ Route::get('/user/{user}/resume/edit' , 'UserController@editResume')->name('user
 Route::patch('/user/{user}/resume/edit' , 'UserController@updateResume')->name('user.resume.update')->middleware('auth');
 Route::get('/user/{user}/resume/create' , 'UserController@createResume')->name('user.resume.create')->middleware('auth');
 Route::post('/user/{user}/resume/create' , 'UserController@storeResume')->name('user.resume.store')->middleware('auth');
+Route::get('/contents/add' , 'ContentController@add')->name('contents.add');
+Route::get('/contents/{content}/edit' , 'ContentController@edit')->name('contents.edit')->middleware('auth');
+Route::post('/contents/add' , 'ContentController@store')->name('contents.store')->middleware('auth');
+Route::patch('/contents/{content}/edit' , 'ContentController@update')->name('contents.update')->middleware('auth');
+Route::delete('/contents/{content}' , 'ContentController@destroy')->name('contents.destroy')->middleware('auth');
+// comments
+Route::post('content/{content}/comment/' , 'CommentController@store')->name('comment.store')->middleware('auth');
+Route::patch('/comment/{comment}/edit' , 'CommentController@edit')->name('comment.edit')->middleware('auth');
+Route::delete('/comment/{comment}/destroy/' , 'CommentController@destroy')->name('comment.destroy')->middleware('auth');
+// suggests
+Route::post('/content/{content}/suggest' , 'SuggestController@store')->name('suggest.store')->middleware('auth');
+Route::patch('/suggest/{suggest}/edit' , 'SuggestController@edit')->name('suggest.edit')->middleware('auth');
+Route::delete('/suggest/{suggest}/destroy' , 'SuggestController@destroy')->name('suggest.destroy')->middleware('auth');

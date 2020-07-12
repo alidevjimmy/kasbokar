@@ -8,6 +8,7 @@ use App\Expriece;
 use App\Fav;
 use App\Http\Middleware\RouteOwner;
 use App\Replay;
+use App\Suggest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class UserController extends Controller
     public function profile(Request $request, User $user)
     {
         $request->validate([
-            'page' => 'required|in:myInformation,readedContent,myAnswers,resume'
+            'page' => 'required|in:myInformation,readedContent,myAnswers,resume,contents'
         ]);
         if (auth()->user()->id != $user->id) {
             abort(404);
@@ -47,7 +48,12 @@ class UserController extends Controller
                 $contentCount = Content::where('user_id' , $user->id)->count();
                 $favs = Fav::where('user_id' , $user->id)->latest()->get();
                 $exs = Expriece::where('user_id' , $user->id)->isShow()->latest()->get();
-                return view('pages.profile', ['user' => $user , 'page' => 'resume' , 'contentCount' => $contentCount , 'favs' => $favs , 'exs' => $exs]);
+                $suggests = $user->suggests;
+                return view('pages.profile', ['user' => $user , 'page' => 'resume' , 'contentCount' => $contentCount , 'favs' => $favs , 'exs' => $exs , 'suggests' => $suggests]);
+                break;
+            case 'contents':
+                $contents = Content::where('user_id' , $user->id)->latest()->get();
+                return view('pages.profile', ['user' => $user , 'page' => 'contents' , 'contents' => $contents ]);
                 break;
         }
     }
@@ -76,7 +82,8 @@ class UserController extends Controller
         $contentCount = Content::where('user_id' , $user->id)->count();
         $favs = Fav::where('user_id' , $user->id)->latest()->get();
         $exs = Expriece::where('user_id' , $user->id)->isShow()->latest()->get();
-        return view('pages.profile',  ['user' => $user , 'page' => 'resume' , 'contentCount' => $contentCount , 'favs' => $favs , 'exs' => $exs]);
+        $suggests = $user->suggests;
+        return view('pages.profile',  ['user' => $user , 'page' => 'resume' , 'contentCount' => $contentCount , 'favs' => $favs , 'exs' => $exs , 'suggests' => $suggests]);
     }
 
     public function editResume(Request $request , User $user)
