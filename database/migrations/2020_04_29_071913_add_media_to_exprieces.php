@@ -15,6 +15,7 @@ class AddMediaToExprieces extends Migration
     {
         Schema::table('exprieces', function (Blueprint $table) {
             $table->string('media')->nullable();
+$table->boolean('show')->default(true);
         });
     }
 
@@ -27,6 +28,7 @@ class AddMediaToExprieces extends Migration
     {
         Schema::table('exprieces', function (Blueprint $table) {
             $table->string('media')->nullable();
+$table->boolean('show')->default(true);
         });
     }
 }

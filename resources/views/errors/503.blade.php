@@ -1,4 +1,4 @@
-@extends('admin.app')
+@extends('errors.app')
 @section('title') صفحه 503 @endsection
 @section('content')
     <div class="container-fluid">
