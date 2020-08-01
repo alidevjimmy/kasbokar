@@ -79,7 +79,7 @@ class ContentController extends Controller
 
     public function categoryShow(Request $request, Category $category)
     {
-        $catContents = Content::where('category_id', $category->id)->whereIn('type', ['EVENT', 'STEP'])->get();
+        $catContents = Content::where('category_id', (string)$category->id)->whereIn('type', ['EVENT', 'STEP'])->get();
         return view('pages.category', ['catContents' => $catContents, 'category' => $category]);
     }
 

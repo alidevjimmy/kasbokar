@@ -1,12 +1,11 @@
-
 @extends('admin.app')
 @section('title') ویرایش کردن
 مرحله
 @endsection
 @section('content')
-<form style="margin: auto" class="col-md-6 mt-3" action="{{ route('admin.category.update' , ["category" => $category->id]) }}" enctype="multipart/form-data" method="post">
+<form style="margin: auto" class="col-md-6" action="{{ route('admin.category.update' , ['category' => $category->id]) }}" enctype="multipart/form-data" method="post">
     @csrf
-    @method("PUT")
+    {{ method_field('PATCH') }}
     <div class="form-group">
         <label for="name">نام :</label>
         <input type="text" value="{{ $category->name }}" name="name" class="form-control @error('name') is-invalid @enderror" id="name">
@@ -25,7 +24,7 @@
         @enderror
         <br>
         <label for="body">متن :</label>
-        <textarea type="text" name="body" class="form-control @error('body') is-invalid @enderror" id="body">{{ $category->body }}</textarea>
+        <textarea type="text" name="body" class="form-control @error('body') is-invalid @enderror" id="body">{{ $content->body }}</textarea>
         @error('body')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -39,7 +38,6 @@
             <strong>{{ $message }}</strong>
         </span>
         @enderror
-
     </div>
 
     <button onclick="uploading()" type="submit" class="btn btn-primary">ویرایش</button>

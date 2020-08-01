@@ -87,12 +87,13 @@ class CategoryController extends Controller
         }
         $category->update([
             'name' => $validatdeData['name'],
-            'level' => $validatdeData['level'],
+	    'level' => $validatdeData['level'],
+	    'body' => $validatdeData['body'],
             'image' => $image,
         ]);
         return redirect(route('admin.category.index'))->with([
             'status' => 'success',
-            'message' => 'مرحله اضافه شد'
+            'message' => 'مرحله ویرایش شد'
         ]);
     }
 
